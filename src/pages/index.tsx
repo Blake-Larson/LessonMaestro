@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Footer from "../components/Footer";
 import Card from "../components/Card";
@@ -18,12 +18,6 @@ const Home: NextPage = () => {
       <Head>
         <title>Create T3 App</title>
         <meta name="description" content="My Music Studio Management App" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Lemonada:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="min-h-screen">

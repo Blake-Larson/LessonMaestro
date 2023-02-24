@@ -1,16 +1,35 @@
 import React from "react";
+import Hamburger from "./buttons/Hamburger";
 import Footer from "./Footer";
 import SideBar from "./SideBar";
-import Hamburger from "./buttons/Hamburger";
+import { type GetServerSidePropsContext } from "next";
+import { getServerAuthSession } from "../server/auth";
 
 interface Props {
-  page: React.ComponentType<any>;
+  children: JSX.Element;
   title: string;
 }
 
-const PageWrapper = ({ page: Page, title }: Props) => {
+// export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+//   const session = await getServerAuthSession(ctx);
+
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
+
+//   return {
+//     props: {},
+//   };
+// }
+
+const Layout = ({ children, title }: Props) => {
   return (
-    <div>
+    <>
       <div className="drawer-mobile drawer">
         <input id="drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex min-h-full flex-col">
@@ -19,9 +38,7 @@ const PageWrapper = ({ page: Page, title }: Props) => {
             <Hamburger />
             <h1 className="font-lemon text-2xl">{title}</h1>
           </div>
-          <div className="flex flex-col p-2">
-            <Page />
-          </div>
+          <div className="flex flex-col p-2">{children}</div>
           <Footer />
         </div>
         <div className="drawer-side">
@@ -29,8 +46,8 @@ const PageWrapper = ({ page: Page, title }: Props) => {
           <SideBar />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
-export default PageWrapper;
+export default Layout;

@@ -1,9 +1,14 @@
 import React from "react";
-import StudentContent from "../components/StudentContent";
-import PageWrapper from "../components/PageWrapper";
+import Layout from "../components/Layout";
 
 const students = () => {
-  return <PageWrapper page={StudentContent} title="Students" />;
+  return (
+    <>
+      <Layout title="Students">
+        <div>Student Content</div>
+      </Layout>
+    </>
+  );
 };
 
 export default students;

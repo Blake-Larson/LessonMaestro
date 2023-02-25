@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const todoRouter = createTRPCRouter({
   getTodos: protectedProcedure.query(async ({ ctx }) => {
@@ -30,5 +30,17 @@ export const todoRouter = createTRPCRouter({
         },
       });
       return todoForm;
+    }),
+
+  deleteTodo: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const userId = ctx.session.user.id;
+      await ctx.prisma.todo.deleteMany({
+        where: {
+          userId,
+          id: input.id,
+        },
+      });
     }),
 });

@@ -20,7 +20,14 @@ function Todos() {
       <div className="flex w-full flex-col gap-5 rounded-xl bg-primary-light p-5 shadow-lg">
         <ul className="list-inside list-disc">
           {todos?.map((todo) => {
-            return <Todo key={todo.id} todo={todo} />;
+            return (
+              <Todo
+                key={todo.id}
+                todo={todo}
+                todos={todos}
+                setTodos={setTodos}
+              />
+            );
           })}
         </ul>
         <div className="flex justify-center">

@@ -6,7 +6,6 @@ export const todoRouter = createTRPCRouter({
   getTodos: protectedProcedure.query(async ({ ctx }) => {
     const todos = await ctx.prisma.todo.findMany({
       select: {
-        id: true,
         text: true,
         completed: true,
       },
@@ -33,13 +32,13 @@ export const todoRouter = createTRPCRouter({
     }),
 
   deleteTodo: protectedProcedure
-    .input(z.object({ id: z.string() }))
+    .input(z.object({ text: z.string() }))
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session.user.id;
       await ctx.prisma.todo.deleteMany({
         where: {
           userId,
-          id: input.id,
+          text: input.text,
         },
       });
     }),

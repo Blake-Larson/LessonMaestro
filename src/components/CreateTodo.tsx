@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { api } from "../utils/api";
 import type { TodoInput } from "./Todo";
 
-type Inputs = {
+type FormData = {
   text: string;
 };
 
@@ -17,26 +17,30 @@ interface Props {
 function CreateTodo({ todos, setTodos }: Props) {
   const {
     register,
+    watch,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Inputs>();
-  const createMutate = api.todo.createTodo.useMutation();
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    createMutate.mutate(data);
-    if (createMutate.isSuccess) {
+  } = useForm<FormData>();
+
+  const mutation = api.todo.createTodo.useMutation({
+    onSuccess: () => {
       setTodos([
         ...todos,
         {
-          text: data.text,
-          id: "",
+          text: watch("text"),
           completed: false,
         },
       ]);
       reset();
-    } else {
-      console.log(createMutate.error);
-    }
+    },
+    onError: () => {
+      console.log(mutation.error?.message);
+    },
+  });
+
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    mutation.mutate(data);
   };
 
   return (
@@ -48,9 +52,9 @@ function CreateTodo({ todos, setTodos }: Props) {
         className="input-bordered input w-full max-w-xs"
       />
       {errors.text && <span>This field is required</span>}
-      {createMutate.error && (
-        <span>You already have a task with this text</span>
-      )}
+      {mutation.error?.message.includes(
+        "Unique constraint failed on the fields: (`text,userId`)"
+      ) && <span>You already have that task.</span>}
       <button>
         <CheckButton width="5" height="5" padding="1" />
       </button>

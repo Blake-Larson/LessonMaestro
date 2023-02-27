@@ -87,12 +87,9 @@ CREATE TABLE "Work" (
 
 -- CreateTable
 CREATE TABLE "Todo" (
-    "id" STRING NOT NULL,
     "text" STRING NOT NULL,
     "completed" BOOL NOT NULL,
-    "userId" STRING NOT NULL,
-
-    CONSTRAINT "Todo_pkey" PRIMARY KEY ("id")
+    "userId" STRING NOT NULL
 );
 
 -- CreateTable

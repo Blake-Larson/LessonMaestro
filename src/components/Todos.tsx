@@ -16,17 +16,14 @@ function Todos() {
 
   return (
     <div className="flex w-full max-w-lg flex-col items-center gap-5">
-      <h2 className="text-center text-xl font-semibold">Todo List</h2>
-      <div className="flex w-full flex-col gap-5 rounded-xl bg-primary-light p-5 shadow-lg">
-        <ul className="list-inside list-disc">
-          {todos?.map((todo) => {
+      <div className="flex w-full flex-col gap-5 rounded-xl bg-primary p-5 shadow-lg">
+        <h2 className="text-center text-2xl font-semibold text-base-100 md:text-3xl">
+          Todo List
+        </h2>
+        <ul className="border-t border-base-300 border-opacity-50">
+          {todos?.map((todo, i) => {
             return (
-              <Todo
-                key={todo.id}
-                todo={todo}
-                todos={todos}
-                setTodos={setTodos}
-              />
+              <Todo key={i} todo={todo} todos={todos} setTodos={setTodos} />
             );
           })}
         </ul>

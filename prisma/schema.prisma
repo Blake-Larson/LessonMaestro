@@ -104,7 +104,6 @@ model Work {
 }
 
 model Todo {
-    id        String  @id @default(cuid())
     text      String
     completed Boolean
     user      User    @relation(fields: [userId], references: [id])

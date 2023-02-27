@@ -9,7 +9,7 @@ interface Props {
 function DeleteButton({ width, height, padding }: Props) {
   return (
     <div
-      className={`btn-ghost btn-square btn border border-base-300 hover:bg-error p-${padding}`}
+      className={`cursor-pointer rounded-md hover:bg-error p-${padding} transition-colors duration-300`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

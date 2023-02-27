@@ -9,7 +9,7 @@ interface Props {
 function CheckButton({ width, height, padding }: Props) {
   return (
     <div
-      className={`btn-ghost btn border border-base-300 p-${padding} cursor-pointer rounded-md bg-base-100 hover:btn-primary`}
+      className={`cursor-pointer rounded-md hover:bg-primary p-${padding} border border-base-300 bg-base-100 transition-colors duration-300`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

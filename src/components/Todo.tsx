@@ -9,7 +9,6 @@ interface Props {
 }
 
 export type TodoInput = {
-  id: string;
   text: string;
   completed: boolean;
 };
@@ -17,19 +16,19 @@ export type TodoInput = {
 const Todo = ({ todo, todos, setTodos }: Props) => {
   const deleteMutation = api.todo.deleteTodo.useMutation();
 
-  function deleteTodo(id: { id: string }) {
-    deleteMutation.mutate(id);
-    setTodos(todos.filter((todo: TodoInput) => todo.id !== id.id));
+  function deleteTodo(text: { text: string }) {
+    deleteMutation.mutate(text);
+    setTodos(todos.filter((todo: TodoInput) => todo.text !== text.text));
   }
 
   return (
-    <div className="group flex items-center gap-3">
-      <li>{todo.text}</li>
+    <div className="flex justify-between gap-3 border-b border-base-300 border-opacity-50 p-1">
+      <li className="pl-1">{todo.text}</li>
       <div
-        className="inline-block opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        onClick={() => deleteTodo({ id: todo.id })}
+        className="inline-block"
+        onClick={() => deleteTodo({ text: todo.text })}
       >
-        <DeleteButton width="5" height="5" padding="1" />
+        <DeleteButton width="4" height="4" padding="1" />
       </div>
     </div>
   );

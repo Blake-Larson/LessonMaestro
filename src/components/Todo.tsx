@@ -16,7 +16,7 @@ export type TodoInput = {
 const Todo = ({ todo, todos, setTodos }: Props) => {
   const updateMutation = api.todo.markCompleted.useMutation();
   const deleteMutation = api.todo.deleteTodo.useMutation();
-  const [completed, setCompleted] = useState<boolean>(false);
+  const [completed, setCompleted] = useState<boolean>(todo.completed);
 
   function updateTodo(todo: TodoInput) {
     updateMutation.mutate(todo);
@@ -31,7 +31,9 @@ const Todo = ({ todo, todos, setTodos }: Props) => {
   return (
     <div className="flex justify-between gap-3 border-b border-base-100 border-opacity-50 p-1">
       <li
-        className={completed || todo.completed ? "pl-1 line-through" : "pl-1"}
+        className={`pl-1 hover:cursor-pointer ${
+          completed ? "line-through" : ""
+        }`}
         onClick={() => updateTodo(todo)}
       >
         {todo.text}

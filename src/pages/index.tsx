@@ -2,11 +2,11 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import Footer from "../components/Footer";
-import Card from "../components/Card";
-import YoutubeEmbed from "../components/YoutubeEmbed";
+import Footer from "../components/layout/Footer";
+import Card from "../components/index/Card";
+import YoutubeEmbed from "../components/index/YoutubeEmbed";
 import { api } from "../utils/api";
-import Login from "../components/Login";
+import Login from "../components/index/Login";
 import Logo from "../components/Logo";
 
 const Home: NextPage = () => {

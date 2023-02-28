@@ -2,30 +2,11 @@ import React from "react";
 import Hamburger from "./buttons/Hamburger";
 import Footer from "./Footer";
 import SideBar from "./SideBar";
-import { type GetServerSidePropsContext } from "next";
-import { getServerAuthSession } from "../server/auth";
 
 interface Props {
   children: JSX.Element;
   title: string;
 }
-
-// export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-//   const session = await getServerAuthSession(ctx);
-
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: "/",
-//         permanent: false,
-//       },
-//     };
-//   }
-
-//   return {
-//     props: {},
-//   };
-// }
 
 const Layout = ({ children, title }: Props) => {
   return (

@@ -1,8 +1,8 @@
 import React from "react";
-import CheckButton from "./buttons/CheckButton";
+import AddButton from ".././buttons/AddButton";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
-import { api } from "../utils/api";
+import { api } from "../../utils/api";
 import type { TodoInput } from "./Todo";
 
 type FormData = {
@@ -56,7 +56,7 @@ function CreateTodo({ todos, setTodos }: Props) {
         "Unique constraint failed on the fields: (`text,userId`)"
       ) && <span>You already have that task.</span>}
       <button>
-        <CheckButton width="5" height="5" padding="1" />
+        <AddButton width="5" height="5" padding="1" />
       </button>
     </form>
   );

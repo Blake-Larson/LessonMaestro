@@ -1,6 +1,25 @@
 import React from "react";
-import Layout from "../components/Layout";
-import Todos from "../components/Todos";
+import Layout from "../components/layout/Layout";
+import Todos from "../components/todos/Todos";
+import { type GetServerSidePropsContext } from "next";
+import { getServerAuthSession } from "../server/auth";
+
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const session = await getServerAuthSession(ctx);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
 
 const dashboard = () => {
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import DeleteButton from "./buttons/DeleteButton";
-import { api } from "../utils/api";
+import DeleteButton from "../buttons/DeleteButton";
+import { api } from "../../utils/api";
 
 interface Props {
   todo: TodoInput;

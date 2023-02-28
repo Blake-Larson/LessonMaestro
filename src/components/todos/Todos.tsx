@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CreateTodo from "./CreateTodo";
-import { api } from "../utils/api";
+import { api } from "../../utils/api";
 import type { TodoInput } from "./Todo";
 import Todo from "./Todo";
 
@@ -20,7 +20,10 @@ function Todos() {
         <h2 className="text-center text-2xl font-semibold text-base-100 md:text-3xl">
           Todo List
         </h2>
-        <ul className="border-t border-base-100 border-opacity-50">
+        <ul className="flex flex-col border-t border-base-100 border-opacity-50">
+          {getTodos.isLoading && (
+            <button className="loading btn mt-5 self-center">loading</button>
+          )}
           {todos?.map((todo, i) => {
             return (
               <Todo key={i} todo={todo} todos={todos} setTodos={setTodos} />

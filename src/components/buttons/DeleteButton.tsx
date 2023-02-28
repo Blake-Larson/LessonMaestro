@@ -9,7 +9,7 @@ interface Props {
 function DeleteButton({ width, height, padding }: Props) {
   return (
     <div
-      className={`cursor-pointer rounded-md hover:bg-error p-${padding} transition-colors duration-300`}
+      className={`cursor-pointer rounded-md p-1 transition-colors duration-300 hover:bg-error`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,7 @@ function DeleteButton({ width, height, padding }: Props) {
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className={`w-${width} h-${height}`}
+        className={`h-4 w-4`}
       >
         <path
           strokeLinecap="round"

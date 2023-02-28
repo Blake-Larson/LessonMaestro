@@ -9,20 +9,20 @@ interface Props {
 function CheckButton({ width, height, padding }: Props) {
   return (
     <div
-      className={`cursor-pointer rounded-md hover:bg-primary p-${padding} border border-base-300 bg-base-100 transition-colors duration-300`}
+      className={`cursor-pointer rounded-md border border-base-300 bg-base-100 p-0.5`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
-        strokeWidth={1.5}
+        stroke-width="1.5"
         stroke="currentColor"
-        className={`w-${width} h-${height}`}
+        className="h-6 w-6"
       >
         <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M4.5 12.75l6 6 9-13.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 6v12m6-6H6"
         />
       </svg>
     </div>

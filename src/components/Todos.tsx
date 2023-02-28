@@ -20,7 +20,7 @@ function Todos() {
         <h2 className="text-center text-2xl font-semibold text-base-100 md:text-3xl">
           Todo List
         </h2>
-        <ul className="border-t border-base-300 border-opacity-50">
+        <ul className="border-t border-base-100 border-opacity-50">
           {todos?.map((todo, i) => {
             return (
               <Todo key={i} todo={todo} todos={todos} setTodos={setTodos} />

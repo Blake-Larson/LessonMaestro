@@ -31,6 +31,26 @@ export const todoRouter = createTRPCRouter({
       return todoForm;
     }),
 
+  markCompleted: protectedProcedure
+    .input(
+      z.object({
+        text: z.string(),
+        completed: z.boolean(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const userId = ctx.session.user.id;
+      await ctx.prisma.todo.updateMany({
+        where: {
+          text: input.text,
+          userId: userId,
+        },
+        data: {
+          completed: !input.completed,
+        },
+      });
+    }),
+
   deleteTodo: protectedProcedure
     .input(z.object({ text: z.string() }))
     .mutation(async ({ input, ctx }) => {

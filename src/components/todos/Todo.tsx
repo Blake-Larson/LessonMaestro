@@ -9,23 +9,24 @@ interface Props {
 }
 
 export type TodoInput = {
+  id: string;
   text: string;
   completed: boolean;
 };
 
 const Todo = ({ todo, todos, setTodos }: Props) => {
-  const updateMutation = api.todo.markCompleted.useMutation();
+  const markCompleted = api.todo.markCompleted.useMutation();
   const deleteMutation = api.todo.deleteTodo.useMutation();
   const [completed, setCompleted] = useState<boolean>(todo.completed);
 
   function updateTodo(todo: TodoInput) {
-    updateMutation.mutate(todo);
+    markCompleted.mutate(todo);
     setCompleted(!completed);
   }
 
-  function deleteTodo(text: { text: string }) {
-    deleteMutation.mutate(text);
-    setTodos(todos.filter((todo: TodoInput) => todo.text !== text.text));
+  function deleteTodo(id: { id: string }) {
+    deleteMutation.mutate(id);
+    setTodos(todos.filter((todo: TodoInput) => todo.id !== id.id));
   }
 
   return (
@@ -38,10 +39,7 @@ const Todo = ({ todo, todos, setTodos }: Props) => {
       >
         {todo.text}
       </li>
-      <div
-        className="inline-block"
-        onClick={() => deleteTodo({ text: todo.text })}
-      >
+      <div className="inline-block" onClick={() => deleteTodo({ id: todo.id })}>
         <DeleteButton width="4" height="4" padding="1" />
       </div>
     </div>

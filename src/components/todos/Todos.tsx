@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CreateTodo from "./CreateTodo";
 import { api } from "../../utils/api";
 import type { TodoInput } from "./Todo";
@@ -6,13 +6,11 @@ import Todo from "./Todo";
 
 function Todos() {
   const [todos, setTodos] = useState<TodoInput[]>([]);
-  const getTodos = api.todo.getTodos.useQuery();
-
-  useEffect(() => {
-    if (getTodos.data) {
-      setTodos(getTodos.data);
-    }
-  }, [getTodos.data]);
+  const getTodos = api.todo.getTodos.useQuery(undefined, {
+    onSuccess: (data) => {
+      setTodos(data);
+    },
+  });
 
   return (
     <div className="flex w-full max-w-lg flex-col items-center gap-5">
@@ -24,9 +22,14 @@ function Todos() {
           {getTodos.isLoading && (
             <button className="loading btn mt-5 self-center">loading</button>
           )}
-          {todos?.map((todo, i) => {
+          {todos?.map((todo) => {
             return (
-              <Todo key={i} todo={todo} todos={todos} setTodos={setTodos} />
+              <Todo
+                key={todo.id}
+                todo={todo}
+                todos={todos}
+                setTodos={setTodos}
+              />
             );
           })}
         </ul>

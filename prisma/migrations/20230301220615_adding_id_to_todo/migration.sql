@@ -42,6 +42,7 @@ CREATE TABLE "User" (
     "email" STRING,
     "emailVerified" TIMESTAMP(3),
     "image" STRING,
+    "studioName" STRING,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -55,6 +56,8 @@ CREATE TABLE "Student" (
     "email" STRING,
     "contact" STRING,
     "instrument" STRING,
+    "status" BOOL NOT NULL,
+    "image" STRING,
     "userId" STRING NOT NULL,
 
     CONSTRAINT "Student_pkey" PRIMARY KEY ("id")
@@ -87,9 +90,12 @@ CREATE TABLE "Work" (
 
 -- CreateTable
 CREATE TABLE "Todo" (
+    "id" STRING NOT NULL,
     "text" STRING NOT NULL,
     "completed" BOOL NOT NULL,
-    "userId" STRING NOT NULL
+    "userId" STRING NOT NULL,
+
+    CONSTRAINT "Todo_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable

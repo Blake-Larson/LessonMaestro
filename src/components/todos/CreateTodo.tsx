@@ -23,15 +23,24 @@ function CreateTodo({ todos, setTodos }: Props) {
     formState: { errors },
   } = useForm<FormData>();
 
+  const getTodos = api.todo.getTodos.useQuery(undefined, {
+    enabled: false,
+    onSuccess: (data) => {
+      setTodos(data);
+    },
+  });
+
   const mutation = api.todo.createTodo.useMutation({
     onSuccess: () => {
       setTodos([
         ...todos,
         {
           text: watch("text"),
+          id: "",
           completed: false,
         },
       ]);
+      void getTodos.refetch();
       reset();
     },
     onError: () => {
@@ -39,7 +48,7 @@ function CreateTodo({ todos, setTodos }: Props) {
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const onSubmit = (data: FormData) => {
     mutation.mutate(data);
   };
 

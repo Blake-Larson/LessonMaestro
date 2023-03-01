@@ -21,7 +21,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   };
 }
 
-const dashboard = () => {
+const Dashboard = () => {
   return (
     <>
       <Layout title="Dashboard">
@@ -36,4 +36,4 @@ const dashboard = () => {
   );
 };
 
-export default dashboard;
+export default Dashboard;

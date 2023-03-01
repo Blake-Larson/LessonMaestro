@@ -1,5 +1,5 @@
 import React from "react";
-import Hamburger from "./buttons/Hamburger";
+import Hamburger from "../buttons/Hamburger";
 import Footer from "./Footer";
 import SideBar from "./SideBar";
 

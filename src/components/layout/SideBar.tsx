@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "./Logo";
+import Logo from "../Logo";
 // import { Image } from 'cloudinary-react';
 // import SignOut from "./buttons/SignOut";
 import Link from "next/link";

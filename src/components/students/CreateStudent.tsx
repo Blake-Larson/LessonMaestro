@@ -1,6 +1,6 @@
 import React from "react";
 import AddButton from "../buttons/AddButton";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { api } from "../../utils/api";
 import type { StudentType } from "../../pages/students";
 
@@ -27,6 +27,7 @@ function CreateStudent({ students, setStudents, setShowForm }: Props) {
     watch,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm<FormData>();
 
@@ -43,7 +44,7 @@ function CreateStudent({ students, setStudents, setShowForm }: Props) {
         ...students,
         {
           name: watch("name"),
-          age: Number(watch("age")),
+          age: watch("age"),
           phone: watch("phone"),
           email: watch("email"),
           contact: watch("contact"),
@@ -65,7 +66,7 @@ function CreateStudent({ students, setStudents, setShowForm }: Props) {
   const onSubmit = (data: FormData) => {
     createMutation.mutate(data);
   };
-
+  console.log(watch("status"));
   return (
     <form
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -79,9 +80,11 @@ function CreateStudent({ students, setStudents, setShowForm }: Props) {
       />
       <input
         placeholder="Age"
-        {...register("age")}
-        className="input-bordered input w-full max-w-xs"
         type={"number"}
+        {...register("age", {
+          setValueAs: (v: string) => (v === "" ? undefined : parseInt(v, 150)),
+        })}
+        className="input-bordered input w-full max-w-xs"
       />
       <input
         placeholder="Phone"
@@ -104,10 +107,31 @@ function CreateStudent({ students, setStudents, setShowForm }: Props) {
         {...register("instrument")}
         className="input-bordered input w-full max-w-xs"
       />
-      <input
-        placeholder="Status"
-        {...register("status")}
-        className="input-bordered input w-full max-w-xs"
+      <Controller
+        control={control}
+        name={"status"}
+        render={({ field: { onChange, value } }) => (
+          <div className="form-control">
+            <label className="label cursor-pointer">
+              <span className="label-text">Active</span>
+              <input
+                type="radio"
+                onChange={() => onChange(true)} // send value to hook form
+                checked={value === true}
+                className="radio"
+              />
+            </label>
+            <label className="label cursor-pointer">
+              <span className="label-text">Inactive</span>
+              <input
+                type="radio"
+                onChange={() => onChange(false)} // send value to hook form
+                checked={value === false}
+                className="radio"
+              />
+            </label>
+          </div>
+        )}
       />
       <input
         placeholder="Image"

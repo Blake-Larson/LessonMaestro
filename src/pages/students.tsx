@@ -3,7 +3,9 @@ import { api } from "../utils/api";
 import Layout from "../components/layout/Layout";
 import { type GetServerSidePropsContext } from "next";
 import { getServerAuthSession } from "../server/auth";
-import StudentTable from "../components/students/StudentTable";
+import Student from "../components/students/Student";
+import StudentCard from "../components/students/StudentCard";
+import CreateStudent from "../components/students/CreateStudent";
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const session = await getServerAuthSession(ctx);
@@ -32,13 +34,16 @@ export type StudentType = {
   instrument: string | null;
   status: boolean;
   image: string | null;
-  userId: string;
 };
 
 const StudentsPage = () => {
+  const [showForm, setShowForm] = useState<boolean>(false);
   const [students, setStudents] = useState<StudentType[]>([]);
-  const getStudents = api.student.getStudents.useQuery();
-  console.log(getStudents.data);
+  const getStudents = api.student.getStudents.useQuery(undefined, {
+    onSuccess: (data) => {
+      setStudents(data);
+    },
+  });
 
   return (
     <>
@@ -47,7 +52,45 @@ const StudentsPage = () => {
           {getStudents.isLoading && (
             <button className="loading btn mt-5 self-center">loading</button>
           )}
-          <StudentTable students={students} setStudents={setStudents} />
+          <div
+            className={`flex w-full max-w-lg flex-col items-center gap-5 ${
+              showForm ? "hidden" : "block"
+            }`}
+          >
+            <div className="flex w-full flex-col gap-5 rounded-xl bg-primary p-5 shadow-lg">
+              <h2 className="text-center text-2xl font-semibold text-base-100 md:text-3xl">
+                Student List
+              </h2>
+              <ul className="flex flex-col border-t border-base-100 border-opacity-50">
+                {getStudents.isLoading && (
+                  <button className="loading btn-square btn mt-5 self-center"></button>
+                )}
+                {students?.map((student) => {
+                  return (
+                    <StudentCard
+                      key={student.id}
+                      image={""}
+                      name={student.name}
+                      text={"this is a student"}
+                    />
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+          <button
+            className={showForm ? "btn-error btn" : "btn-secondary btn"}
+            onClick={() => setShowForm(!showForm)}
+          >
+            {showForm ? "Cancel" : "Add a student"}
+          </button>
+          <div className={showForm ? "block" : "hidden"}>
+            <CreateStudent
+              students={students}
+              setStudents={setStudents}
+              setShowForm={setShowForm}
+            />
+          </div>
         </div>
       </Layout>
     </>

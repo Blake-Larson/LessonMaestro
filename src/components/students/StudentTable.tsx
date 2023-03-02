@@ -22,7 +22,7 @@ function StudentTable({ students, setStudents }: Props) {
             </tr>
           </thead>
           <tbody>
-            {students?.map((student, i) => {
+            {students?.map((student) => {
               return <Student key={student.id} student={student} />;
             })}
           </tbody>

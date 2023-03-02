@@ -20,7 +20,7 @@ function Todos() {
         </h2>
         <ul className="flex flex-col border-t border-base-100 border-opacity-50">
           {getTodos.isLoading && (
-            <button className="loading btn mt-5 self-center">loading</button>
+            <button className="loading btn-square btn mt-5 self-center"></button>
           )}
           {todos?.map((todo) => {
             return (

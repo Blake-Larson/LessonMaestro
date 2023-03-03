@@ -9,18 +9,20 @@ interface Props {
 
 function StudentCard({ image, name, text }: Props) {
   return (
-    <div className="card bg-base-100 shadow-xl md:w-96">
-      <figure className="relative h-72 w-full">
-        <Image
-          src={image}
-          fill
-          sizes="(max-width: 768px) 100vw, 33vw"
-          className="object-cover"
-          alt={`photo of ${name}`}
-        />
-      </figure>
-      <div className="card-body">
-        <h2 className="card-title">{name}</h2>
+    <div>
+      <div className="avatar">
+        <div className="w-32 rounded">
+          <Image
+            src={image}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="rounded object-cover"
+            alt={`photo of ${name}`}
+          />
+        </div>
+      </div>
+      <div className="">
+        <h2 className="">{name}</h2>
         <p>{text}</p>
       </div>
     </div>

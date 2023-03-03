@@ -27,13 +27,13 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 export type StudentType = {
   id: string;
   name: string;
-  age: number | null;
-  phone: string | null;
-  email: string | null;
-  contact: string | null;
-  instrument: string | null;
+  age: number;
+  phone: string;
+  email: string;
+  contact: string;
+  instrument: string;
   status: boolean;
-  image: string | null;
+  image: string;
 };
 
 const StudentsPage = () => {
@@ -61,7 +61,7 @@ const StudentsPage = () => {
               <h2 className="text-center text-2xl font-semibold text-base-100 md:text-3xl">
                 Student List
               </h2>
-              <ul className="flex flex-col border-t border-base-100 border-opacity-50">
+              <ul className="flex flex-col border-t border-base-100 border-opacity-50 p-5">
                 {getStudents.isLoading && (
                   <button className="loading btn-square btn mt-5 self-center"></button>
                 )}
@@ -69,9 +69,9 @@ const StudentsPage = () => {
                   return (
                     <StudentCard
                       key={student.id}
-                      image={""}
+                      image={"/assets/images/teach.jpg"}
                       name={student.name}
-                      text={"this is a student"}
+                      text={student.instrument}
                     />
                   );
                 })}

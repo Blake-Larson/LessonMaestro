@@ -1,6 +1,5 @@
 import React from "react";
 import AddButton from "../buttons/AddButton";
-import { useForm, Controller } from "react-hook-form";
 import { api } from "../../utils/api";
 import type { StudentType } from "../../pages/students";
 
@@ -11,7 +10,6 @@ type FormData = {
   email: string;
   contact: string;
   instrument: string;
-  status: boolean;
   image: string;
 };
 
@@ -22,15 +20,6 @@ interface Props {
 }
 
 function CreateStudent({ students, setStudents, setShowForm }: Props) {
-  const {
-    register,
-    watch,
-    handleSubmit,
-    reset,
-    control,
-    formState: { errors },
-  } = useForm<FormData>();
-
   const getStudents = api.student.getStudents.useQuery(undefined, {
     enabled: false,
     onSuccess: (data) => {
@@ -39,23 +28,34 @@ function CreateStudent({ students, setStudents, setShowForm }: Props) {
   });
 
   const createMutation = api.student.createStudent.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       setStudents([
         ...students,
         {
-          name: watch("name"),
-          age: watch("age"),
-          phone: watch("phone"),
-          email: watch("email"),
-          contact: watch("contact"),
-          instrument: watch("instrument"),
-          status: watch("status"),
-          image: watch("image"),
+          name: formData.name,
+          age: formData.age,
+          phone: formData.phone,
+          email: formData.email,
+          contact: formData.contact,
+          instrument: formData.instrument,
+          status: true,
+          image: formData.image,
           id: "",
+          lesson: [],
+          music: [],
+          work: [],
         },
       ]);
-      void getStudents.refetch();
-      reset();
+      await getStudents.refetch();
+      setFormData({
+        name: "",
+        age: 0,
+        phone: "",
+        email: "",
+        contact: "",
+        instrument: "",
+        image: "",
+      });
       setShowForm(false);
     },
     onError: () => {
@@ -63,86 +63,78 @@ function CreateStudent({ students, setStudents, setShowForm }: Props) {
     },
   });
 
-  const onSubmit = (data: FormData) => {
-    createMutation.mutate(data);
+  const [formData, setFormData] = React.useState<FormData>({
+    name: "",
+    age: 0,
+    phone: "",
+    email: "",
+    contact: "",
+    instrument: "",
+    image: "",
+  });
+
+  function handleFormChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevformData) => ({
+      ...prevformData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(formData, "Form Data");
+    createMutation.mutate(formData);
   };
-  console.log(watch("status"));
+
   return (
-    <form
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center gap-2"
-    >
+    <form onSubmit={handleSubmit} className="form-control flex flex-col gap-2">
       <input
+        type="text"
+        name="name"
         placeholder="Name"
-        {...register("name", { required: true })}
+        onChange={handleFormChange}
         className="input-bordered input w-full max-w-xs"
+        required
       />
       <input
+        type="number"
+        name="age"
         placeholder="Age"
-        type={"number"}
-        {...register("age", {
-          setValueAs: (v: string) => (v === "" ? undefined : parseInt(v, 150)),
-        })}
+        onChange={handleFormChange}
         className="input-bordered input w-full max-w-xs"
       />
       <input
-        placeholder="Phone"
-        {...register("phone")}
+        type="tel"
+        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+        name="phone"
+        placeholder="123-456-7890"
+        onChange={handleFormChange}
         className="input-bordered input w-full max-w-xs"
       />
       <input
+        type="text"
+        name="email"
         placeholder="Email"
-        {...register("email")}
+        onChange={handleFormChange}
         className="input-bordered input w-full max-w-xs"
-        type={"email"}
       />
       <input
+        type="text"
+        name="contact"
         placeholder="Contact"
-        {...register("contact")}
+        onChange={handleFormChange}
         className="input-bordered input w-full max-w-xs"
       />
       <input
+        type="text"
+        name="instrument"
         placeholder="Instrument"
-        {...register("instrument")}
+        onChange={handleFormChange}
         className="input-bordered input w-full max-w-xs"
       />
-      <Controller
-        control={control}
-        name={"status"}
-        render={({ field: { onChange, value } }) => (
-          <div className="form-control">
-            <label className="label cursor-pointer">
-              <span className="label-text">Active</span>
-              <input
-                type="radio"
-                onChange={() => onChange(true)} // send value to hook form
-                checked={value === true}
-                className="radio"
-              />
-            </label>
-            <label className="label cursor-pointer">
-              <span className="label-text">Inactive</span>
-              <input
-                type="radio"
-                onChange={() => onChange(false)} // send value to hook form
-                checked={value === false}
-                className="radio"
-              />
-            </label>
-          </div>
-        )}
-      />
-      <input
-        placeholder="Image"
-        {...register("image")}
-        className="input-bordered input w-full max-w-xs"
-      />
-      {errors.name && <span>The name field is required</span>}
-      {createMutation.error?.message.includes(
-        "Unique constraint failed on the fields: (`text,userId`)"
-      ) && <span>You already have that task.</span>}
-      <button>
+      <button className="btn-secondary btn flex gap-2">
+        <div>Submit</div>
         <AddButton width="5" height="5" padding="1" />
       </button>
     </form>

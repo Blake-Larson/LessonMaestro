@@ -23,6 +23,22 @@ export const studentRouter = createTRPCRouter({
     return students;
   }),
 
+  getStudentByID: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx }) => {
+      const userId = ctx.session.user.id;
+      const students = await ctx.prisma.student.findMany({
+        where: {
+          userId,
+          id: input.id,
+        },
+        select: {
+          id: true,
+        },
+      });
+      return students;
+    }),
+
   createStudent: protectedProcedure
     .input(
       z.object({
@@ -32,7 +48,6 @@ export const studentRouter = createTRPCRouter({
         email: z.string().optional(),
         contact: z.string().optional(),
         instrument: z.string().optional(),
-        status: z.boolean(),
         image: z.string().optional(),
       })
     )
@@ -46,11 +61,23 @@ export const studentRouter = createTRPCRouter({
           email: input.email,
           contact: input.contact,
           instrument: input.instrument,
-          status: input.status,
+          status: true,
           image: input.image,
           userId: userId,
         },
       });
       return studentForm;
+    }),
+
+  deleteStudent: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const userId = ctx.session.user.id;
+      await ctx.prisma.student.deleteMany({
+        where: {
+          userId,
+          id: input.id,
+        },
+      });
     }),
 });

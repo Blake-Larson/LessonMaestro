@@ -69,7 +69,7 @@ model Student {
     email      String?
     contact    String?
     instrument String?
-    status     Boolean
+    status     Boolean  @default(true)
     image      String?
     music      Music[]
     work       Work[]

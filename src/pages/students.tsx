@@ -3,7 +3,6 @@ import { api } from "../utils/api";
 import Layout from "../components/layout/Layout";
 import { type GetServerSidePropsContext } from "next";
 import { getServerAuthSession } from "../server/auth";
-import Student from "../components/students/Student";
 import StudentCard from "../components/students/StudentCard";
 import CreateStudent from "../components/students/CreateStudent";
 
@@ -25,15 +24,18 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 }
 
 export type StudentType = {
+  lesson: Lesson[];
+  music: Music[];
+  work: Work[];
   id: string;
   name: string;
-  age: number;
-  phone: string;
-  email: string;
-  contact: string;
-  instrument: string;
+  email: string | null;
+  image: string | null;
+  age: number | null;
+  phone: string | null;
+  contact: string | null;
+  instrument: string | null;
   status: boolean;
-  image: string;
 };
 
 const StudentsPage = () => {
@@ -53,7 +55,7 @@ const StudentsPage = () => {
             <button className="loading btn mt-5 self-center">loading</button>
           )}
           <div
-            className={`flex w-full max-w-lg flex-col items-center gap-5 ${
+            className={`flex w-full flex-col items-center gap-5 ${
               showForm ? "hidden" : "block"
             }`}
           >
@@ -61,19 +63,12 @@ const StudentsPage = () => {
               <h2 className="text-center text-2xl font-semibold text-base-100 md:text-3xl">
                 Student List
               </h2>
-              <ul className="flex flex-col border-t border-base-100 border-opacity-50 p-5">
+              <ul className="flex gap-5 border-t border-base-100 border-opacity-50 p-5">
                 {getStudents.isLoading && (
                   <button className="loading btn-square btn mt-5 self-center"></button>
                 )}
                 {students?.map((student) => {
-                  return (
-                    <StudentCard
-                      key={student.id}
-                      image={"/assets/images/teach.jpg"}
-                      name={student.name}
-                      text={student.instrument}
-                    />
-                  );
+                  return <StudentCard key={student.id} student={student} />;
                 })}
               </ul>
             </div>

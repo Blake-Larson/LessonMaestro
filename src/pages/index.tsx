@@ -1,18 +1,13 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Footer from "../components/layout/Footer";
 import Card from "../components/index/Card";
 import YoutubeEmbed from "../components/index/YoutubeEmbed";
-import { api } from "../utils/api";
 import Login from "../components/index/Login";
 import Logo from "../components/Logo";
 
 const Home: NextPage = () => {
-  const { data: sessionData } = useSession();
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
-
   return (
     <>
       <Head>
@@ -80,12 +75,6 @@ const Home: NextPage = () => {
             </div>
             <Footer />
           </div>
-          {/* <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 "></div>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-white text-2xl">
-              {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-            </p>
-          </div> */}
         </div>
       </main>
     </>

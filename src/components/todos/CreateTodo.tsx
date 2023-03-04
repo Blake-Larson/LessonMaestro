@@ -1,5 +1,5 @@
 import React from "react";
-import AddButton from ".././buttons/AddButton";
+import AddIcon from "../buttons/AddIcon";
 import { useForm } from "react-hook-form";
 import { api } from "../../utils/api";
 import type { TodoInput } from "./Todo";
@@ -63,8 +63,9 @@ function CreateTodo({ todos, setTodos }: Props) {
       {mutation.error?.message.includes(
         "Unique constraint failed on the fields: (`text,userId`)"
       ) && <span>You already have that task.</span>}
-      <button>
-        <AddButton width="5" height="5" padding="1" />
+
+      <button className="cursor-pointer rounded-md border border-base-300 bg-base-100 p-0.5 transition-transform duration-300 hover:scale-110">
+        <AddIcon width="6" height="6" />
       </button>
     </form>
   );

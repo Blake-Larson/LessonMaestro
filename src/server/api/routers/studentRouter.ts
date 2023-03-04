@@ -25,7 +25,7 @@ export const studentRouter = createTRPCRouter({
 
   getStudentByID: protectedProcedure
     .input(z.object({ id: z.string() }))
-    .query(async ({ ctx }) => {
+    .query(async ({ input, ctx }) => {
       const userId = ctx.session.user.id;
       const students = await ctx.prisma.student.findMany({
         where: {
@@ -34,9 +34,20 @@ export const studentRouter = createTRPCRouter({
         },
         select: {
           id: true,
+          name: true,
+          age: true,
+          phone: true,
+          email: true,
+          contact: true,
+          instrument: true,
+          status: true,
+          image: true,
+          music: true,
+          work: true,
+          lesson: true,
         },
       });
-      return students;
+      return students[0];
     }),
 
   createStudent: protectedProcedure

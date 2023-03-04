@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DeleteButton from "../buttons/DeleteButton";
+import DeleteIcon from "../buttons/DeleteIcon";
 import { api } from "../../utils/api";
 
 interface Props {
@@ -39,8 +39,11 @@ const Todo = ({ todo, todos, setTodos }: Props) => {
       >
         {todo.text}
       </li>
-      <div className="inline-block" onClick={() => deleteTodo({ id: todo.id })}>
-        <DeleteButton width="4" height="4" padding="1" />
+      <div
+        className="inline-block cursor-pointer rounded-md p-1 transition-all duration-300 hover:scale-110 hover:bg-error"
+        onClick={() => deleteTodo({ id: todo.id })}
+      >
+        <DeleteIcon width="4" height="4" />
       </div>
     </div>
   );

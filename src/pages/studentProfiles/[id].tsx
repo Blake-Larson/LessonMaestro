@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { type GetServerSidePropsContext } from "next";
 import { getServerAuthSession } from "../../server/auth";
 import { api } from "../../utils/api";
+import type { InferGetServerSidePropsType } from "next";
+import Layout from "../../components/layout/Layout";
+import type { StudentType } from "../../pages/students";
+import DeleteIcon from "../../components/buttons/DeleteIcon";
+import { prisma } from "../../server/db";
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+//work on checking if the student id param exists and if so return it.
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const session = await getServerAuthSession(ctx);
-  const getStudent = api.student.getStudentByID.useQuery({ id: id });
+  const studentId = await prisma.student.findMany({
+    select: {
+      id: true,
+    },
+  });
+  console.log(studentId);
 
   if (!session) {
     return {
@@ -14,16 +26,54 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
         permanent: false,
       },
     };
-  } else if (getStudent) {
+  } else if (studentId) {
+    return { props: { id: ctx.params } };
+  } else {
+    return {
+      notFound: true, //redirects to 404 page
+    };
   }
+};
 
-  return {
-    props: {},
-  };
-}
+const Student = (
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) => {
+  const { id } = props;
+  const getStudent = api.student.getStudentByID.useQuery(
+    { id: id?.id },
+    {
+      onSuccess: (data) => {
+        setStudent(data);
+      },
+    }
+  );
+  const [student, setStudent] = useState<StudentType>();
 
-const Student = () => {
-  return <div>[id]</div>;
+  function deleteStudent(id: { id: string }) {
+    // deleteMutation.mutate(id);
+    // setTodos(todos.filter((todo: TodoInput) => todo.id !== id.id));
+    console.log("deleted");
+  }
+  return (
+    <Layout title={"Students"}>
+      <>
+        {getStudent.isLoading && (
+          <button className="loading btn mt-5 self-center">loading</button>
+        )}
+        {student && (
+          <div className="flex flex-col">
+            <div>{student?.name}s profile page</div>
+            <div
+              className="btn-error btn-square btn p-1 transition-transform duration-300 hover:scale-110"
+              onClick={() => deleteStudent({ id: student.id })}
+            >
+              <DeleteIcon width="8" height="8" />
+            </div>
+          </div>
+        )}
+      </>
+    </Layout>
+  );
 };
 
 export default Student;

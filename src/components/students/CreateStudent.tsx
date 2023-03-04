@@ -1,5 +1,5 @@
 import React from "react";
-import AddButton from "../buttons/AddButton";
+import AddIcon from "../buttons/AddIcon";
 import { api } from "../../utils/api";
 import type { StudentType } from "../../pages/students";
 
@@ -135,7 +135,9 @@ function CreateStudent({ students, setStudents, setShowForm }: Props) {
       />
       <button className="btn-secondary btn flex gap-2">
         <div>Submit</div>
-        <AddButton width="5" height="5" padding="1" />
+        <div className="cursor-pointer rounded-md border border-base-300 bg-base-100 p-0.5">
+          <AddIcon width="6" height="6" />
+        </div>
       </button>
     </form>
   );

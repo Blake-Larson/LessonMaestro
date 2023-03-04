@@ -9,7 +9,7 @@ interface Props {
 
 function StudentCard({ student }: Props) {
   return (
-    <Link href={`/students/${encodeURIComponent(student.id)}`}>
+    <Link href={`/studentProfiles/${encodeURIComponent(student.id)}`}>
       <div className="avatar">
         <div className="relative w-32 rounded">
           <Image

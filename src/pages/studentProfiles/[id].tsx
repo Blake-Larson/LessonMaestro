@@ -7,6 +7,7 @@ import Layout from "../../components/layout/Layout";
 import type { StudentType } from "../../pages/students";
 import DeleteIcon from "../../components/buttons/DeleteIcon";
 import { prisma } from "../../server/db";
+import Router from "next/router";
 
 //work on checking if the student id param exists and if so return it.
 
@@ -26,13 +27,13 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
         permanent: false,
       },
     };
-  } else if (studentId) {
-    return { props: { id: ctx.params } };
-  } else {
-    return {
-      notFound: true, //redirects to 404 page
-    };
+  } else if (studentId && ctx.params) {
+    let id = ctx.params;
+    return { props: { id: id } };
   }
+  return {
+    notFound: true, //redirects to 404 page
+  };
 };
 
 const Student = (
@@ -48,12 +49,14 @@ const Student = (
     }
   );
   const [student, setStudent] = useState<StudentType>();
+  const deleteMutation = api.student.deleteStudent.useMutation({ id: id });
 
-  function deleteStudent(id: { id: string }) {
-    // deleteMutation.mutate(id);
-    // setTodos(todos.filter((todo: TodoInput) => todo.id !== id.id));
-    console.log("deleted");
+  async function deleteStudent(id: { id: string }) {
+    confirm("Are you sure you want to delete this student?");
+    deleteMutation.mutate(id);
+    await Router.push("/students");
   }
+
   return (
     <Layout title={"Students"}>
       <>
@@ -65,6 +68,7 @@ const Student = (
             <div>{student?.name}s profile page</div>
             <div
               className="btn-error btn-square btn p-1 transition-transform duration-300 hover:scale-110"
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
               onClick={() => deleteStudent({ id: student.id })}
             >
               <DeleteIcon width="8" height="8" />

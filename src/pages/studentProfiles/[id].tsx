@@ -9,16 +9,10 @@ import DeleteIcon from "../../components/buttons/DeleteIcon";
 import { prisma } from "../../server/db";
 import Router from "next/router";
 
-//work on checking if the student id param exists and if so return it.
-
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const session = await getServerAuthSession(ctx);
-  const studentId = await prisma.student.findMany({
-    select: {
-      id: true,
-    },
-  });
-  console.log(studentId);
+  const userId = session?.user.id;
+  const { id } = ctx.query;
 
   if (!session) {
     return {
@@ -27,33 +21,56 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
         permanent: false,
       },
     };
-  } else if (studentId && ctx.params) {
-    let id = ctx.params;
-    return { props: { id: id } };
+  } else if (id && typeof id === "string") {
+    const studentId = await prisma.student.findMany({
+      where: {
+        userId,
+        id: id,
+      },
+      select: {
+        id: true,
+      },
+    });
+    if (id === studentId[0]?.id) {
+      return { props: { id: id } };
+    } else {
+      return {
+        notFound: true, //redirects to 404 page
+      };
+    }
+  } else {
+    console.log("No id on query");
+    return {
+      notFound: true, //redirects to 404 page
+    };
   }
-  return {
-    notFound: true, //redirects to 404 page
-  };
 };
 
 const Student = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
   const { id } = props;
+  const getStudents = api.student.getStudents.useQuery(undefined, {
+    enabled: false,
+  });
   const getStudent = api.student.getStudentByID.useQuery(
-    { id: id?.id },
+    { id: id },
     {
       onSuccess: (data) => {
-        setStudent(data);
+        if (data) {
+          setStudent(data);
+        }
       },
     }
   );
   const [student, setStudent] = useState<StudentType>();
-  const deleteMutation = api.student.deleteStudent.useMutation({ id: id });
+  const deleteMutation = api.student.deleteStudent.useMutation();
 
   async function deleteStudent(id: { id: string }) {
     confirm("Are you sure you want to delete this student?");
     deleteMutation.mutate(id);
+    //refetch students so when we go to /students the students have been updated. Could optimize.
+    await getStudents.refetch();
     await Router.push("/students");
   }
 
@@ -81,5 +98,3 @@ const Student = (
 };
 
 export default Student;
-
-//https://www.freecodecamp.org/news/how-to-setup-dynamic-routing-in-nextjs/

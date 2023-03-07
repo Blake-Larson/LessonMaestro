@@ -83,6 +83,7 @@ const StudentsPage = () => {
             <CreateStudent
               students={students}
               setStudents={setStudents}
+              showForm={showForm}
               setShowForm={setShowForm}
             />
           </div>

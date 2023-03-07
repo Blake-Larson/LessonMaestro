@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import AddIcon from "../buttons/AddIcon";
 import { api } from "../../utils/api";
 import type { StudentType } from "../../pages/students";
@@ -16,10 +16,16 @@ type FormData = {
 interface Props {
   students: StudentType[];
   setStudents: React.Dispatch<React.SetStateAction<StudentType[]>>;
+  showForm: boolean;
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function CreateStudent({ students, setStudents, setShowForm }: Props) {
+function CreateStudent({
+  students,
+  setStudents,
+  showForm,
+  setShowForm,
+}: Props) {
   const getStudents = api.student.getStudents.useQuery(undefined, {
     enabled: false,
     onSuccess: (data) => {
@@ -87,6 +93,12 @@ function CreateStudent({ students, setStudents, setShowForm }: Props) {
     createMutation.mutate(formData);
   };
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [showForm]);
+
   return (
     <form onSubmit={handleSubmit} className="form-control flex flex-col gap-2">
       <input
@@ -96,6 +108,7 @@ function CreateStudent({ students, setStudents, setShowForm }: Props) {
         onChange={handleFormChange}
         className="input-bordered input w-full max-w-xs"
         required
+        ref={inputRef}
       />
       <input
         type="number"

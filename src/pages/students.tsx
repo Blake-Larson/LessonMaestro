@@ -50,28 +50,18 @@ const StudentsPage = () => {
   return (
     <>
       <Layout title="Students">
-        <div>
+        <div className="flex min-h-screen w-full flex-col bg-gradient-to-t from-primary to-base-100">
           {getStudents.isLoading && (
-            <button className="loading btn mt-5 self-center">loading</button>
+            <button className="loading btn m-5 self-center"></button>
           )}
           <div
             className={`flex w-full flex-col items-center gap-5 ${
-              showForm ? "hidden" : "block"
+              showForm ? "hidden" : "flex"
             }`}
           >
-            <div className="flex w-full flex-col gap-5 rounded-xl bg-primary p-5 shadow-lg">
-              <h2 className="text-center text-2xl font-semibold text-base-100 md:text-3xl">
-                Student List
-              </h2>
-              <ul className="flex gap-5 border-t border-base-100 border-opacity-50 p-5">
-                {getStudents.isLoading && (
-                  <button className="loading btn-square btn mt-5 self-center"></button>
-                )}
-                {students?.map((student) => {
-                  return <StudentCard key={student.id} student={student} />;
-                })}
-              </ul>
-            </div>
+            {students?.map((student) => {
+              return <StudentCard key={student.id} student={student} />;
+            })}
           </div>
           <button
             className={showForm ? "btn-error btn" : "btn-secondary btn"}

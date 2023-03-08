@@ -9,15 +9,16 @@ interface Props {
 
 function StudentCard({ student }: Props) {
   return (
-    <Link href={`/studentProfiles/${encodeURIComponent(student.id)}`}>
+    <Link
+      href={`/student-profile/${encodeURIComponent(student.id)}`}
+      className="mx-2 flex w-full flex-col justify-center gap-5 rounded bg-primary p-4 shadow-lg"
+    >
       <div className="avatar">
-        <div className="relative w-32 rounded">
+        <div className="relative w-16 rounded">
           <Image
-            //student.image
-            src={"/assets/images/teach.jpg"}
+            src={"/assets/images/teach.jpg"} //student.image
             fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className="rounded object-cover"
+            sizes="(max-width: 768px) 100%, 33%"
             alt={`photo of ${student.name}`}
           />
         </div>

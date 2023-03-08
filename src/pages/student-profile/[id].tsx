@@ -4,7 +4,7 @@ import { getServerAuthSession } from "../../server/auth";
 import { api } from "../../utils/api";
 import type { InferGetServerSidePropsType } from "next";
 import Layout from "../../components/layout/Layout";
-import type { StudentType } from "../../pages/students";
+import type { StudentType } from "../students";
 import DeleteIcon from "../../components/buttons/DeleteIcon";
 import { prisma } from "../../server/db";
 import Router from "next/router";

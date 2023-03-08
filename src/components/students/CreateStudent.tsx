@@ -52,7 +52,6 @@ function CreateStudent({
           work: [],
         },
       ]);
-      await getStudents.refetch();
       setFormData({
         name: "",
         age: 0,
@@ -63,6 +62,7 @@ function CreateStudent({
         image: "",
       });
       setShowForm(false);
+      await getStudents.refetch();
     },
     onError: () => {
       console.log(createMutation.error?.message);
@@ -91,6 +91,7 @@ function CreateStudent({
     event.preventDefault();
     console.log(formData, "Form Data");
     createMutation.mutate(formData);
+    event.currentTarget.reset();
   };
 
   const inputRef = useRef<HTMLInputElement>(null);

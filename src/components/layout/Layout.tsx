@@ -19,7 +19,7 @@ const Layout = ({ children, title }: Props) => {
             <Hamburger />
             <h1 className="font-lemon text-2xl">{title}</h1>
           </div>
-          <div className="flex flex-col p-2">{children}</div>
+          <div className="flex w-full flex-col">{children}</div>
           <Footer />
         </div>
         <div className="drawer-side">

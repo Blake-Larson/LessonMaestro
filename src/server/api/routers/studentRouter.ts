@@ -19,6 +19,11 @@ export const studentRouter = createTRPCRouter({
         work: true,
         lesson: true,
       },
+      orderBy: [
+        {
+          name: "asc",
+        },
+      ],
     });
     return students;
   }),

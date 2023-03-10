@@ -5,6 +5,8 @@ import { type GetServerSidePropsContext } from "next";
 import { getServerAuthSession } from "../server/auth";
 import StudentCard from "../components/students/StudentCard";
 import CreateStudent from "../components/students/CreateStudent";
+import AddIcon from "../components/buttons/AddIcon";
+import XIcon from "../components/buttons/XIcon";
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const session = await getServerAuthSession(ctx);
@@ -49,13 +51,39 @@ const StudentsPage = () => {
 
   return (
     <>
-      <Layout title="Students">
-        <div className="flex min-h-screen w-full flex-col bg-gradient-to-t from-primary to-base-100">
+      <Layout
+        title={
+          <div className="flex items-center justify-between">
+            <h1 className="font-lemon text-2xl">Students</h1>
+            <button
+              className={
+                showForm
+                  ? "btn-error btn-square btn"
+                  : "btn-secondary btn-square btn"
+              }
+              onClick={() => setShowForm(!showForm)}
+            >
+              {showForm ? (
+                <div className="cursor-pointer rounded-md">
+                  <XIcon width="7" height="7" />
+                </div>
+              ) : (
+                <div className="cursor-pointer rounded-md">
+                  <AddIcon width="7" height="7" />
+                </div>
+              )}
+            </button>
+          </div>
+        }
+      >
+        <div className="flex min-h-screen w-full flex-col items-center bg-primary-light">
+          {/* Loading Button */}
           {getStudents.isLoading && (
             <button className="loading btn m-5 self-center"></button>
           )}
+          {/* Students */}
           <div
-            className={`flex w-full flex-col items-center gap-5 ${
+            className={`lg:max- flex w-full flex-col items-center gap-5 py-5 lg:flex-row lg:flex-wrap lg:justify-center lg:px-5 ${
               showForm ? "hidden" : "flex"
             }`}
           >
@@ -63,13 +91,8 @@ const StudentsPage = () => {
               return <StudentCard key={student.id} student={student} />;
             })}
           </div>
-          <button
-            className={showForm ? "btn-error btn" : "btn-secondary btn"}
-            onClick={() => setShowForm(!showForm)}
-          >
-            {showForm ? "Cancel" : "Add a student"}
-          </button>
-          <div className={showForm ? "block" : "hidden"}>
+
+          <div className={showForm ? "block pt-5" : "hidden pt-5"}>
             <CreateStudent
               students={students}
               setStudents={setStudents}

@@ -4,11 +4,10 @@ import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const todoRouter = createTRPCRouter({
   getTodos: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.session.user.id;
     const todos = await ctx.prisma.todo.findMany({
-      select: {
-        id: true,
-        text: true,
-        completed: true,
+      where: {
+        userId: userId,
       },
     });
     return todos;

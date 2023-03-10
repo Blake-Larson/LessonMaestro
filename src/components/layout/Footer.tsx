@@ -3,7 +3,7 @@ import Logo from "../Logo";
 
 const Footer = () => {
   return (
-    <footer className="custom-10vh mt-auto grid w-full grid-cols-1 items-center bg-neutral px-3 py-0.5 text-base-100 md:grid-cols-3">
+    <footer className="mt-auto hidden w-full items-center bg-neutral px-3 py-0.5 text-base-100 sm:grid sm:grid-cols-3">
       <div>
         <Logo />
       </div>
@@ -15,9 +15,7 @@ const Footer = () => {
           More work by Blake Larson
         </a>
       </div>
-      <p className="text-center md:text-end">
-        Copyright © 2023 - All right reserved
-      </p>
+      <p className="text-center sm:text-end">Copyright © 2023</p>
     </footer>
   );
 };

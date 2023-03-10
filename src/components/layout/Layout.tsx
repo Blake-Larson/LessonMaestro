@@ -5,19 +5,19 @@ import SideBar from "./SideBar";
 
 interface Props {
   children: JSX.Element;
-  title: string;
+  title: JSX.Element;
 }
 
 const Layout = ({ children, title }: Props) => {
   return (
     <>
-      <div className="drawer-mobile drawer">
+      <div className="drawer-mobile drawer h-screen w-full">
         <input id="drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex min-h-full flex-col">
           {/* <!-- Page content here --> */}
           <div className="sticky top-0 z-50 flex w-full items-center gap-5 border-b border-base-200 bg-base-100 p-3">
             <Hamburger />
-            <h1 className="font-lemon text-2xl">{title}</h1>
+            <div className="w-full">{title}</div>
           </div>
           <div className="flex w-full flex-col">{children}</div>
           <Footer />

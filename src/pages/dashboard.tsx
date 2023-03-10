@@ -24,7 +24,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 const Dashboard = () => {
   return (
     <>
-      <Layout title="Dashboard">
+      <Layout title={<h1 className="font-lemon text-2xl">Dashboard</h1>}>
         <div className="flex flex-col-reverse items-center justify-evenly gap-5 p-5 2xl:flex-row 2xl:items-start">
           Dashboard Content
           {/* <CreateLesson /> */}

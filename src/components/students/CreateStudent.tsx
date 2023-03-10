@@ -69,6 +69,8 @@ function CreateStudent({
     },
   });
 
+  // Form Handling
+
   const [formData, setFormData] = React.useState<FormData>({
     name: "",
     age: 0,
@@ -89,10 +91,12 @@ function CreateStudent({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formData, "Form Data");
+    formData.age = Number(formData.age);
     createMutation.mutate(formData);
     event.currentTarget.reset();
   };
+
+  //Set Focus on state change
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -149,9 +153,6 @@ function CreateStudent({
       />
       <button className="btn-secondary btn flex gap-2">
         <div>Submit</div>
-        <div className="cursor-pointer rounded-md border border-base-300 bg-base-100 p-0.5">
-          <AddIcon width="6" height="6" />
-        </div>
       </button>
     </form>
   );

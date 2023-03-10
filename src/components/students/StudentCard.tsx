@@ -11,10 +11,10 @@ function StudentCard({ student }: Props) {
   return (
     <Link
       href={`/student-profile/${encodeURIComponent(student.id)}`}
-      className="mx-2 flex w-full flex-col justify-center gap-5 rounded bg-primary p-4 shadow-lg"
+      className="flex w-full max-w-sm gap-5 rounded bg-base-200 p-4 shadow-lg"
     >
       <div className="avatar">
-        <div className="relative w-16 rounded">
+        <div className="relative h-16 w-16 rounded">
           <Image
             src={"/assets/images/teach.jpg"} //student.image
             fill
@@ -23,9 +23,19 @@ function StudentCard({ student }: Props) {
           />
         </div>
       </div>
-      <div className="">
-        <h2 className="">{student.name}</h2>
-        <p>{student.instrument}</p>
+      <div className="flex w-full flex-col">
+        <div className="flex justify-between">
+          <h2 className="font-bold">{student.name}</h2>
+          {student.status ? (
+            <span className="badge-primary badge font-light">Active</span>
+          ) : (
+            <span className="badge-accent badge font-light">Inactive</span>
+          )}
+        </div>
+        <span className="font-semibold">{student.instrument}</span>
+        <span className="font-semibold">
+          {student.age === 0 ? "" : student.age}
+        </span>
       </div>
     </Link>
   );

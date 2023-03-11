@@ -19,7 +19,7 @@ const Layout = ({ children, title }: Props) => {
             <Hamburger />
             <div className="w-full">{title}</div>
           </div>
-          <div className="flex w-full flex-col">{children}</div>
+          <div className="flex h-full w-full flex-col">{children}</div>
           <Footer />
         </div>
         <div className="drawer-side">

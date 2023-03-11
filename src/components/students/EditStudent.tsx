@@ -1,13 +1,11 @@
+import type { SetStateAction } from "react";
 import React, { useEffect, useRef } from "react";
 import CheckIcon from "../buttons/CheckIcon";
 import { api } from "../../utils/api";
 import type { StudentType } from "../../pages/students";
-
-type Edit = {
-  id: string;
-  field: string;
-  active: boolean;
-};
+import XIcon from "../buttons/XIcon";
+import type { Edit } from "../../pages/student-profile/[id]";
+import type { FieldType } from "./StudentInput";
 
 type FormData = {
   name: string;
@@ -22,10 +20,11 @@ type FormData = {
 
 interface Props {
   student: StudentType;
-  setStudent: React.Dispatch<React.SetStateAction<StudentType>>;
-  field: string;
+  setStudent: React.Dispatch<SetStateAction<StudentType | undefined>>;
+  field: keyof FieldType;
   inputType: string;
   setEdit: React.Dispatch<React.SetStateAction<Edit>>;
+  placeholder: string;
 }
 
 const EditStudent = ({
@@ -34,6 +33,7 @@ const EditStudent = ({
   field,
   inputType,
   setEdit,
+  placeholder,
 }: Props) => {
   const getStudent = api.student.getStudentByID.useQuery(
     { id: student.id },
@@ -108,6 +108,9 @@ const EditStudent = ({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (formData.age) {
+      formData.age = Number(formData.age);
+    }
     updateStudent.mutate(formData);
     event.currentTarget.reset();
   };
@@ -122,16 +125,28 @@ const EditStudent = ({
     <form className="flex items-center gap-1" onSubmit={handleSubmit}>
       <input
         ref={inputRef}
-        className="w-44 rounded border p-2"
+        className="input-bordered input mr-1 h-6 w-56"
         name={field}
         type={inputType}
-        placeholder={student[field]}
+        placeholder={placeholder}
         value={formData[field]}
         onChange={handleFormChange}
       />
-      <button className="hover:bg-green-500 cursor-pointer rounded-full p-1 duration-300 ease-in-out">
+      <button className="btn-primary btn-square btn-xs btn cursor-pointer p-1">
         <CheckIcon width="5" height="5" />
       </button>
+      <div
+        className="btn-error btn-square btn-xs btn cursor-pointer p-1"
+        onClick={() => {
+          setEdit({
+            id: "",
+            field: "",
+            active: false,
+          });
+        }}
+      >
+        <XIcon width="5" height="5" />
+      </div>
     </form>
   );
 };

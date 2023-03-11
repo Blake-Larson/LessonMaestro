@@ -14,11 +14,11 @@ function StudentCard({ student }: Props) {
       className="flex w-full max-w-sm gap-5 rounded bg-base-200 p-4 shadow-lg"
     >
       <div className="avatar">
-        <div className="relative h-16 w-16 rounded">
+        <div className="relative h-16 w-16 rounded-xl">
           <Image
-            src={"/assets/images/teach.jpg"} //student.image
+            src={"/assets/images/teach.jpg"} // replace with student.image
             fill
-            sizes="(max-width: 768px) 100%, 33%"
+            sizes="100%"
             alt={`photo of ${student.name}`}
           />
         </div>

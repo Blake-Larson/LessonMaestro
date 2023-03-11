@@ -83,7 +83,7 @@ const StudentsPage = () => {
           )}
           {/* Students */}
           <div
-            className={`lg:max- flex w-full flex-col items-center gap-5 py-5 lg:flex-row lg:flex-wrap lg:justify-center lg:px-5 ${
+            className={`flex w-full flex-col items-center gap-5 py-5 lg:flex-row lg:flex-wrap lg:justify-center lg:px-5 ${
               showForm ? "hidden" : "flex"
             }`}
           >

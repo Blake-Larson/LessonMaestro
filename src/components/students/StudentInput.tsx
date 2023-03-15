@@ -20,21 +20,30 @@ interface Props {
   edit: Edit;
   setEdit: React.Dispatch<React.SetStateAction<Edit>>;
   field: keyof FieldType;
+  capitalField: string;
   inputType: string;
   value: string;
 }
-
-function StudentInfo({
+//can we combine this component with editStudent?
+function StudentInput({
   student,
   setStudent,
   edit,
   setEdit,
   field,
+  capitalField,
   inputType,
   value,
 }: Props) {
   return (
     <div>
+      {field !== "name" && field !== "instrument" && (
+        <span
+          className={`inline-block w-20 ${
+            value ? "opacity-100" : "opacity-70"
+          }`}
+        >{`${capitalField}: `}</span>
+      )}
       {edit.field === field && edit.active ? (
         <EditStudent
           student={student}
@@ -55,11 +64,11 @@ function StudentInfo({
             })
           }
         >
-          {value ? value : <span className="opacity-70">{field}</span>}
+          {value}
         </span>
       )}
     </div>
   );
 }
 
-export default StudentInfo;
+export default StudentInput;

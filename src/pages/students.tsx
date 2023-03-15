@@ -56,21 +56,15 @@ const StudentsPage = () => {
           <div className="flex items-center justify-between">
             <h1 className="font-lemon text-2xl">Students</h1>
             <button
-              className={
-                showForm
-                  ? "btn-error btn-square btn"
-                  : "btn-secondary btn-square btn"
-              }
+              className={`btn-square btn-sm btn p-1 ${
+                showForm ? "btn-error" : "btn-secondary"
+              }`}
               onClick={() => setShowForm(!showForm)}
             >
               {showForm ? (
-                <div className="cursor-pointer rounded-md">
-                  <XIcon width="7" height="7" />
-                </div>
+                <XIcon width="5" height="5" />
               ) : (
-                <div className="cursor-pointer rounded-md">
-                  <AddIcon width="7" height="7" />
-                </div>
+                <AddIcon width="5" height="5" />
               )}
             </button>
           </div>

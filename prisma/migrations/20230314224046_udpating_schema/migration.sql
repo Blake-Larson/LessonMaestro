@@ -56,7 +56,7 @@ CREATE TABLE "Student" (
     "email" STRING,
     "contact" STRING,
     "instrument" STRING,
-    "status" BOOL NOT NULL,
+    "status" BOOL NOT NULL DEFAULT true,
     "image" STRING,
     "userId" STRING NOT NULL,
 
@@ -78,14 +78,21 @@ CREATE TABLE "Lesson" (
 
 -- CreateTable
 CREATE TABLE "Music" (
+    "id" STRING NOT NULL,
     "title" STRING NOT NULL,
-    "studentId" STRING NOT NULL
+    "composer" STRING NOT NULL,
+    "studentId" STRING NOT NULL,
+
+    CONSTRAINT "Music_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Work" (
+    "id" STRING NOT NULL,
     "text" STRING NOT NULL,
-    "studentId" STRING NOT NULL
+    "studentId" STRING NOT NULL,
+
+    CONSTRAINT "Work_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable

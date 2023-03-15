@@ -151,7 +151,7 @@ function CreateStudent({
         onChange={handleFormChange}
         className="input-bordered input w-full max-w-xs"
       />
-      <button className="btn-secondary btn flex gap-2">
+      <button className="btn-secondary btn flex gap-2" type="submit">
         <div>Submit</div>
       </button>
     </form>

@@ -10,7 +10,9 @@ import { prisma } from "../../server/db";
 import Router from "next/router";
 import Image from "next/image";
 import StudentInput from "../../components/students/StudentInput";
+import Music from "../../components/music/Music";
 
+//Move edit state to student input.
 export type Edit = {
   id: string;
   field: string;
@@ -59,6 +61,28 @@ const Student = (
     deleteMutation.mutate(id);
   }
 
+  //Update Status
+
+  const updateStatus = api.student.updateStatus.useMutation();
+
+  function handleStatusUpdate(student: StudentType) {
+    updateStatus.mutate(student);
+    setStudent({
+      name: student.name,
+      age: student.age,
+      phone: student.phone,
+      email: student.email,
+      contact: student.contact,
+      instrument: student.instrument,
+      status: !student.status,
+      image: student.image,
+      id: student.id,
+      lesson: student.lesson,
+      music: student.music,
+      work: student.work,
+    });
+  }
+
   return (
     <Layout title={<h1 className="font-lemon text-2xl">Students</h1>}>
       <>
@@ -79,21 +103,36 @@ const Student = (
                   />
                 </div>
               </div>
-              <div className="text-xl font-bold">
-                <StudentInput
-                  student={student}
-                  setStudent={setStudent}
-                  edit={edit}
-                  setEdit={setEdit}
-                  field={"name"}
-                  inputType={"text"}
-                  value={student.name}
-                />
+              <div className="flex flex-col items-center">
+                <div className="text-xl font-bold">
+                  <StudentInput
+                    student={student}
+                    setStudent={setStudent}
+                    edit={edit}
+                    setEdit={setEdit}
+                    field={"name"}
+                    capitalField={"Name"}
+                    inputType={"text"}
+                    value={student.name}
+                  />
+                </div>
+                <div>
+                  <StudentInput
+                    student={student}
+                    setStudent={setStudent}
+                    edit={edit}
+                    setEdit={setEdit}
+                    field={"instrument"}
+                    capitalField={"Instrument"}
+                    inputType={"text"}
+                    value={student.instrument ? student.instrument : ""}
+                  />
+                </div>
               </div>
             </div>
 
             <div className="mx-5 flex w-full max-w-sm flex-col items-center gap-3 rounded-lg bg-base-100 py-8 pl-8 text-left shadow-lg">
-              <h2 className="w-full text-lg font-semibold">Contact</h2>
+              <h2 className="w-full text-lg font-semibold">Information</h2>
               <div className="flex w-full flex-col gap-1">
                 <div>
                   <StudentInput
@@ -101,7 +140,20 @@ const Student = (
                     setStudent={setStudent}
                     edit={edit}
                     setEdit={setEdit}
+                    field={"age"}
+                    capitalField={"Age"}
+                    inputType={"number"}
+                    value={student.age ? student.age.toString() : ""}
+                  />
+                </div>
+                <div>
+                  <StudentInput
+                    student={student}
+                    setStudent={setStudent}
+                    edit={edit}
+                    setEdit={setEdit}
                     field={"phone"}
+                    capitalField={"Phone"}
                     inputType={"text"}
                     value={student.phone ? student.phone : ""}
                   />
@@ -113,6 +165,7 @@ const Student = (
                     edit={edit}
                     setEdit={setEdit}
                     field={"email"}
+                    capitalField={"Email"}
                     inputType={"email"}
                     value={student.email ? student.email : ""}
                   />
@@ -124,23 +177,32 @@ const Student = (
                     edit={edit}
                     setEdit={setEdit}
                     field={"contact"}
+                    capitalField={"Contact"}
                     inputType={"text"}
                     value={student.contact ? student.contact : ""}
                   />
                 </div>
+                <div>
+                  <span
+                    onClick={() => handleStatusUpdate(student)}
+                    className={"cursor-pointer"}
+                  >
+                    Status: {student.status ? "Active" : "Inactive"}
+                  </span>
+                </div>
               </div>
             </div>
-
-            <div>
-              <StudentInput
-                student={student}
-                setStudent={setStudent}
-                edit={edit}
-                setEdit={setEdit}
-                field={"age"}
-                inputType={"number"}
-                value={student.age ? student.age.toString() : ""}
-              />
+            <div className="mx-5 flex w-full max-w-sm flex-col items-center gap-3 rounded-lg bg-base-100 py-8  text-left shadow-lg">
+              <h2 className="w-full pl-8 text-lg font-semibold">Music</h2>
+              <div className="w-full px-2">
+                <Music studentId={student.id} />
+              </div>
+            </div>
+            <div className="mx-5 flex w-full max-w-sm flex-col items-center gap-3 rounded-lg bg-base-100 py-8 pl-8 text-left shadow-lg">
+              <h2 className="w-full text-lg font-semibold">Work</h2>
+            </div>
+            <div className="mx-5 flex w-full max-w-sm flex-col items-center gap-3 rounded-lg bg-base-100 py-8 pl-8 text-left shadow-lg">
+              <h2 className="w-full text-lg font-semibold">Lessons</h2>
             </div>
 
             <div

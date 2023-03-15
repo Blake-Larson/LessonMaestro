@@ -9,6 +9,7 @@ module.exports = {
     },
     fontFamily: {
       lemon: ["Lemonada"],
+      poppins: ["Poppins"],
     },
   },
   daisyui: {

@@ -142,6 +142,35 @@ export const studentRouter = createTRPCRouter({
       return studentForm;
     }),
 
+  updateStatus: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        status: z.boolean(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const userId = ctx.session.user.id;
+      const currentStatus = await ctx.prisma.student.findMany({
+        where: {
+          id: input.id,
+          userId: userId,
+        },
+        select: {
+          status: true,
+        },
+      });
+      await ctx.prisma.student.updateMany({
+        where: {
+          id: input.id,
+          userId: userId,
+        },
+        data: {
+          status: !currentStatus[0]?.status,
+        },
+      });
+    }),
+
   deleteStudent: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ input, ctx }) => {

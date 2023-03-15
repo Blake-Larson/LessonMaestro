@@ -1,5 +1,4 @@
 import { type NextPage } from "next";
-import Head from "next/head";
 import Image from "next/image";
 import Footer from "../components/layout/Footer";
 import Card from "../components/index/Card";
@@ -10,11 +9,6 @@ import Logo from "../components/Logo";
 const Home: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>Create T3 App</title>
-        <meta name="description" content="My Music Studio Management App" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <main className="min-h-screen">
         <div>
           <div className="flex min-h-screen flex-col">

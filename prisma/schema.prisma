@@ -91,19 +91,22 @@ model Lesson {
 }
 
 model Music {
+    id        String  @id @default(cuid())
     title     String
+    composer  String?
     Student   Student @relation(fields: [studentId], references: [id])
     studentId String
 
-    @@unique([title, studentId])
+    @@unique([id, studentId])
 }
 
 model Work {
+    id        String  @id @default(cuid())
     text      String
     Student   Student @relation(fields: [studentId], references: [id])
     studentId String
 
-    @@unique([text, studentId])
+    @@unique([id, studentId])
 }
 
 model Todo {

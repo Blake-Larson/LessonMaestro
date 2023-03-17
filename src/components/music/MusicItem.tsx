@@ -34,8 +34,8 @@ function MusicItem({ musicItem, music, setMusic }: Props) {
     <>
       {item && (
         <li className="flex justify-between border-b border-base-300 border-opacity-50 p-1">
-          <div>
-            <span className="inline-block w-48 pl-1 hover:cursor-pointer">
+          <div className="w-full">
+            <span className="inline-block w-1/2 pl-1 hover:cursor-pointer">
               <EditMusicItem
                 item={item}
                 setItem={setItem}
@@ -44,7 +44,7 @@ function MusicItem({ musicItem, music, setMusic }: Props) {
                 placeholder={item.title ? item.title : "title"}
               />
             </span>
-            <span className="inline-block hover:cursor-pointer">
+            <span className="inline-block w-1/2 hover:cursor-pointer">
               <EditMusicItem
                 item={item}
                 setItem={setItem}

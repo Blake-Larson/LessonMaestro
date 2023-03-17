@@ -72,8 +72,8 @@ function CreateMusicItem({ studentId, music, setMusic }: Props) {
   return (
     <>
       <button
-        className={`btn-square btn-sm btn p-1 ${
-          showForm ? "btn-error" : "btn-secondary"
+        className={`btn-square btn-xs btn p-0.5 ${
+          showForm ? "btn-error self-start" : "btn-outline btn-secondary"
         }`}
         onClick={() => setShowForm(!showForm)}
       >
@@ -85,22 +85,22 @@ function CreateMusicItem({ studentId, music, setMusic }: Props) {
       </button>
       {showForm && (
         <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-          <div className="flex gap-1">
+          <div className="flex w-full gap-1">
             <input
               name="title"
               placeholder="Title"
-              className="input-bordered input h-8 w-48"
+              className="input-bordered input h-8 w-1/2"
               onChange={handleFormChange}
               required
             />
             <input
               name="composer"
               placeholder="Composer"
-              className="input-bordered input h-8 w-40 "
+              className="input-bordered input h-8 w-1/2"
               onChange={handleFormChange}
             />
           </div>
-          <button className="btn-secondary btn flex gap-2 self-center">
+          <button className="btn-secondary btn self-center">
             <div>Submit</div>
           </button>
         </form>

@@ -102,7 +102,7 @@ function EditMusicItem({ item, setItem, field, value, placeholder }: Props) {
             type="text"
             placeholder={placeholder}
             onChange={handleFormChange}
-            value={value}
+            value={formData[field]}
           />
           <button className="btn-primary btn-square btn-xs btn cursor-pointer p-1">
             <CheckIcon width="5" height="5" />

@@ -33,7 +33,7 @@ function Music({ studentId }: Props) {
           );
         })}
       </ul>
-      <div>
+      <div className="flex flex-col items-center gap-2">
         <CreateMusicItem
           studentId={studentId}
           music={music}

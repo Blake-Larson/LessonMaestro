@@ -17,6 +17,9 @@ function SideBar() {
           <Link href="/students">Students</Link>
         </li>
         <li>
+          <Link href="/music">Music</Link>
+        </li>
+        <li>
           <Link href="/account">Account Settings</Link>
         </li>
       </ul>

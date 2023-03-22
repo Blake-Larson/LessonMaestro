@@ -1,7 +1,14 @@
-import React from "react";
-import { useEffect, useRef } from "react";
+import React, { useState } from "react";
+import AddIcon from "../buttons/AddIcon";
 import { api } from "../../utils/api";
-import type { Music } from "@prisma/client";
+import type { MusicItemType } from "./MusicItem";
+import XIcon from "../buttons/XIcon";
+
+interface Props {
+  studentId: string;
+  music: MusicItemType[];
+  setMusic: React.Dispatch<React.SetStateAction<MusicItemType[]>>;
+}
 
 interface FormData {
   studentId: string;
@@ -10,15 +17,9 @@ interface FormData {
   year: string;
 }
 
-interface Props {
-  music: Music[];
-  setMusic: React.Dispatch<React.SetStateAction<Music[]>>;
-  showForm: boolean;
-  setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
-}
+function CreateMusicItem({ studentId, music, setMusic }: Props) {
+  const [showForm, setShowForm] = useState<boolean>(false);
 
-function CreateMusicItem({ music, setMusic, showForm, setShowForm }: Props) {
-  const getStudents = api.student.getStudents.useQuery();
   const getMusic = api.music.getMusic.useQuery(undefined, {
     enabled: false,
     onSuccess: (data) => {
@@ -33,17 +34,14 @@ function CreateMusicItem({ music, setMusic, showForm, setShowForm }: Props) {
           id: "",
           title: formData.title,
           composer: formData.composer,
-          year: "",
-          userId: "",
         },
       ]);
       setFormData({
-        studentId: "",
+        studentId: studentId,
         title: "",
         composer: "",
         year: "",
       });
-      setShowForm(false);
       await getMusic.refetch();
     },
     onError: () => {
@@ -54,7 +52,7 @@ function CreateMusicItem({ music, setMusic, showForm, setShowForm }: Props) {
   // Form Handling
 
   const [formData, setFormData] = React.useState<FormData>({
-    studentId: "",
+    studentId: studentId,
     title: "",
     composer: "",
     year: "",
@@ -74,46 +72,37 @@ function CreateMusicItem({ music, setMusic, showForm, setShowForm }: Props) {
     event.currentTarget.reset();
   };
 
-  //Set Focus on state change
-
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, [showForm]);
-
   return (
     <>
+      <button
+        className={`btn-square btn-xs btn p-0.5 ${
+          showForm ? "btn-error self-start" : "btn-outline btn-secondary"
+        }`}
+        onClick={() => setShowForm(!showForm)}
+      >
+        {showForm ? (
+          <XIcon width="5" height="5" />
+        ) : (
+          <AddIcon width="5" height="5" />
+        )}
+      </button>
       {showForm && (
         <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-          <input
-            type="text"
-            name="title"
-            placeholder="Title"
-            className="input-bordered input h-8 w-1/2"
-            onChange={handleFormChange}
-            required
-          />
-          <input
-            type="text"
-            name="composer"
-            placeholder="Composer"
-            className="input-bordered input h-8 w-1/2"
-            onChange={handleFormChange}
-          />
-          <input
-            type="text"
-            name="year"
-            placeholder="Year"
-            className="input-bordered input h-8 w-1/2"
-            onChange={handleFormChange}
-          />
-          {/* {getStudents.data?.map((student) => (
-            <label key={student.id}>
-              {student.name}
-              <input type="checkbox" value={student.id} />
-            </label>
-          ))} */}
+          <div className="flex w-full gap-1">
+            <input
+              name="title"
+              placeholder="Title"
+              className="input-bordered input h-8 w-1/2"
+              onChange={handleFormChange}
+              required
+            />
+            <input
+              name="composer"
+              placeholder="Composer"
+              className="input-bordered input h-8 w-1/2"
+              onChange={handleFormChange}
+            />
+          </div>
           <button className="btn-secondary btn self-center">
             <div>Submit</div>
           </button>

@@ -1,14 +1,13 @@
 import type { SetStateAction } from "react";
 import { useState } from "react";
 import React from "react";
-import type { StudentType } from "../../pages/students";
 import Image from "next/image";
 import EditStudent from "./EditStudent";
-import Music from "../../components/music/Music";
 import { api } from "../../utils/api";
 import XIcon from "../buttons/XIcon";
 import CheckIcon from "../buttons/CheckIcon";
 import EditIcon from "../buttons/EditIcon";
+import type { StudentWithAllFields } from "../../pages/student-profile/[id]";
 
 export type FormData = {
   name: string;
@@ -22,8 +21,8 @@ export type FormData = {
 };
 
 interface Props {
-  student: StudentType;
-  setStudent: React.Dispatch<SetStateAction<StudentType | undefined>>;
+  student: StudentWithAllFields;
+  setStudent: React.Dispatch<SetStateAction<StudentWithAllFields | undefined>>;
 }
 
 export type Edit = {
@@ -60,9 +59,10 @@ function StudentInfo({ student, setStudent }: Props) {
         status: true,
         image: formData.image ? formData.image : student.image,
         id: student.id,
-        lesson: student.lesson,
-        music: student.music,
+        userId: student.userId,
         work: student.work,
+        studentMusic: student.studentMusic,
+        lesson: student.lesson,
       });
       setFormData({
         name: "",
@@ -86,9 +86,28 @@ function StudentInfo({ student, setStudent }: Props) {
   });
   //Update Status
 
-  const updateStatus = api.student.updateStatus.useMutation();
+  const updateStatus = api.student.updateStatus.useMutation({
+    //Seems very WET to repeat here but it allows for state to update before the request. Not sure if there is a better way.
+    onSuccess: () => {
+      setStudent({
+        name: student.name,
+        age: student.age,
+        phone: student.phone,
+        email: student.email,
+        contact: student.contact,
+        instrument: student.instrument,
+        status: !student.status,
+        image: student.image,
+        id: student.id,
+        userId: student.userId,
+        work: student.work,
+        studentMusic: student.studentMusic,
+        lesson: student.lesson,
+      });
+    },
+  });
 
-  function handleStatusUpdate(student: StudentType) {
+  function handleStatusUpdate(student: StudentWithAllFields) {
     updateStatus.mutate(student);
     setStudent({
       name: student.name,
@@ -100,9 +119,10 @@ function StudentInfo({ student, setStudent }: Props) {
       status: !student.status,
       image: student.image,
       id: student.id,
-      lesson: student.lesson,
-      music: student.music,
+      userId: student.userId,
       work: student.work,
+      studentMusic: student.studentMusic,
+      lesson: student.lesson,
     });
   }
 

@@ -15,9 +15,10 @@ export const studentRouter = createTRPCRouter({
         instrument: true,
         status: true,
         image: true,
-        music: true,
+        studentMusic: true,
         work: true,
         lesson: true,
+        userId: true,
       },
       orderBy: [
         {
@@ -31,28 +32,17 @@ export const studentRouter = createTRPCRouter({
   getStudentByID: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ input, ctx }) => {
-      const userId = ctx.session.user.id;
-      const students = await ctx.prisma.student.findMany({
-        where: {
-          userId,
-          id: input.id,
-        },
-        select: {
-          id: true,
-          name: true,
-          age: true,
-          phone: true,
-          email: true,
-          contact: true,
-          instrument: true,
-          status: true,
-          image: true,
-          music: true,
+      const student = await ctx.prisma.student.findUnique({
+        include: {
+          studentMusic: { include: { music: true } },
           work: true,
           lesson: true,
         },
+        where: {
+          id: input.id,
+        },
       });
-      return students[0];
+      return student;
     }),
 
   createStudent: protectedProcedure
@@ -100,11 +90,9 @@ export const studentRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const userId = ctx.session.user.id;
-      const currentStudent = await ctx.prisma.student.findMany({
+      const currentStudent = await ctx.prisma.student.findUnique({
         where: {
           id: input.id,
-          userId: userId,
         },
         select: {
           id: true,
@@ -116,27 +104,26 @@ export const studentRouter = createTRPCRouter({
           instrument: true,
           status: true,
           image: true,
-          music: true,
+          studentMusic: true,
           work: true,
           lesson: true,
         },
       });
-      const studentForm = ctx.prisma.student.updateMany({
+      const studentForm = ctx.prisma.student.update({
         where: {
           id: input.id,
-          userId: userId,
         },
         data: {
-          name: input.name ? input.name : currentStudent[0]?.name,
-          age: input.age ? input.age : currentStudent[0]?.age,
-          phone: input.phone ? input.phone : currentStudent[0]?.phone,
-          email: input.email ? input.email : currentStudent[0]?.email,
-          contact: input.contact ? input.contact : currentStudent[0]?.contact,
+          name: input.name ? input.name : currentStudent?.name,
+          age: input.age ? input.age : currentStudent?.age,
+          phone: input.phone ? input.phone : currentStudent?.phone,
+          email: input.email ? input.email : currentStudent?.email,
+          contact: input.contact ? input.contact : currentStudent?.contact,
           instrument: input.instrument
             ? input.instrument
-            : currentStudent[0]?.instrument,
-          status: input.status ? input.status : currentStudent[0]?.status,
-          image: input.image ? input.image : currentStudent[0]?.image,
+            : currentStudent?.instrument,
+          status: input.status ? input.status : currentStudent?.status,
+          image: input.image ? input.image : currentStudent?.image,
         },
       });
       return studentForm;
@@ -174,12 +161,42 @@ export const studentRouter = createTRPCRouter({
   deleteStudent: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ input, ctx }) => {
-      const userId = ctx.session.user.id;
-      await ctx.prisma.student.deleteMany({
+      await ctx.prisma.student.delete({
         where: {
-          userId,
           id: input.id,
         },
       });
+    }),
+  addStudentMusic: protectedProcedure
+    .input(
+      z.object({
+        musicId: z.string(),
+        studentId: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const studentForm = ctx.prisma.studentMusic.create({
+        data: {
+          musicId: input.musicId,
+          studentId: input.studentId,
+        },
+      });
+      return studentForm;
+    }),
+
+  removeStudentMusic: protectedProcedure
+    .input(
+      z.object({
+        musicId: z.string(),
+        studentId: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const studentForm = ctx.prisma.studentMusic.delete({
+        where: {
+          studentId_musicId: input,
+        },
+      });
+      return studentForm;
     }),
 });

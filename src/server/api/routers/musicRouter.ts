@@ -3,17 +3,45 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const musicRouter = createTRPCRouter({
-  getMusic: protectedProcedure
+  getMusic: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.session.user.id;
+    const music = await ctx.prisma.music.findMany({
+      where: {
+        userId: userId,
+      },
+      select: {
+        id: true,
+        title: true,
+        composer: true,
+        year: true,
+        userId: true,
+        studentMusic: true,
+      },
+    });
+    return music;
+  }),
+
+  getMusicByStudentId: protectedProcedure
     .input(z.string())
     .query(async ({ input, ctx }) => {
+      const userId = ctx.session.user.id;
       const music = await ctx.prisma.music.findMany({
         where: {
-          studentId: input,
+          userId: userId,
+          NOT: {
+            studentMusic: {
+              some: {
+                studentId: input,
+              },
+            },
+          },
         },
         select: {
           id: true,
           title: true,
           composer: true,
+          year: true,
+          userId: true,
         },
       });
       return music;
@@ -22,21 +50,25 @@ export const musicRouter = createTRPCRouter({
   createMusicItem: protectedProcedure
     .input(
       z.object({
-        studentId: z.string(),
         title: z.string(),
         composer: z.string().optional(),
+        year: z.string().optional(),
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const todoForm = ctx.prisma.music.create({
+      const userId = ctx.session.user.id;
+      const musicForm = ctx.prisma.music.create({
         data: {
-          studentId: input.studentId,
           title: input.title,
           composer: input.composer,
+          year: input.year,
+          userId: userId,
         },
       });
-      return todoForm;
+      return musicForm;
     }),
+
+  //create update music item that adds students to music item
 
   updateMusicItem: protectedProcedure
     .input(

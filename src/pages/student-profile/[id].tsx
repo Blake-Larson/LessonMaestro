@@ -4,16 +4,25 @@ import { getServerAuthSession } from "../../server/auth";
 import { api } from "../../utils/api";
 import type { InferGetServerSidePropsType } from "next";
 import Layout from "../../components/layout/Layout";
-import type { StudentType } from "../students";
+import { Prisma } from "@prisma/client";
 import { prisma } from "../../server/db";
 import Router from "next/router";
 import StudentInfo from "../../components/students/StudentInfo";
+import StudentMusicList from "../../components/students/StudentMusicList";
 
-const Student = (
+const studentWithAllFields = Prisma.validator<Prisma.StudentArgs>()({
+  include: { studentMusic: true, lesson: true, work: true },
+});
+
+export type StudentWithAllFields = Prisma.StudentGetPayload<
+  typeof studentWithAllFields
+>;
+
+const StudentPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
   //Data Fetching
-  const [student, setStudent] = useState<StudentType>();
+  const [student, setStudent] = useState<StudentWithAllFields>();
   const { id } = props;
   const getStudents = api.student.getStudents.useQuery(undefined, {
     enabled: false,
@@ -59,15 +68,9 @@ const Student = (
               </h2>
               <span>Work in progress...</span>
             </div>
-            <div className="mx-5 flex w-full max-w-sm flex-col gap-3 rounded-lg bg-base-100 py-8 px-4 text-left shadow-lg">
-              <h2 className="max-w-fit border-b-2 border-primary text-lg font-semibold">
-                Music
-              </h2>
-              <span>Work in progress...</span>
-              {/* <div className="w-full">
-                <Music studentId={student.id} />
-              </div> */}
-            </div>
+
+            <StudentMusicList student={student} setStudent={setStudent} />
+
             <div className="mx-5 flex w-full max-w-sm flex-col gap-3 rounded-lg bg-base-100 py-8 px-4 text-left shadow-lg">
               <h2 className="max-w-fit border-b-2 border-primary text-lg font-semibold">
                 Work
@@ -79,7 +82,7 @@ const Student = (
                 Admin
               </h2>
               <div
-                className="btn-error btn-outline btn-sm btn self-center transition-transform duration-300 hover:scale-110"
+                className="btn-outline btn-error btn-sm btn self-center transition-transform duration-300 hover:scale-110"
                 onClick={() => deleteStudent({ id: student.id })}
               >
                 Delete Student
@@ -129,4 +132,4 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   }
 };
 
-export default Student;
+export default StudentPage;

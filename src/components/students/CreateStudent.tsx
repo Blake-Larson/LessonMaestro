@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import AddIcon from "../buttons/AddIcon";
 import { api } from "../../utils/api";
-import type { StudentType } from "../../pages/students";
+import type { StudentWithAllFields } from "../../pages/student-profile/[id]";
 
 type FormData = {
   name: string;
@@ -14,8 +13,8 @@ type FormData = {
 };
 
 interface Props {
-  students: StudentType[];
-  setStudents: React.Dispatch<React.SetStateAction<StudentType[]>>;
+  students: StudentWithAllFields[];
+  setStudents: React.Dispatch<React.SetStateAction<StudentWithAllFields[]>>;
   showForm: boolean;
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -48,8 +47,9 @@ function CreateStudent({
           image: formData.image,
           id: "",
           lesson: [],
-          music: [],
+          studentMusic: [],
           work: [],
+          userId: "",
         },
       ]);
       setFormData({

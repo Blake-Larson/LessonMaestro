@@ -2,16 +2,21 @@ import React, { useEffect, useState } from "react";
 import XIcon from "../buttons/XIcon";
 import { api } from "../../utils/api";
 import EditMusicItem from "./EditMusicItem";
-import type { Music } from "@prisma/client";
+
+export type MusicItemType = {
+  id: string;
+  title: string | null;
+  composer: string | null;
+};
 
 interface Props {
-  musicItem: Music;
-  music: Music[];
-  setMusic: React.Dispatch<React.SetStateAction<Music[]>>;
+  musicItem: MusicItemType;
+  music: MusicItemType[];
+  setMusic: React.Dispatch<React.SetStateAction<MusicItemType[]>>;
 }
 
 function MusicItem({ musicItem, music, setMusic }: Props) {
-  const [item, setItem] = useState<Music>();
+  const [item, setItem] = useState<MusicItemType>();
   useEffect(() => {
     setItem(musicItem);
   }, [musicItem]);
@@ -22,7 +27,7 @@ function MusicItem({ musicItem, music, setMusic }: Props) {
 
   function deleteMusicItem(id: string) {
     deleteMutation.mutate(id);
-    setMusic(music.filter((musicItem: Music) => musicItem.id !== id));
+    setMusic(music.filter((musicItem: MusicItemType) => musicItem.id !== id));
   }
 
   return (

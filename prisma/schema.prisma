@@ -59,23 +59,44 @@ model User {
     lesson        Lesson[]
     student       Student[]
     todo          Todo[]
+    Music         Music[]
 }
 
 model Student {
-    id         String   @id @default(cuid())
-    name       String
-    age        Int?
-    phone      String?
-    email      String?
-    contact    String?
-    instrument String?
-    status     Boolean  @default(true)
-    image      String?
-    music      Music[]
-    work       Work[]
-    lesson     Lesson[]
-    user       User     @relation(fields: [userId], references: [id])
-    userId     String
+    id           String         @id @default(cuid())
+    name         String
+    age          Int?
+    phone        String?
+    email        String?
+    contact      String?
+    instrument   String?
+    status       Boolean        @default(true)
+    image        String?
+    work         Work[]
+    lesson       Lesson[]
+    user         User           @relation(fields: [userId], references: [id])
+    userId       String
+    studentMusic StudentMusic[]
+}
+
+model Music {
+    id           String         @id @default(cuid())
+    title        String
+    composer     String?
+    year         String?
+    user         User           @relation(fields: [userId], references: [id])
+    userId       String
+    studentMusic StudentMusic[]
+}
+
+model StudentMusic {
+    studentId String
+    student   Student @relation(fields: [studentId], references: [id])
+
+    musicId String
+    music   Music  @relation(fields: [musicId], references: [id])
+
+    @@id([studentId, musicId])
 }
 
 model Lesson {
@@ -88,16 +109,6 @@ model Lesson {
     userId     String
     Student    Student  @relation(fields: [studentId], references: [id])
     studentId  String
-}
-
-model Music {
-    id        String  @id @default(cuid())
-    title     String
-    composer  String?
-    Student   Student @relation(fields: [studentId], references: [id])
-    studentId String
-
-    @@unique([id, studentId])
 }
 
 model Work {

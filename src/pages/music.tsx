@@ -3,18 +3,18 @@ import { api } from "../utils/api";
 import Layout from "../components/layout/Layout";
 import { type GetServerSidePropsContext } from "next";
 import { getServerAuthSession } from "../server/auth";
-import StudentCard from "../components/students/StudentCard";
-import CreateStudent from "../components/students/CreateStudent";
 import AddIcon from "../components/buttons/AddIcon";
 import XIcon from "../components/buttons/XIcon";
-import type { Student } from "@prisma/client";
+import CreateMusicItem from "../components/music/CreateMusicItem";
+import MusicCard from "../components/music/MusicCard";
+import type { Music } from "@prisma/client";
 
-const StudentsPage = () => {
+function Music() {
   const [showForm, setShowForm] = useState<boolean>(false);
-  const [students, setStudents] = useState<Student[]>([]);
-  const getStudents = api.student.getStudents.useQuery(undefined, {
+  const [music, setMusic] = useState<Music[]>([]);
+  const getMusic = api.music.getMusic.useQuery(undefined, {
     onSuccess: (data) => {
-      setStudents(data);
+      setMusic(data);
     },
   });
 
@@ -23,7 +23,7 @@ const StudentsPage = () => {
       <Layout
         title={
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl">Students</h1>
+            <h1 className="text-2xl">Music</h1>
             <button
               className={`btn-square btn-sm btn p-1 ${
                 showForm ? "btn-error" : "btn-secondary"
@@ -41,7 +41,7 @@ const StudentsPage = () => {
       >
         <div className="flex min-h-screen w-full flex-col items-center bg-primary-light">
           {/* Loading Button */}
-          {getStudents.isLoading && (
+          {getMusic.isLoading && (
             <button className="loading btn m-5 self-center"></button>
           )}
           {/* Students */}
@@ -50,15 +50,15 @@ const StudentsPage = () => {
               showForm ? "hidden" : "flex"
             }`}
           >
-            {students?.map((student) => {
-              return <StudentCard key={student.id} student={student} />;
+            {music?.map((musicItem) => {
+              return <MusicCard key={musicItem.id} musicItem={musicItem} />;
             })}
           </div>
 
           <div className={showForm ? "block pt-5" : "hidden pt-5"}>
-            <CreateStudent
-              students={students}
-              setStudents={setStudents}
+            <CreateMusicItem
+              music={music}
+              setMusic={setMusic}
               showForm={showForm}
               setShowForm={setShowForm}
             />
@@ -67,9 +67,9 @@ const StudentsPage = () => {
       </Layout>
     </>
   );
-};
+}
 
-export default StudentsPage;
+export default Music;
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const session = await getServerAuthSession(ctx);

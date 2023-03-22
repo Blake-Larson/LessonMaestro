@@ -10,7 +10,7 @@ interface Props {
 
 function Music({ studentId }: Props) {
   const [music, setMusic] = useState<MusicItemType[]>([]);
-  const getMusic = api.music.getMusic.useQuery(studentId, {
+  const getMusic = api.music.getMusic.useQuery(undefined, {
     onSuccess: (data) => {
       setMusic(data);
     },

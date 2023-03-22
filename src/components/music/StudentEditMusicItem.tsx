@@ -1,9 +1,10 @@
+import type { SetStateAction } from "react";
 import { useState } from "react";
 import React, { useEffect, useRef } from "react";
 import CheckIcon from "../buttons/CheckIcon";
 import { api } from "../../utils/api";
 import XIcon from "../buttons/XIcon";
-import type { Music } from "@prisma/client";
+import type { MusicItemType } from "./MusicItem";
 
 type FieldType = {
   title: string;
@@ -17,8 +18,8 @@ type Edit = {
 };
 
 interface Props {
-  item: Music;
-  setItem: React.Dispatch<React.SetStateAction<Music | undefined>>;
+  item: MusicItemType;
+  setItem: React.Dispatch<SetStateAction<MusicItemType | undefined>>;
   field: keyof FieldType;
   value: string | number | readonly string[] | undefined;
   placeholder: string;
@@ -28,7 +29,6 @@ interface FormData {
   id: string;
   title: string;
   composer: string;
-  year: string;
 }
 
 function EditMusicItem({ item, setItem, field, value, placeholder }: Props) {
@@ -38,15 +38,11 @@ function EditMusicItem({ item, setItem, field, value, placeholder }: Props) {
         id: item.id,
         title: formData.title ? formData.title : item.title,
         composer: formData.composer ? formData.composer : item.composer,
-        year: formData.year ? formData.year : item.year,
-        studentId: item.studentId,
-        userId: item.userId,
       });
       setFormData({
         id: item.id,
         title: "",
         composer: "",
-        year: "",
       });
       setEdit({
         id: "",
@@ -73,7 +69,6 @@ function EditMusicItem({ item, setItem, field, value, placeholder }: Props) {
     id: item.id,
     title: "",
     composer: "",
-    year: "",
   });
 
   function handleFormChange(event: React.ChangeEvent<HTMLInputElement>) {

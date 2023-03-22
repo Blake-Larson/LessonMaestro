@@ -7,7 +7,7 @@ import { api } from "../../utils/api";
 import XIcon from "../buttons/XIcon";
 import CheckIcon from "../buttons/CheckIcon";
 import EditIcon from "../buttons/EditIcon";
-import type { StudentWithAllFields } from "../../pages/student-profile/[id]";
+import type { StudentWithAllFields } from "../../pages/student/[id]";
 
 export type FormData = {
   name: string;
@@ -33,96 +33,20 @@ export type Edit = {
 function StudentInfo({ student, setStudent }: Props) {
   //Data Handling
 
-  const getStudent = api.student.getStudentByID.useQuery(
-    { id: student.id },
-    {
-      enabled: false,
-      onSuccess: (data) => {
-        if (data) {
-          setStudent(data);
-        }
-      },
-    }
-  );
-
   const updateStudent = api.student.updateStudent.useMutation({
-    onSuccess: async () => {
-      setStudent({
-        name: formData.name ? formData.name : student.name,
-        age: formData.age ? formData.age : student.age,
-        phone: formData.phone ? formData.phone : student.phone,
-        email: formData.email ? formData.email : student.email,
-        contact: formData.contact ? formData.contact : student.contact,
-        instrument: formData.instrument
-          ? formData.instrument
-          : student.instrument,
-        status: true,
-        image: formData.image ? formData.image : student.image,
-        id: student.id,
-        userId: student.userId,
-        work: student.work,
-        studentMusic: student.studentMusic,
-        lesson: student.lesson,
-      });
-      setFormData({
-        name: "",
-        age: 0,
-        phone: "",
-        email: "",
-        contact: "",
-        instrument: "",
-        image: "",
-        id: student.id,
-      });
-      setEdit({
-        group: "",
-        active: false,
-      });
-      await getStudent.refetch();
-    },
     onError: () => {
       console.log(updateStudent.error?.message);
     },
   });
   //Update Status
 
-  const updateStatus = api.student.updateStatus.useMutation({
-    //Seems very WET to repeat here but it allows for state to update before the request. Not sure if there is a better way.
-    onSuccess: () => {
-      setStudent({
-        name: student.name,
-        age: student.age,
-        phone: student.phone,
-        email: student.email,
-        contact: student.contact,
-        instrument: student.instrument,
-        status: !student.status,
-        image: student.image,
-        id: student.id,
-        userId: student.userId,
-        work: student.work,
-        studentMusic: student.studentMusic,
-        lesson: student.lesson,
-      });
-    },
-  });
+  const updateStatus = api.student.updateStatus.useMutation();
 
   function handleStatusUpdate(student: StudentWithAllFields) {
     updateStatus.mutate(student);
     setStudent({
-      name: student.name,
-      age: student.age,
-      phone: student.phone,
-      email: student.email,
-      contact: student.contact,
-      instrument: student.instrument,
+      ...student,
       status: !student.status,
-      image: student.image,
-      id: student.id,
-      userId: student.userId,
-      work: student.work,
-      studentMusic: student.studentMusic,
-      lesson: student.lesson,
     });
   }
 
@@ -160,6 +84,37 @@ function StudentInfo({ student, setStudent }: Props) {
       formData.age = Number(formData.age);
     }
     updateStudent.mutate(formData);
+    setStudent({
+      name: formData.name ? formData.name : student.name,
+      age: formData.age ? formData.age : student.age,
+      phone: formData.phone ? formData.phone : student.phone,
+      email: formData.email ? formData.email : student.email,
+      contact: formData.contact ? formData.contact : student.contact,
+      instrument: formData.instrument
+        ? formData.instrument
+        : student.instrument,
+      status: true,
+      image: formData.image ? formData.image : student.image,
+      id: student.id,
+      userId: student.userId,
+      work: student.work,
+      studentMusic: student.studentMusic,
+      lesson: student.lesson,
+    });
+    setFormData({
+      name: "",
+      age: 0,
+      phone: "",
+      email: "",
+      contact: "",
+      instrument: "",
+      image: "",
+      id: student.id,
+    });
+    setEdit({
+      group: "",
+      active: false,
+    });
     event.currentTarget.reset();
   };
 

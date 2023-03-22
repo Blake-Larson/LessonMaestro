@@ -5,20 +5,10 @@ import { createTRPCRouter, protectedProcedure } from "../trpc";
 export const studentRouter = createTRPCRouter({
   getStudents: protectedProcedure.query(async ({ ctx }) => {
     const students = await ctx.prisma.student.findMany({
-      select: {
-        id: true,
-        name: true,
-        age: true,
-        phone: true,
-        email: true,
-        contact: true,
-        instrument: true,
-        status: true,
-        image: true,
-        studentMusic: true,
+      include: {
+        studentMusic: { include: { music: true } },
         work: true,
         lesson: true,
-        userId: true,
       },
       orderBy: [
         {
@@ -175,13 +165,13 @@ export const studentRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const studentForm = ctx.prisma.studentMusic.create({
+      const newConnection = ctx.prisma.studentMusic.create({
         data: {
           musicId: input.musicId,
           studentId: input.studentId,
         },
       });
-      return studentForm;
+      return newConnection;
     }),
 
   removeStudentMusic: protectedProcedure
@@ -192,11 +182,11 @@ export const studentRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const studentForm = ctx.prisma.studentMusic.delete({
+      const disconnect = ctx.prisma.studentMusic.delete({
         where: {
           studentId_musicId: input,
         },
       });
-      return studentForm;
+      return disconnect;
     }),
 });

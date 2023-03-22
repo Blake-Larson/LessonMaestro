@@ -11,7 +11,11 @@ import StudentInfo from "../../components/students/StudentInfo";
 import StudentMusicList from "../../components/students/StudentMusicList";
 
 const studentWithAllFields = Prisma.validator<Prisma.StudentArgs>()({
-  include: { studentMusic: true, lesson: true, work: true },
+  include: {
+    studentMusic: { include: { music: true } },
+    lesson: true,
+    work: true,
+  },
 });
 
 export type StudentWithAllFields = Prisma.StudentGetPayload<

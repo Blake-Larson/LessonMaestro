@@ -17,9 +17,28 @@ export const musicRouter = createTRPCRouter({
         userId: true,
         studentMusic: true,
       },
+      orderBy: [
+        {
+          title: "asc",
+        },
+      ],
     });
     return music;
   }),
+
+  getMusicById: protectedProcedure
+    .input(z.string())
+    .query(async ({ input, ctx }) => {
+      const music = await ctx.prisma.music.findUnique({
+        include: {
+          studentMusic: { include: { music: true, student: true } },
+        },
+        where: {
+          id: input,
+        },
+      });
+      return music;
+    }),
 
   getMusicByStudentId: protectedProcedure
     .input(z.string())
@@ -36,13 +55,11 @@ export const musicRouter = createTRPCRouter({
             },
           },
         },
-        select: {
-          id: true,
-          title: true,
-          composer: true,
-          year: true,
-          userId: true,
-        },
+        orderBy: [
+          {
+            title: "asc",
+          },
+        ],
       });
       return music;
     }),
@@ -106,7 +123,7 @@ export const musicRouter = createTRPCRouter({
   deleteMusicItem: protectedProcedure
     .input(z.string())
     .mutation(async ({ input, ctx }) => {
-      await ctx.prisma.music.deleteMany({
+      await ctx.prisma.music.delete({
         where: {
           id: input,
         },

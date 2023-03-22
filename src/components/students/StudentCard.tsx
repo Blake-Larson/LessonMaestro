@@ -10,7 +10,7 @@ interface Props {
 function StudentCard({ student }: Props) {
   return (
     <Link
-      href={`/student-profile/${encodeURIComponent(student.id)}`}
+      href={`/student/${encodeURIComponent(student.id)}`}
       className="flex w-full max-w-sm gap-5 rounded bg-base-200 p-4 shadow-lg"
     >
       <div className="avatar">
@@ -27,9 +27,9 @@ function StudentCard({ student }: Props) {
         <div className="flex justify-between">
           <h2 className="font-bold">{student.name}</h2>
           {student.status ? (
-            <span className="badge badge-primary font-light">Active</span>
+            <span className="badge-primary badge font-light">Active</span>
           ) : (
-            <span className="badge badge-accent font-light">Inactive</span>
+            <span className="badge-accent badge font-light">Inactive</span>
           )}
         </div>
         <span className="font-semibold">{student.instrument}</span>

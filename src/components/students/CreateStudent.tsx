@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { api } from "../../utils/api";
-import type { StudentWithAllFields } from "../../pages/student-profile/[id]";
+import type { StudentWithAllFields } from "../../pages/student/[id]";
 
 type FormData = {
   name: string;
@@ -34,34 +34,6 @@ function CreateStudent({
 
   const createMutation = api.student.createStudent.useMutation({
     onSuccess: async () => {
-      setStudents([
-        ...students,
-        {
-          name: formData.name,
-          age: formData.age,
-          phone: formData.phone,
-          email: formData.email,
-          contact: formData.contact,
-          instrument: formData.instrument,
-          status: true,
-          image: formData.image,
-          id: "",
-          lesson: [],
-          studentMusic: [],
-          work: [],
-          userId: "",
-        },
-      ]);
-      setFormData({
-        name: "",
-        age: 0,
-        phone: "",
-        email: "",
-        contact: "",
-        instrument: "",
-        image: "",
-      });
-      setShowForm(false);
       await getStudents.refetch();
     },
     onError: () => {
@@ -93,6 +65,44 @@ function CreateStudent({
     event.preventDefault();
     formData.age = Number(formData.age);
     createMutation.mutate(formData);
+    setStudents(
+      [
+        ...students,
+        {
+          name: formData.name,
+          age: formData.age,
+          phone: formData.phone,
+          email: formData.email,
+          contact: formData.contact,
+          instrument: formData.instrument,
+          status: true,
+          image: formData.image,
+          id: "",
+          lesson: [],
+          studentMusic: [],
+          work: [],
+          userId: "",
+        },
+      ].sort(function (a, b) {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      })
+    );
+    setFormData({
+      name: "",
+      age: 0,
+      phone: "",
+      email: "",
+      contact: "",
+      instrument: "",
+      image: "",
+    });
+    setShowForm(false);
     event.currentTarget.reset();
   };
 

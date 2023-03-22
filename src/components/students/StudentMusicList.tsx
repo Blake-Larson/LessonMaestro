@@ -1,14 +1,10 @@
-import { SetStateAction, useEffect } from "react";
 import { useState } from "react";
 import React from "react";
-import Image from "next/image";
-import EditStudent from "./EditStudent";
 import { api } from "../../utils/api";
 import XIcon from "../buttons/XIcon";
-import CheckIcon from "../buttons/CheckIcon";
-import EditIcon from "../buttons/EditIcon";
-import type { StudentWithAllFields } from "../../pages/student-profile/[id]";
+import type { StudentWithAllFields } from "../../pages/student/[id]";
 import AddIcon from "../buttons/AddIcon";
+import type { Music } from "@prisma/client";
 
 export type FormData = {
   name: string;
@@ -23,7 +19,9 @@ export type FormData = {
 
 interface Props {
   student: StudentWithAllFields;
-  setStudent: React.Dispatch<SetStateAction<StudentWithAllFields | undefined>>;
+  setStudent: React.Dispatch<
+    React.SetStateAction<StudentWithAllFields | undefined>
+  >;
 }
 
 export type Edit = {
@@ -34,37 +32,60 @@ export type Edit = {
 function StudentMusicList({ student, setStudent }: Props) {
   //Data Handling
 
-  const getStudent = api.student.getStudentByID.useQuery(
-    {
-      id: student.id,
+  const [music, setMusic] = useState<Music[]>();
+  const getOtherMusic = api.music.getMusicByStudentId.useQuery(student.id, {
+    onSuccess: (data) => {
+      if (data) {
+        setMusic(data);
+      }
     },
-    {
-      enabled: false,
-      onSuccess: (data) => {
-        if (data) {
-          setStudent(data);
-        }
-      },
-    }
-  );
-
-  const getOtherMusic = api.music.getMusicByStudentId.useQuery(student.id);
+  });
 
   //Add Music Item to Student
 
   const addStudentMusic = api.student.addStudentMusic.useMutation();
 
-  function addMusicItem(musicId: string, studentId: string) {
+  function addMusicItem(musicId: string, studentId: string, musicItem: Music) {
     addStudentMusic.mutate({ musicId, studentId });
+    setStudent({
+      ...student,
+      studentMusic: [
+        ...student.studentMusic,
+        { musicId, studentId, music: musicItem },
+      ],
+    });
+    setMusic(music?.filter((musicItem: Music) => musicItem.id !== musicId));
   }
 
   //Delete MusicItem from Student
 
   const deleteMutation = api.student.removeStudentMusic.useMutation();
 
-  function deleteMusicItem(musicId: string, studentId: string) {
+  function deleteMusicItem(
+    musicId: string,
+    studentId: string,
+    musicItem: Music
+  ) {
     deleteMutation.mutate({ musicId, studentId });
-    // setMusic(music.filter((musicItem: MusicItemType) => musicItem.id !== id));
+    if (music) {
+      setMusic(
+        [...music, musicItem].sort(function (a, b) {
+          if (a.title < b.title) {
+            return -1;
+          }
+          if (a.title > b.title) {
+            return 1;
+          }
+          return 0;
+        })
+      );
+    }
+    setStudent({
+      ...student,
+      studentMusic: student.studentMusic.filter(
+        (item) => item.musicId !== musicId
+      ),
+    });
   }
 
   return (
@@ -73,51 +94,45 @@ function StudentMusicList({ student, setStudent }: Props) {
         Music
       </h2>
       <ul className="w-full">
-        {getStudent.data?.studentMusic.map((musicItem) => (
-          <li key={musicItem.musicId} className={"flex justify-between"}>
-            <div>{musicItem.music.title}</div>
+        {student.studentMusic.map((item) => (
+          <li key={item.musicId} className={"flex justify-between"}>
+            <div>{item.music.title}</div>
 
             <div
               className="btn-ghost btn-square btn-xs btn cursor-pointer transition-all duration-300 hover:scale-110 hover:bg-error"
-              onClick={() => deleteMusicItem(musicItem.musicId, student.id)}
+              onClick={() =>
+                deleteMusicItem(item.musicId, student.id, item.music)
+              }
             >
               <XIcon width="5" height="5" />
             </div>
           </li>
         ))}
       </ul>
-      <div>
-        <h4 className="">Add More music to student</h4>
-        <ul className="w-full">
-          {getOtherMusic.data?.map((musicItem) => (
-            <li key={musicItem.id} className="flex gap-3">
-              <button
-                className={
-                  "btn-ghost btn-square btn-xs btn p-0.5 hover:btn-secondary"
-                }
-                onClick={() => addMusicItem(musicItem.id, student.id)}
-              >
-                <AddIcon width="5" height="5" />
-              </button>
-              <div>{musicItem.title}</div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {music && (
+        <div>
+          <h4 className="">Add More music to student</h4>
+          <ul className="w-full">
+            {music.map((musicItem: Music) => (
+              <li key={musicItem.id} className="flex gap-3">
+                <button
+                  className={
+                    "btn-ghost btn-square btn-xs btn p-0.5 hover:btn-secondary"
+                  }
+                  onClick={() =>
+                    addMusicItem(musicItem.id, student.id, musicItem)
+                  }
+                >
+                  <AddIcon width="5" height="5" />
+                </button>
+                <div>{musicItem.title}</div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
 
 export default StudentMusicList;
-{
-  /* 
-            Have a list of assigned music
-
-            Have a way to add and remove pieces
-
-            Have an edit button that links to music profile page
-
-            maybe put all the pieces in a dropdown?
-            
-            */
-}

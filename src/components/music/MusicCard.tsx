@@ -9,7 +9,7 @@ interface Props {
 function MusicCard({ musicItem }: Props) {
   return (
     <Link
-      href={`/musicItem-profile/${encodeURIComponent(musicItem.id)}`}
+      href={`/music/${encodeURIComponent(musicItem.id)}`}
       className="flex w-full max-w-xs gap-5 rounded bg-base-200 p-4 shadow-lg"
     >
       <div className="flex w-full flex-col">

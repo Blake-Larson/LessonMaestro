@@ -5,18 +5,31 @@ import { type GetServerSidePropsContext } from "next";
 import { getServerAuthSession } from "../server/auth";
 import AddIcon from "../components/buttons/AddIcon";
 import XIcon from "../components/buttons/XIcon";
-import CreateMusicItem from "../components/music/CreateMusicItem";
+import { Prisma } from "@prisma/client";
 import MusicCard from "../components/music/MusicCard";
-import type { Music } from "@prisma/client";
+import CreateMusicItem from "../components/music/CreateMusicItem";
+
+const musicItemWithAllFields = Prisma.validator<Prisma.MusicArgs>()({
+  include: {
+    studentMusic: { include: { music: true, student: true } },
+  },
+});
+
+export type MusicItemWithAllFields = Prisma.MusicGetPayload<
+  typeof musicItemWithAllFields
+>;
 
 function Music() {
+  //Data Handling
   const [showForm, setShowForm] = useState<boolean>(false);
-  const [music, setMusic] = useState<Music[]>([]);
-  const getMusic = api.music.getMusic.useQuery(undefined, {
+  const [music, setMusic] = useState<MusicItemWithAllFields[]>([]);
+  api.music.getMusic.useQuery(undefined, {
     onSuccess: (data) => {
       setMusic(data);
     },
   });
+
+  //Edit Mode
 
   return (
     <>
@@ -39,20 +52,20 @@ function Music() {
           </div>
         }
       >
-        <div className="flex min-h-screen w-full flex-col items-center bg-primary-light">
-          {/* Loading Button */}
-          {getMusic.isLoading && (
-            <button className="loading btn m-5 self-center"></button>
-          )}
-          {/* Students */}
+        <div className="flex min-h-screen w-full flex-col items-center bg-base-200">
           <div
-            className={`flex w-full flex-col items-center gap-5 py-5 lg:flex-row lg:flex-wrap lg:justify-center lg:px-5 ${
+            className={`flex w-full flex-col items-center gap-3 py-5 lg:flex-row lg:flex-wrap lg:justify-center lg:px-5 ${
               showForm ? "hidden" : "flex"
             }`}
           >
-            {music?.map((musicItem) => {
-              return <MusicCard key={musicItem.id} musicItem={musicItem} />;
-            })}
+            {music?.map((musicItem) => (
+              <MusicCard
+                key={musicItem.id}
+                musicItem={musicItem}
+                music={music}
+                setMusic={setMusic}
+              />
+            ))}
           </div>
 
           <div className={showForm ? "block pt-5" : "hidden pt-5"}>

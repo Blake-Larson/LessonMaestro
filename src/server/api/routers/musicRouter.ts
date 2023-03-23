@@ -9,13 +9,8 @@ export const musicRouter = createTRPCRouter({
       where: {
         userId: userId,
       },
-      select: {
-        id: true,
-        title: true,
-        composer: true,
-        year: true,
-        userId: true,
-        studentMusic: true,
+      include: {
+        studentMusic: { include: { music: true, student: true } },
       },
       orderBy: [
         {
@@ -85,14 +80,13 @@ export const musicRouter = createTRPCRouter({
       return musicForm;
     }),
 
-  //create update music item that adds students to music item
-
   updateMusicItem: protectedProcedure
     .input(
       z.object({
         id: z.string(),
         title: z.string().optional(),
         composer: z.string().optional(),
+        year: z.string().optional(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -104,6 +98,7 @@ export const musicRouter = createTRPCRouter({
           id: true,
           title: true,
           composer: true,
+          year: true,
         },
       });
       const musicItem = ctx.prisma.music.updateMany({
@@ -115,6 +110,7 @@ export const musicRouter = createTRPCRouter({
           composer: input.composer
             ? input.composer
             : currentMusicItem?.composer,
+          year: input.year ? input.year : currentMusicItem?.year,
         },
       });
       return musicItem;

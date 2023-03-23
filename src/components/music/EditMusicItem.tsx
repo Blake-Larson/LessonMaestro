@@ -1,6 +1,6 @@
 import type { ChangeEventHandler, SetStateAction } from "react";
 import React from "react";
-import type { Edit } from "./MusicInfo";
+import type { Edit } from "./MusicCard";
 
 type FieldType = {
   title: string;
@@ -9,6 +9,7 @@ type FieldType = {
 };
 
 interface Props {
+  id: string;
   handleFormChange: ChangeEventHandler<HTMLInputElement> | undefined;
   inputValue: string;
   edit: Edit;
@@ -22,6 +23,7 @@ interface Props {
 }
 
 function EditMusicItem({
+  id,
   handleFormChange,
   inputValue,
   edit,
@@ -38,7 +40,7 @@ function EditMusicItem({
         {field !== "title" && (
           <span className={"inline-block w-24"}>{`${capitalField}: `}</span>
         )}
-        {edit.group === group && edit.active ? (
+        {edit.group === group && edit.active && edit.musicItemId === id ? (
           <div className="flex items-center gap-1">
             <input
               className="input-bordered input mr-1 h-6 w-56"

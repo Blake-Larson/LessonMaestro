@@ -91,10 +91,10 @@ model Music {
 
 model StudentMusic {
     studentId String
-    student   Student @relation(fields: [studentId], references: [id])
+    student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
     musicId String
-    music   Music  @relation(fields: [musicId], references: [id])
+    music   Music  @relation(fields: [musicId], references: [id], onDelete: Cascade)
 
     @@id([studentId, musicId])
 }

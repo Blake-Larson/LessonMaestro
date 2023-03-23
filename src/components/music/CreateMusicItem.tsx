@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useRef } from "react";
 import { api } from "../../utils/api";
-import type { Music } from "@prisma/client";
+import type { MusicItemWithAllFields } from "../../pages/music";
 
 interface FormData {
   studentId: string;
@@ -11,14 +11,13 @@ interface FormData {
 }
 
 interface Props {
-  music: Music[];
-  setMusic: React.Dispatch<React.SetStateAction<Music[]>>;
+  music: MusicItemWithAllFields[];
+  setMusic: React.Dispatch<React.SetStateAction<MusicItemWithAllFields[]>>;
   showForm: boolean;
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function CreateMusicItem({ music, setMusic, showForm, setShowForm }: Props) {
-  const getStudents = api.student.getStudents.useQuery();
   const getMusic = api.music.getMusic.useQuery(undefined, {
     enabled: false,
     onSuccess: (data) => {
@@ -27,23 +26,6 @@ function CreateMusicItem({ music, setMusic, showForm, setShowForm }: Props) {
   });
   const createMutation = api.music.createMusicItem.useMutation({
     onSuccess: async () => {
-      setMusic([
-        ...music,
-        {
-          id: "",
-          title: formData.title,
-          composer: formData.composer,
-          year: "",
-          userId: "",
-        },
-      ]);
-      setFormData({
-        studentId: "",
-        title: "",
-        composer: "",
-        year: "",
-      });
-      setShowForm(false);
       await getMusic.refetch();
     },
     onError: () => {
@@ -71,6 +53,34 @@ function CreateMusicItem({ music, setMusic, showForm, setShowForm }: Props) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     createMutation.mutate(formData);
+    setMusic(
+      [
+        ...music,
+        {
+          id: "",
+          title: formData.title,
+          composer: formData.composer,
+          year: "",
+          userId: "",
+          studentMusic: [],
+        },
+      ].sort(function (a, b) {
+        if (a.title < b.title) {
+          return -1;
+        }
+        if (a.title > b.title) {
+          return 1;
+        }
+        return 0;
+      })
+    );
+    setFormData({
+      studentId: "",
+      title: "",
+      composer: "",
+      year: "",
+    });
+    setShowForm(false);
     event.currentTarget.reset();
   };
 
@@ -87,6 +97,7 @@ function CreateMusicItem({ music, setMusic, showForm, setShowForm }: Props) {
       {showForm && (
         <form onSubmit={handleSubmit} className="flex flex-col gap-2">
           <input
+            ref={inputRef}
             type="text"
             name="title"
             placeholder="Title"
@@ -108,12 +119,6 @@ function CreateMusicItem({ music, setMusic, showForm, setShowForm }: Props) {
             className="input-bordered input h-8 w-1/2"
             onChange={handleFormChange}
           />
-          {/* {getStudents.data?.map((student) => (
-            <label key={student.id}>
-              {student.name}
-              <input type="checkbox" value={student.id} />
-            </label>
-          ))} */}
           <button className="btn-secondary btn self-center">
             <div>Submit</div>
           </button>

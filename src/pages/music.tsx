@@ -76,7 +76,6 @@ function Music() {
 
           <div className={showForm ? "block pt-5" : "hidden pt-5"}>
             <CreateMusicItem
-              music={music}
               setMusic={setMusic}
               showForm={showForm}
               setShowForm={setShowForm}

@@ -11,13 +11,12 @@ interface FormData {
 }
 
 interface Props {
-  music: MusicItemWithAllFields[];
   setMusic: React.Dispatch<React.SetStateAction<MusicItemWithAllFields[]>>;
   showForm: boolean;
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function CreateMusicItem({ music, setMusic, showForm, setShowForm }: Props) {
+function CreateMusicItem({ setMusic, showForm, setShowForm }: Props) {
   const getMusic = api.music.getMusic.useQuery(undefined, {
     enabled: false,
     onSuccess: (data) => {

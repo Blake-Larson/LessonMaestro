@@ -5,8 +5,6 @@ import { api } from "../../utils/api";
 import XIcon from "../buttons/XIcon";
 import CheckIcon from "../buttons/CheckIcon";
 import EditIcon from "../buttons/EditIcon";
-import DocumentIcon from "../buttons/DocumentIcon";
-import DeleteIcon from "../buttons/DeleteIcon";
 import type { MusicItemWithAllFields } from "../../pages/music";
 
 export type FormData = {

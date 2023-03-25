@@ -4,9 +4,6 @@ import PropTypes from "prop-types";
 interface Props {
   embedId: string;
 }
-interface PropsA {
-  embedId: string;
-}
 
 const YoutubeEmbed = ({ embedId }: Props) => (
   <div className="flex justify-center">

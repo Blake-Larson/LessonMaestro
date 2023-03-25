@@ -19,8 +19,9 @@ const Home: NextPage = () => {
               <div className="flex flex-col items-center gap-5 p-3 md:w-1/2 ">
                 <div>
                   <h1 className="mb-5 text-center text-3xl font-bold md:text-4xl">
-                    Enrich your teaching{" "}
-                    <span className="text-primary">experience</span>
+                    Enrich your
+                    <span className="text-primary"> teaching </span>
+                    experience
                   </h1>
                   <p className="max-w-2xl text-center text-lg">
                     My Music Studio is a tool used by music teachers to manage

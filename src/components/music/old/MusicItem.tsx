@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import XIcon from "../buttons/XIcon";
-import { api } from "../../utils/api";
-import EditMusicItem from "./EditMusicItem";
+import XIcon from "../../buttons/XIcon";
+import { api } from "../../../utils/api";
+import EditMusicItem from "../EditMusicItem";
 import type { Music } from "@prisma/client";
 
 interface Props {

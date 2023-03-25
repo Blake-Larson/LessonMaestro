@@ -1,4 +1,5 @@
 import type { Music } from "@prisma/client";
+import Link from "next/link";
 import React from "react";
 import type { StudentWithAllFields } from "../../pages/student/[id]";
 import AddIcon from "../buttons/AddIcon";
@@ -12,7 +13,7 @@ interface Props {
 const MusicMenu = ({ student, music, addMusicItem }: Props) => {
   return (
     <div className="group relative w-full">
-      <button className="flex w-full items-center justify-center gap-1 rounded bg-base-200 py-2 px-4 font-semibold">
+      <button className="flex w-full items-center justify-center gap-1 rounded bg-base-200 py-2 px-4">
         <span className="">Add additional music</span>
         <svg
           className="h-4 w-4 fill-current"
@@ -22,7 +23,7 @@ const MusicMenu = ({ student, music, addMusicItem }: Props) => {
           <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
         </svg>
       </button>
-      <ul className="absolute z-10 hidden w-full rounded-b border border-t-0 border-base-200 bg-base-100 group-hover:flex group-hover:flex-col">
+      <ul className="min-h-14 absolute z-10 hidden max-h-52 w-full overflow-auto rounded-b border border-t-0 border-base-200 bg-base-100 group-hover:flex group-hover:flex-col">
         {music?.map((musicItem: Music) => (
           <li
             key={musicItem.id}
@@ -35,6 +36,13 @@ const MusicMenu = ({ student, music, addMusicItem }: Props) => {
             <div>{musicItem.title}</div>
           </li>
         ))}
+        <div className="h-0.5 w-11/12 self-center bg-base-200"></div>
+        <Link
+          href={"/music"}
+          className="btn-ghost btn flex w-full animate-none"
+        >
+          Create more music
+        </Link>
       </ul>
     </div>
   );

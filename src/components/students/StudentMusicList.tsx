@@ -5,6 +5,7 @@ import XIcon from "../buttons/XIcon";
 import type { StudentWithAllFields } from "../../pages/student/[id]";
 import type { Music } from "@prisma/client";
 import MusicMenu from "./MusicMenu";
+import Link from "next/link";
 
 export type FormData = {
   name: string;
@@ -92,7 +93,7 @@ function StudentMusicList({ student, setStudent }: Props) {
       <ul className="w-full">
         {student.music.map((musicItem: Music) => (
           <li key={musicItem.id} className={"flex justify-between"}>
-            <div>{musicItem.title}</div>
+            <Link href={`/music`}>{musicItem.title}</Link>
 
             <div
               className="btn-ghost btn-square btn-xs btn cursor-pointer transition-all duration-300 hover:scale-110 hover:bg-error"

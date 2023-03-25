@@ -111,15 +111,12 @@ function MusicCard(props: Props) {
   return (
     <>
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-        <div
+        {/* <div
           className="btn-ghost btn-square btn-xs btn absolute top-2 right-2 p-0.5 opacity-60 hover:opacity-100 hover:btn-error"
           onClick={() => deleteMusicItem(musicItem.id)}
         >
           <DeleteIcon width="5" height="5" />
-        </div>
-        <div className="self-center">
-          <DocumentIcon width="20" height="20" />
-        </div>
+        </div> */}
         <div className="relative">
           <h2
             className={`max-w-fit border-b-2 border-primary text-lg font-semibold ${
@@ -204,6 +201,14 @@ function MusicCard(props: Props) {
               placeholder={musicItem.year ? musicItem.year : ""}
             />
           </div>
+          {edit.active && (
+            <div
+              className="transition-color btn-outline btn-error btn-sm btn mt-3 self-center duration-300"
+              onClick={() => deleteMusicItem(musicItem.id)}
+            >
+              Delete
+            </div>
+          )}
         </div>
       </form>
     </>

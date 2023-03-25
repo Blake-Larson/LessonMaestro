@@ -5,6 +5,7 @@ import XIcon from "../buttons/XIcon";
 import type { Student } from "@prisma/client";
 import type { MusicItemWithAllFields } from "../../pages/music";
 import StudentMenu from "./StudentMenu";
+import Link from "next/link";
 
 export type FormData = {
   name: string;
@@ -43,7 +44,7 @@ function MusicStudentList(props: Props) {
 
   const connectMusictoStudent = api.student.connectMusictoStudent.useMutation();
 
-  function addMusicItem(musicId: string, studentId: string, student: Student) {
+  function addStudent(musicId: string, studentId: string, student: Student) {
     connectMusictoStudent.mutate({ musicId, studentId });
     setMusicItem({ ...musicItem, student: [...musicItem.student, student] });
 
@@ -59,11 +60,7 @@ function MusicStudentList(props: Props) {
   const disconnectMusicFromStudent =
     api.student.disconnectMusicFromStudent.useMutation();
 
-  function deleteMusicItem(
-    musicId: string,
-    studentId: string,
-    student: Student
-  ) {
+  function deleteStudent(musicId: string, studentId: string, student: Student) {
     disconnectMusicFromStudent.mutate({ musicId, studentId });
     if (unconnectedStudents) {
       setUnconnectedStudents(
@@ -86,20 +83,20 @@ function MusicStudentList(props: Props) {
 
   return (
     <div>
-      <h2 className="max-w-fit border-b-2 border-primary text-lg font-semibold">
-        Students
+      <h2 className="max-w-fit border-b-2 border-primary font-semibold">
+        Assigned Students
       </h2>
       <div className="flex flex-col gap-5">
         <ul className="w-full">
           {musicItem.student?.map((student: Student) => (
             <li key={student.id} className={"flex justify-between"}>
-              <div>{student.name}</div>
+              <Link href={`/student/${encodeURIComponent(student.id)}`}>
+                {student.name}
+              </Link>
 
               <div
                 className="btn-ghost btn-square btn-xs btn cursor-pointer transition-all duration-300 hover:scale-110 hover:bg-error"
-                onClick={() =>
-                  deleteMusicItem(musicItem.id, student.id, student)
-                }
+                onClick={() => deleteStudent(musicItem.id, student.id, student)}
               >
                 <XIcon width="5" height="5" />
               </div>
@@ -109,7 +106,7 @@ function MusicStudentList(props: Props) {
         <StudentMenu
           musicItem={musicItem}
           unconnectedStudents={unconnectedStudents}
-          addMusicItem={addMusicItem}
+          addStudent={addStudent}
         />
       </div>
     </div>

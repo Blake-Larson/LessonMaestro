@@ -61,7 +61,7 @@ function Music() {
           >
             {music?.map((musicItem) => (
               <div
-                className="relative mx-5 mt-5 flex w-full max-w-xs flex-col gap-3 rounded-lg bg-base-100 py-8 px-4 text-left shadow-lg"
+                className="relative mx-5 mt-5 flex w-full max-w-xs flex-col gap-3 rounded-lg bg-base-100 py-4 px-4 text-left shadow-lg"
                 key={musicItem.id}
               >
                 <MusicCard

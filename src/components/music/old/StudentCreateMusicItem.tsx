@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import AddIcon from "../buttons/AddIcon";
-import { api } from "../../utils/api";
+import AddIcon from "../../buttons/AddIcon";
+import { api } from "../../../utils/api";
 import type { MusicItemType } from "./MusicItem";
-import XIcon from "../buttons/XIcon";
+import XIcon from "../../buttons/XIcon";
 
 interface Props {
   studentId: string;

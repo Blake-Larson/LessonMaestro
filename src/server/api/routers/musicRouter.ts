@@ -10,7 +10,7 @@ export const musicRouter = createTRPCRouter({
         userId: userId,
       },
       include: {
-        studentMusic: { include: { music: true, student: true } },
+        student: true,
       },
       orderBy: [
         {
@@ -26,7 +26,7 @@ export const musicRouter = createTRPCRouter({
     .query(async ({ input, ctx }) => {
       const music = await ctx.prisma.music.findUnique({
         include: {
-          studentMusic: { include: { music: true, student: true } },
+          student: true,
         },
         where: {
           id: input,
@@ -43,9 +43,9 @@ export const musicRouter = createTRPCRouter({
         where: {
           userId: userId,
           NOT: {
-            studentMusic: {
+            student: {
               some: {
-                studentId: input,
+                id: input,
               },
             },
           },

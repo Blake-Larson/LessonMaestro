@@ -12,7 +12,7 @@ import StudentMusicList from "../../components/students/StudentMusicList";
 
 const studentWithAllFields = Prisma.validator<Prisma.StudentArgs>()({
   include: {
-    studentMusic: { include: { music: true } },
+    music: true,
     lesson: true,
     work: true,
   },

@@ -5,8 +5,9 @@ import { api } from "../../utils/api";
 import XIcon from "../buttons/XIcon";
 import CheckIcon from "../buttons/CheckIcon";
 import EditIcon from "../buttons/EditIcon";
-import type { MusicItemWithAllFields } from "../../pages/music/[id]";
 import DocumentIcon from "../buttons/DocumentIcon";
+import DeleteIcon from "../buttons/DeleteIcon";
+import type { MusicItemWithAllFields } from "../../pages/music";
 
 export type FormData = {
   id: string;
@@ -17,7 +18,6 @@ export type FormData = {
 
 interface Props {
   musicItem: MusicItemWithAllFields;
-  music: MusicItemWithAllFields[];
   setMusic: React.Dispatch<React.SetStateAction<MusicItemWithAllFields[]>>;
 }
 
@@ -27,7 +27,9 @@ export type Edit = {
   active: boolean;
 };
 
-function MusicCard({ musicItem, music, setMusic }: Props) {
+function MusicCard(props: Props) {
+  const [musicItem, setMusicItem] = useState(props.musicItem);
+
   //Data Handling
 
   const updateMusic = api.music.updateMusicItem.useMutation({
@@ -64,27 +66,12 @@ function MusicCard({ musicItem, music, setMusic }: Props) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     updateMusic.mutate(formData);
-    setMusic(
-      [
-        ...music.filter((item) => item.id !== musicItem.id),
-        {
-          id: musicItem.id,
-          title: formData.title ? formData.title : musicItem.title,
-          composer: formData.composer ? formData.composer : musicItem.composer,
-          year: formData.year ? formData.year : musicItem.year,
-          userId: musicItem.userId,
-          studentMusic: musicItem.studentMusic,
-        },
-      ].sort(function (a, b) {
-        if (a.title < b.title) {
-          return -1;
-        }
-        if (a.title > b.title) {
-          return 1;
-        }
-        return 0;
-      })
-    );
+    setMusicItem({
+      ...musicItem,
+      title: formData.title ? formData.title : musicItem.title,
+      composer: formData.composer ? formData.composer : musicItem.composer,
+      year: formData.year ? formData.year : musicItem.year,
+    });
     setFormData({
       id: "",
       title: "",
@@ -104,16 +91,32 @@ function MusicCard({ musicItem, music, setMusic }: Props) {
   const deleteMutation = api.music.deleteMusicItem.useMutation();
 
   function deleteMusicItem(id: string) {
-    confirm("Are you sure you want to delete this piece of music?");
     deleteMutation.mutate(id);
+    props.setMusic((prevMusic) =>
+      [...prevMusic.filter((item) => item.id !== musicItem.id)].sort(function (
+        a,
+        b
+      ) {
+        if (a.title < b.title) {
+          return -1;
+        }
+        if (a.title > b.title) {
+          return 1;
+        }
+        return 0;
+      })
+    );
   }
 
   return (
     <>
-      <form
-        className="relative mx-5 mt-5 flex w-full max-w-xs flex-col gap-3 rounded-lg bg-base-100 py-8 px-4 text-left shadow-lg"
-        onSubmit={handleSubmit}
-      >
+      <form onSubmit={handleSubmit}>
+        <div
+          className="btn-ghost btn-square btn-xs btn absolute top-2 right-2 p-0.5 opacity-60 hover:opacity-100 hover:btn-error"
+          onClick={() => deleteMusicItem(musicItem.id)}
+        >
+          <DeleteIcon width="5" height="5" />
+        </div>
         <div className="w-32 self-center">
           <DocumentIcon width="5" height="5" />
         </div>
@@ -201,12 +204,6 @@ function MusicCard({ musicItem, music, setMusic }: Props) {
               placeholder={musicItem.year ? musicItem.year : ""}
             />
           </div>
-        </div>
-        <div
-          className="btn-outline btn-error btn-sm btn self-center transition-transform duration-300 hover:scale-110"
-          onClick={() => deleteMusicItem(musicItem.id)}
-        >
-          Delete
         </div>
       </form>
     </>

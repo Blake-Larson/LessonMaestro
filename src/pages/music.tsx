@@ -8,10 +8,11 @@ import XIcon from "../components/buttons/XIcon";
 import { Prisma } from "@prisma/client";
 import MusicCard from "../components/music/MusicCard";
 import CreateMusicItem from "../components/music/CreateMusicItem";
+import MusicStudentList from "../components/music/MusicStudentList";
 
 const musicItemWithAllFields = Prisma.validator<Prisma.MusicArgs>()({
   include: {
-    studentMusic: { include: { music: true, student: true } },
+    student: true,
   },
 });
 
@@ -59,12 +60,17 @@ function Music() {
             }`}
           >
             {music?.map((musicItem) => (
-              <MusicCard
+              <div
+                className="relative mx-5 mt-5 flex w-full max-w-xs flex-col gap-3 rounded-lg bg-base-100 py-8 px-4 text-left shadow-lg"
                 key={musicItem.id}
-                musicItem={musicItem}
-                music={music}
-                setMusic={setMusic}
-              />
+              >
+                <MusicCard
+                  key={musicItem.id}
+                  musicItem={musicItem}
+                  setMusic={setMusic}
+                />
+                <MusicStudentList musicItem={musicItem} />
+              </div>
             ))}
           </div>
 

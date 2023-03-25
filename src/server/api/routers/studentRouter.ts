@@ -6,7 +6,7 @@ export const studentRouter = createTRPCRouter({
   getStudents: protectedProcedure.query(async ({ ctx }) => {
     const students = await ctx.prisma.student.findMany({
       include: {
-        studentMusic: { include: { music: true } },
+        music: true,
         work: true,
         lesson: true,
       },
@@ -19,12 +19,41 @@ export const studentRouter = createTRPCRouter({
     return students;
   }),
 
+  getStudetsByNotMusicId: protectedProcedure
+    .input(z.string())
+    .query(async ({ input, ctx }) => {
+      const userId = ctx.session.user.id;
+      const students = await ctx.prisma.student.findMany({
+        where: {
+          userId: userId,
+          NOT: {
+            music: {
+              some: {
+                id: input,
+              },
+            },
+          },
+        },
+        include: {
+          music: true,
+          work: true,
+          lesson: true,
+        },
+        orderBy: [
+          {
+            name: "asc",
+          },
+        ],
+      });
+      return students;
+    }),
+
   getStudentByID: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ input, ctx }) => {
       const student = await ctx.prisma.student.findUnique({
         include: {
-          studentMusic: { include: { music: true } },
+          music: true,
           work: true,
           lesson: true,
         },
@@ -83,20 +112,6 @@ export const studentRouter = createTRPCRouter({
       const currentStudent = await ctx.prisma.student.findUnique({
         where: {
           id: input.id,
-        },
-        select: {
-          id: true,
-          name: true,
-          age: true,
-          phone: true,
-          email: true,
-          contact: true,
-          instrument: true,
-          status: true,
-          image: true,
-          studentMusic: true,
-          work: true,
-          lesson: true,
         },
       });
       const studentForm = ctx.prisma.student.update({
@@ -157,7 +172,8 @@ export const studentRouter = createTRPCRouter({
         },
       });
     }),
-  addStudentMusic: protectedProcedure
+
+  connectMusictoStudent: protectedProcedure
     .input(
       z.object({
         musicId: z.string(),
@@ -165,16 +181,20 @@ export const studentRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const newConnection = ctx.prisma.studentMusic.create({
+      const newConnection = ctx.prisma.student.update({
+        where: {
+          id: input.studentId,
+        },
         data: {
-          musicId: input.musicId,
-          studentId: input.studentId,
+          music: {
+            connect: { id: input.musicId },
+          },
         },
       });
       return newConnection;
     }),
 
-  removeStudentMusic: protectedProcedure
+  disconnectMusicFromStudent: protectedProcedure
     .input(
       z.object({
         musicId: z.string(),
@@ -182,9 +202,14 @@ export const studentRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const disconnect = ctx.prisma.studentMusic.delete({
+      const disconnect = ctx.prisma.student.update({
         where: {
-          studentId_musicId: input,
+          id: input.studentId,
+        },
+        data: {
+          music: {
+            disconnect: { id: input.musicId },
+          },
         },
       });
       return disconnect;

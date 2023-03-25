@@ -7,11 +7,11 @@ import StudentCard from "../components/students/StudentCard";
 import CreateStudent from "../components/students/CreateStudent";
 import AddIcon from "../components/buttons/AddIcon";
 import XIcon from "../components/buttons/XIcon";
-import type { Student } from "@prisma/client";
+import type { StudentWithAllFields } from "./student/[id]";
 
 const StudentsPage = () => {
   const [showForm, setShowForm] = useState<boolean>(false);
-  const [students, setStudents] = useState<Student[]>([]);
+  const [students, setStudents] = useState<StudentWithAllFields[]>([]);
   const getStudents = api.student.getStudents.useQuery(undefined, {
     onSuccess: (data) => {
       setStudents(data);

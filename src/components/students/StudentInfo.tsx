@@ -85,6 +85,7 @@ function StudentInfo({ student, setStudent }: Props) {
     }
     updateStudent.mutate(formData);
     setStudent({
+      ...student,
       name: formData.name ? formData.name : student.name,
       age: formData.age ? formData.age : student.age,
       phone: formData.phone ? formData.phone : student.phone,
@@ -93,13 +94,7 @@ function StudentInfo({ student, setStudent }: Props) {
       instrument: formData.instrument
         ? formData.instrument
         : student.instrument,
-      status: true,
       image: formData.image ? formData.image : student.image,
-      id: student.id,
-      userId: student.userId,
-      work: student.work,
-      studentMusic: student.studentMusic,
-      lesson: student.lesson,
     });
     setFormData({
       name: "",

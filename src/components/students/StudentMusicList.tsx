@@ -33,7 +33,7 @@ function StudentMusicList({ student, setStudent }: Props) {
   //Data Handling
 
   const [music, setMusic] = useState<Music[]>();
-  const getOtherMusic = api.music.getMusicByStudentId.useQuery(student.id, {
+  api.music.getMusicByStudentId.useQuery(student.id, {
     onSuccess: (data) => {
       if (data) {
         setMusic(data);
@@ -43,30 +43,28 @@ function StudentMusicList({ student, setStudent }: Props) {
 
   //Add Music Item to Student
 
-  const addStudentMusic = api.student.addStudentMusic.useMutation();
+  const connectMusictoStudent = api.student.connectMusictoStudent.useMutation();
 
   function addMusicItem(musicId: string, studentId: string, musicItem: Music) {
-    addStudentMusic.mutate({ musicId, studentId });
+    connectMusictoStudent.mutate({ musicId, studentId });
     setStudent({
       ...student,
-      studentMusic: [
-        ...student.studentMusic,
-        { musicId, studentId, music: musicItem },
-      ],
+      music: [...student.music, musicItem],
     });
     setMusic(music?.filter((musicItem: Music) => musicItem.id !== musicId));
   }
 
   //Delete MusicItem from Student
 
-  const deleteMutation = api.student.removeStudentMusic.useMutation();
+  const disconnectMusicFromStudent =
+    api.student.disconnectMusicFromStudent.useMutation();
 
   function deleteMusicItem(
     musicId: string,
     studentId: string,
     musicItem: Music
   ) {
-    deleteMutation.mutate({ musicId, studentId });
+    disconnectMusicFromStudent.mutate({ musicId, studentId });
     if (music) {
       setMusic(
         [...music, musicItem].sort(function (a, b) {
@@ -82,9 +80,7 @@ function StudentMusicList({ student, setStudent }: Props) {
     }
     setStudent({
       ...student,
-      studentMusic: student.studentMusic.filter(
-        (item) => item.musicId !== musicId
-      ),
+      music: student.music.filter((musicItem) => musicItem.id !== musicId),
     });
   }
 
@@ -94,14 +90,14 @@ function StudentMusicList({ student, setStudent }: Props) {
         Music
       </h2>
       <ul className="w-full">
-        {student.studentMusic.map((item) => (
-          <li key={item.musicId} className={"flex justify-between"}>
-            <div>{item.music.title}</div>
+        {student.music.map((musicItem: Music) => (
+          <li key={musicItem.id} className={"flex justify-between"}>
+            <div>{musicItem.title}</div>
 
             <div
               className="btn-ghost btn-square btn-xs btn cursor-pointer transition-all duration-300 hover:scale-110 hover:bg-error"
               onClick={() =>
-                deleteMusicItem(item.musicId, student.id, item.music)
+                deleteMusicItem(musicItem.id, student.id, musicItem)
               }
             >
               <XIcon width="5" height="5" />
@@ -109,28 +105,27 @@ function StudentMusicList({ student, setStudent }: Props) {
           </li>
         ))}
       </ul>
-      {music && (
-        <div>
-          <h4 className="">Add More music to student</h4>
-          <ul className="w-full">
-            {music.map((musicItem: Music) => (
-              <li key={musicItem.id} className="flex gap-3">
-                <button
-                  className={
-                    "btn-ghost btn-square btn-xs btn p-0.5 hover:btn-secondary"
-                  }
-                  onClick={() =>
-                    addMusicItem(musicItem.id, student.id, musicItem)
-                  }
-                >
-                  <AddIcon width="5" height="5" />
-                </button>
-                <div>{musicItem.title}</div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+
+      <div>
+        <h4 className="">Add More music to student</h4>
+        <ul className="w-full">
+          {music?.map((musicItem: Music) => (
+            <li key={musicItem.id} className="flex gap-3">
+              <button
+                className={
+                  "btn-ghost btn-square btn-xs btn p-0.5 hover:btn-secondary"
+                }
+                onClick={() =>
+                  addMusicItem(musicItem.id, student.id, musicItem)
+                }
+              >
+                <AddIcon width="5" height="5" />
+              </button>
+              <div>{musicItem.title}</div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

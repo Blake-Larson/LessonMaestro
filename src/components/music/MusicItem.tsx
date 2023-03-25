@@ -35,7 +35,7 @@ function MusicItem({ musicItem, music, setMusic }: Props) {
                 item={item}
                 setItem={setItem}
                 field={"title"}
-                value={item.title ? item.title : undefined}
+                value={item.title ? item.title : ""}
                 placeholder={item.title ? item.title : "title"}
               />
             </span>
@@ -44,7 +44,7 @@ function MusicItem({ musicItem, music, setMusic }: Props) {
                 item={item}
                 setItem={setItem}
                 field={"composer"}
-                value={item.composer ? item.composer : undefined}
+                value={item.composer ? item.composer : ""}
                 placeholder={item.composer ? item.composer : "composer"}
               />
             </span>

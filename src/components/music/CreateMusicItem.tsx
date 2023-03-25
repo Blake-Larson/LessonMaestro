@@ -53,16 +53,16 @@ function CreateMusicItem({ music, setMusic, showForm, setShowForm }: Props) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     createMutation.mutate(formData);
-    setMusic(
+    setMusic((prevMusic) =>
       [
-        ...music,
+        ...prevMusic,
         {
           id: "",
           title: formData.title,
           composer: formData.composer,
           year: "",
           userId: "",
-          studentMusic: [],
+          student: [],
         },
       ].sort(function (a, b) {
         if (a.title < b.title) {

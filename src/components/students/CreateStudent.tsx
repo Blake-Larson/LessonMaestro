@@ -79,7 +79,7 @@ function CreateStudent({
           image: formData.image,
           id: "",
           lesson: [],
-          studentMusic: [],
+          music: [],
           work: [],
           userId: "",
         },

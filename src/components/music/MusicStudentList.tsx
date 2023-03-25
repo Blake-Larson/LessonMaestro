@@ -2,9 +2,9 @@ import { useState } from "react";
 import React from "react";
 import { api } from "../../utils/api";
 import XIcon from "../buttons/XIcon";
-import AddIcon from "../buttons/AddIcon";
 import type { Student } from "@prisma/client";
 import type { MusicItemWithAllFields } from "../../pages/music";
+import StudentMenu from "./StudentMenu";
 
 export type FormData = {
   name: string;
@@ -89,38 +89,28 @@ function MusicStudentList(props: Props) {
       <h2 className="max-w-fit border-b-2 border-primary text-lg font-semibold">
         Students
       </h2>
-      <ul className="w-full">
-        {musicItem.student?.map((student: Student) => (
-          <li key={student.id} className={"flex justify-between"}>
-            <div>{student.name}</div>
-
-            <div
-              className="btn-ghost btn-square btn-xs btn cursor-pointer transition-all duration-300 hover:scale-110 hover:bg-error"
-              onClick={() => deleteMusicItem(musicItem.id, student.id, student)}
-            >
-              <XIcon width="5" height="5" />
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <div>
-        <h4 className="">Add to another student</h4>
+      <div className="flex flex-col gap-5">
         <ul className="w-full">
-          {unconnectedStudents?.map((student: Student) => (
-            <li key={student.id} className="flex gap-3">
-              <button
-                className={
-                  "btn-ghost btn-square btn-xs btn p-0.5 hover:btn-secondary"
-                }
-                onClick={() => addMusicItem(musicItem.id, student.id, student)}
-              >
-                <AddIcon width="5" height="5" />
-              </button>
+          {musicItem.student?.map((student: Student) => (
+            <li key={student.id} className={"flex justify-between"}>
               <div>{student.name}</div>
+
+              <div
+                className="btn-ghost btn-square btn-xs btn cursor-pointer transition-all duration-300 hover:scale-110 hover:bg-error"
+                onClick={() =>
+                  deleteMusicItem(musicItem.id, student.id, student)
+                }
+              >
+                <XIcon width="5" height="5" />
+              </div>
             </li>
           ))}
         </ul>
+        <StudentMenu
+          musicItem={musicItem}
+          unconnectedStudents={unconnectedStudents}
+          addMusicItem={addMusicItem}
+        />
       </div>
     </div>
   );

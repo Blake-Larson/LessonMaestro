@@ -3,8 +3,8 @@ import React from "react";
 import { api } from "../../utils/api";
 import XIcon from "../buttons/XIcon";
 import type { StudentWithAllFields } from "../../pages/student/[id]";
-import AddIcon from "../buttons/AddIcon";
 import type { Music } from "@prisma/client";
+import MusicMenu from "./MusicMenu";
 
 export type FormData = {
   name: string;
@@ -106,26 +106,7 @@ function StudentMusicList({ student, setStudent }: Props) {
         ))}
       </ul>
 
-      <div>
-        <h4 className="">Add More music to student</h4>
-        <ul className="w-full">
-          {music?.map((musicItem: Music) => (
-            <li key={musicItem.id} className="flex gap-3">
-              <button
-                className={
-                  "btn-ghost btn-square btn-xs btn p-0.5 hover:btn-secondary"
-                }
-                onClick={() =>
-                  addMusicItem(musicItem.id, student.id, musicItem)
-                }
-              >
-                <AddIcon width="5" height="5" />
-              </button>
-              <div>{musicItem.title}</div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <MusicMenu student={student} music={music} addMusicItem={addMusicItem} />
     </div>
   );
 }

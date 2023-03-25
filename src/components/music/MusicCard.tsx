@@ -110,15 +110,15 @@ function MusicCard(props: Props) {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <div
           className="btn-ghost btn-square btn-xs btn absolute top-2 right-2 p-0.5 opacity-60 hover:opacity-100 hover:btn-error"
           onClick={() => deleteMusicItem(musicItem.id)}
         >
           <DeleteIcon width="5" height="5" />
         </div>
-        <div className="w-32 self-center">
-          <DocumentIcon width="5" height="5" />
+        <div className="self-center">
+          <DocumentIcon width="20" height="20" />
         </div>
         <div className="relative">
           <h2

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { api } from "../utils/api";
 import Layout from "../components/layout/Layout";
-import { type GetServerSidePropsContext } from "next";
-import { getServerAuthSession } from "../server/auth";
 import AddIcon from "../components/buttons/AddIcon";
 import XIcon from "../components/buttons/XIcon";
 import { Prisma } from "@prisma/client";
@@ -88,20 +86,3 @@ function Music() {
 }
 
 export default Music;
-
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const session = await getServerAuthSession(ctx);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-}

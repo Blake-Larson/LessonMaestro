@@ -1,13 +1,12 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, privateProcedure } from "../trpc";
 
 export const musicRouter = createTRPCRouter({
-  getMusic: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx.session.user.id;
+  getMusic: privateProcedure.query(async ({ ctx }) => {
     const music = await ctx.prisma.music.findMany({
       where: {
-        userId: userId,
+        userId: ctx.userId,
       },
       include: {
         student: true,
@@ -21,7 +20,7 @@ export const musicRouter = createTRPCRouter({
     return music;
   }),
 
-  getMusicById: protectedProcedure
+  getMusicById: privateProcedure
     .input(z.string())
     .query(async ({ input, ctx }) => {
       const music = await ctx.prisma.music.findUnique({
@@ -35,13 +34,12 @@ export const musicRouter = createTRPCRouter({
       return music;
     }),
 
-  getMusicByStudentId: protectedProcedure
+  getMusicByStudentId: privateProcedure
     .input(z.string())
     .query(async ({ input, ctx }) => {
-      const userId = ctx.session.user.id;
       const music = await ctx.prisma.music.findMany({
         where: {
-          userId: userId,
+          userId: ctx.userId,
           NOT: {
             student: {
               some: {
@@ -59,7 +57,7 @@ export const musicRouter = createTRPCRouter({
       return music;
     }),
 
-  createMusicItem: protectedProcedure
+  createMusicItem: privateProcedure
     .input(
       z.object({
         title: z.string(),
@@ -68,19 +66,18 @@ export const musicRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const userId = ctx.session.user.id;
       const musicForm = ctx.prisma.music.create({
         data: {
           title: input.title,
           composer: input.composer,
           year: input.year,
-          userId: userId,
+          userId: ctx.userId,
         },
       });
       return musicForm;
     }),
 
-  updateMusicItem: protectedProcedure
+  updateMusicItem: privateProcedure
     .input(
       z.object({
         id: z.string(),
@@ -116,7 +113,7 @@ export const musicRouter = createTRPCRouter({
       return musicItem;
     }),
 
-  deleteMusicItem: protectedProcedure
+  deleteMusicItem: privateProcedure
     .input(z.string())
     .mutation(async ({ input, ctx }) => {
       await ctx.prisma.music.delete({

@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, privateProcedure } from "../trpc";
 
 export const lessonRouter = createTRPCRouter({
-  // getLessons: protectedProcedure.query(async ({ ctx }) => {
+  // getLessons: privateProcedure.query(async ({ ctx }) => {
   //   const lessons = await ctx.prisma.lesson.findMany({
   //     select: {
   //       archived: true,

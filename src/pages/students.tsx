@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { api } from "../utils/api";
 import Layout from "../components/layout/Layout";
-import { type GetServerSidePropsContext } from "next";
-import { getServerAuthSession } from "../server/auth";
 import StudentCard from "../components/students/StudentCard";
 import CreateStudent from "../components/students/CreateStudent";
 import AddIcon from "../components/buttons/AddIcon";
@@ -70,20 +68,3 @@ const StudentsPage = () => {
 };
 
 export default StudentsPage;
-
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const session = await getServerAuthSession(ctx);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-}

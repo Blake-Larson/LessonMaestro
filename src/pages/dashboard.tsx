@@ -1,8 +1,6 @@
 import React from "react";
 import Layout from "../components/layout/Layout";
 import Todos from "../components/todos/Todos";
-import { type GetServerSidePropsContext } from "next";
-import { getServerAuthSession } from "../server/auth";
 
 const Dashboard = () => {
   return (
@@ -20,20 +18,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const session = await getServerAuthSession(ctx);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-}

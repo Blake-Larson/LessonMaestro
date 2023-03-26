@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { type GetServerSidePropsContext } from "next";
-import { getServerAuthSession } from "../../server/auth";
+import type { GetStaticProps, NextPage } from "next";
 import { api } from "../../utils/api";
-import type { InferGetServerSidePropsType } from "next";
 import Layout from "../../components/layout/Layout";
 import { Prisma } from "@prisma/client";
-import { prisma } from "../../server/db";
 import Router from "next/router";
 import StudentInfo from "../../components/students/StudentInfo";
 import StudentMusicList from "../../components/students/StudentMusicList";
+import { generateSSGHelper } from "../../server/helpers/ssgHelper";
 
 const studentWithAllFields = Prisma.validator<Prisma.StudentArgs>()({
   include: {
@@ -22,12 +20,9 @@ export type StudentWithAllFields = Prisma.StudentGetPayload<
   typeof studentWithAllFields
 >;
 
-const StudentPage = (
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
-) => {
+const StudentPage: NextPage<{ id: string }> = ({ id }) => {
   //Data Fetching
   const [student, setStudent] = useState<StudentWithAllFields>();
-  const { id } = props;
   const getStudents = api.student.getStudents.useQuery(undefined, {
     enabled: false,
   });
@@ -99,41 +94,61 @@ const StudentPage = (
   );
 };
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const session = await getServerAuthSession(ctx);
-  const userId = session?.user.id;
-  const { id } = ctx.query;
+// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+//   const session = await getServerAuthSession(ctx);
+//   const userId = session?.user.id;
+//   const { id } = ctx.query;
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  } else if (id && typeof id === "string") {
-    const studentId = await prisma.student.findMany({
-      where: {
-        userId,
-        id: id,
-      },
-      select: {
-        id: true,
-      },
-    });
-    if (id === studentId[0]?.id) {
-      return { props: { id: id } };
-    } else {
-      return {
-        notFound: true, //redirects to 404 page
-      };
-    }
-  } else {
-    console.log("No id on query");
-    return {
-      notFound: true, //redirects to 404 page
-    };
-  }
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   } else if (id && typeof id === "string") {
+//     const studentId = await prisma.student.findMany({
+//       where: {
+//         userId,
+//         id: id,
+//       },
+//       select: {
+//         id: true,
+//       },
+//     });
+//     if (id === studentId[0]?.id) {
+//       return { props: { id: id } };
+//     } else {
+//       return {
+//         notFound: true, //redirects to 404 page
+//       };
+//     }
+//   } else {
+//     console.log("No id on query");
+//     return {
+//       notFound: true, //redirects to 404 page
+//     };
+//   }
+// };
+export const getStaticProps: GetStaticProps = async (context) => {
+  const ssg = generateSSGHelper();
+
+  const id = context.params?.id;
+
+  if (typeof id !== "string") throw new Error("no id");
+
+  await ssg.student.getStudentByID.prefetch({ id });
+
+  return {
+    props: {
+      trpcState: ssg.dehydrate(),
+      id,
+    },
+  };
+};
+
+export const getStaticPaths = () => {
+  return { paths: [], fallback: "blocking" };
 };
 
 export default StudentPage;

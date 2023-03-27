@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "node_modules/daisyui/dist/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     colors: {
       "primary-light": "rgba(102, 204, 138, 0.3)",

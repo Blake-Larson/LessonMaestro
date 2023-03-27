@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React from "react";
 import Hamburger from "../buttons/Hamburger";
 import Footer from "./Footer";
@@ -11,6 +12,11 @@ interface Props {
 const Layout = ({ children, title }: Props) => {
   return (
     <>
+      <Head>
+        <title>My Music Studio</title>
+        <meta name="description" content="My Music Studio Management App" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className="drawer-mobile drawer min-h-screen w-full">
         <input id="drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content min-h-full">

@@ -5,10 +5,16 @@ import Card from "../components/index/Card";
 import YoutubeEmbed from "../components/index/YoutubeEmbed";
 import Login from "../components/index/Login";
 import Logo from "../components/Logo";
+import Head from "next/head";
 
 const Home: NextPage = () => {
   return (
     <>
+      <Head>
+        <title>My Music Studio</title>
+        <meta name="description" content="My Music Studio Management App" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <main className="min-h-screen">
         <div>
           <div className="flex min-h-screen flex-col">

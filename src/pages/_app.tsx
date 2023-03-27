@@ -5,11 +5,11 @@ import "../styles/globals.css";
 
 const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
   return (
-    <ClerkProvider {...pageProps}>
-      <div className={"font-poppins"}>
+    <div className={"font-poppins"}>
+      <ClerkProvider {...pageProps}>
         <Component {...pageProps} />
-      </div>
-    </ClerkProvider>
+      </ClerkProvider>
+    </div>
   );
 };
 

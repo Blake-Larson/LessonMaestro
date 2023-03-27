@@ -3,7 +3,6 @@ import CreateTodo from "./CreateTodo";
 import { api } from "../../utils/api";
 import type { TodoInput } from "./Todo";
 import Todo from "./Todo";
-import { useUser } from "@clerk/nextjs";
 
 function Todos() {
   const [todos, setTodos] = useState<TodoInput[]>([]);
@@ -12,9 +11,6 @@ function Todos() {
       setTodos(data);
     },
   });
-
-  const { user } = useUser();
-  console.log(user);
 
   return (
     <div className="flex w-full max-w-lg flex-col items-center gap-5">

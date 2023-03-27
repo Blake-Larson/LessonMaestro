@@ -72,7 +72,7 @@ const Home: NextPage = () => {
             <div className="py-20 px-2">
               <YoutubeEmbed embedId={"WXCoNu3Z1Q8"} />
             </div>
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </div>
       </main>

@@ -18,9 +18,7 @@ const Home: NextPage = () => {
       <main className="min-h-screen">
         <div>
           <div className="flex min-h-screen flex-col">
-            <div className="absolute m-1">
-              <Logo />
-            </div>
+            <div className="absolute m-1">{/* <Logo /> */}</div>
             <div className="flex flex-col-reverse items-center border-b border-base-300 md:flex-row md:p-0">
               <div className="flex flex-col items-center gap-5 p-3 md:w-1/2 ">
                 <div>
@@ -38,18 +36,18 @@ const Home: NextPage = () => {
                 <Login />
               </div>
               <div className="relative h-screen max-h-[300px] w-full md:m-0 md:max-h-[800px] md:w-1/2 ">
-                <Image
+                {/* <Image
                   src="/assets/images/landing-bg.jpg"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"
                   alt="Lots of guitars, a Keyboard, and a mic in a room"
-                />
+                /> */}
               </div>
             </div>
             <div className="bg-secondary-light px-5 py-10 md:py-20">
               <div className="flex flex-col items-center gap-5 md:flex-row md:justify-evenly">
-                <Card
+                {/* <Card
                   src="/assets/images/organize.jpg"
                   alt="Keyboard, paper, and writing utensils"
                   title="Organize"
@@ -68,7 +66,7 @@ const Home: NextPage = () => {
                   title="Manage"
                   text="Keep track of your lesson times so you know what to expect for the
                   day."
-                />
+                /> */}
               </div>
             </div>
             <div className="py-20 px-2">

@@ -1,7 +1,7 @@
 {
   "name": "t3-my-music-studio",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "build": "next build",
     "dev": "next dev",
@@ -10,6 +10,20 @@
     "start": "next start",
     "typecheck": "tsc --noEmit"
   },
+  "routes": [
+    {
+      "src": "/_next/(.*)",
+      "dest": "/_next/$1"
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/?color=$1"
+    }
+  ],
   "dependencies": {
     "@clerk/nextjs": "^4.11.13",
     "@prisma/client": "^4.11.0",

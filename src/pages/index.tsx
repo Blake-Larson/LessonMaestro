@@ -32,12 +32,17 @@ const Home: NextPage = () => {
                 <Login />
               </div>
               <div className="relative h-screen max-h-[300px] w-full md:m-0 md:max-h-[800px] md:w-1/2 ">
-                <Image
+                {/* <Image
                   src="/assets/images/landing-bg.jpg"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"
                   alt="Lots of guitars, a Keyboard, and a mic in a room"
+                /> */}
+                <img
+                  src="/assets/images/landing-bg.jpg"
+                  alt="Lots of guitars, a Keyboard, and a mic in a room"
+                  className="object-cover"
                 />
               </div>
             </div>

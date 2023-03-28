@@ -57,7 +57,7 @@ const Home: NextPage = () => {
                   text="Save time so you can spend more time teaching your students!"
                 />
                 <Card
-                  src="/assets/images/manage.jpg"
+                  src={"/assets/images/manage.jpg"}
                   alt="Woman and child learning piano"
                   title="Manage"
                   text="Keep track of your lesson times so you know what to expect for the

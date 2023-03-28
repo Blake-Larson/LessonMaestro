@@ -15,16 +15,16 @@ datasource db {
 }
 
 model Student {
-    id         String   @id @default(cuid())
+    id         String    @id @default(cuid())
     name       String
     age        Int?
     phone      String?
     email      String?
     contact    String?
     instrument String?
-    status     Boolean  @default(true)
+    status     Boolean   @default(true)
     image      String?
-    work       Work[]
+    concept    Concept[]
     lesson     Lesson[]
     userId     String
     music      Music[]
@@ -43,14 +43,15 @@ model Lesson {
     id         String   @id @default(cuid())
     attendance String
     payment    String
+    comments   String
     archived   Boolean
     date       DateTime
     userId     String
-    Student    Student  @relation(fields: [studentId], references: [id])
+    student    Student  @relation(fields: [studentId], references: [id])
     studentId  String
 }
 
-model Work {
+model Concept {
     id        String  @id @default(cuid())
     text      String
     Student   Student @relation(fields: [studentId], references: [id])

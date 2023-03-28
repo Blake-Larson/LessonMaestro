@@ -1,15 +1,19 @@
 import { type AppType } from "next/app";
-import { ClerkProvider } from "@clerk/nextjs";
-import { api } from "../utils/api";
 import "../styles/globals.css";
+import { api } from "../utils/api";
+import { ClerkProvider } from "@clerk/nextjs";
+import Head from "next/head";
 
 const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
   return (
-    <div className={"font-poppins"}>
-      <ClerkProvider {...pageProps}>
-        <Component {...pageProps} />
-      </ClerkProvider>
-    </div>
+    <ClerkProvider {...pageProps}>
+      <Head>
+        <title>My Music Studio</title>
+        <meta name="description" content="My Music Studio Management App" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Component {...pageProps} />
+    </ClerkProvider>
   );
 };
 

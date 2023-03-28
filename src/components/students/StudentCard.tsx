@@ -11,6 +11,7 @@ function StudentCard({ student }: Props) {
   return (
     <Link
       href={`/student/${encodeURIComponent(student.id)}`}
+      as={`/student/${student.id}`}
       className="flex w-full max-w-sm gap-5 rounded bg-base-200 p-4 shadow-lg"
     >
       <div className="avatar">

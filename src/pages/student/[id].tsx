@@ -12,7 +12,7 @@ const studentWithAllFields = Prisma.validator<Prisma.StudentArgs>()({
   include: {
     music: true,
     lesson: true,
-    work: true,
+    concept: true,
   },
 });
 
@@ -47,8 +47,9 @@ const StudentPage: NextPage<{ id: string }> = ({ id }) => {
   });
 
   function deleteStudent(id: { id: string }) {
-    confirm("Are you sure you want to delete this student?");
-    deleteMutation.mutate(id);
+    if (confirm("Are you sure you want to delete this student?")) {
+      deleteMutation.mutate(id);
+    }
   }
 
   return (
@@ -94,42 +95,6 @@ const StudentPage: NextPage<{ id: string }> = ({ id }) => {
   );
 };
 
-// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-//   const session = await getServerAuthSession(ctx);
-//   const userId = session?.user.id;
-//   const { id } = ctx.query;
-
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: "/",
-//         permanent: false,
-//       },
-//     };
-//   } else if (id && typeof id === "string") {
-//     const studentId = await prisma.student.findMany({
-//       where: {
-//         userId,
-//         id: id,
-//       },
-//       select: {
-//         id: true,
-//       },
-//     });
-//     if (id === studentId[0]?.id) {
-//       return { props: { id: id } };
-//     } else {
-//       return {
-//         notFound: true, //redirects to 404 page
-//       };
-//     }
-//   } else {
-//     console.log("No id on query");
-//     return {
-//       notFound: true, //redirects to 404 page
-//     };
-//   }
-// };
 export const getStaticProps: GetStaticProps = async (context) => {
   const ssg = generateSSGHelper();
 

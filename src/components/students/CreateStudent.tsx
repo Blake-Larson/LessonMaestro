@@ -80,7 +80,7 @@ function CreateStudent({
           id: "",
           lesson: [],
           music: [],
-          work: [],
+          concept: [],
           userId: "",
         },
       ].sort(function (a, b) {

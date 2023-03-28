@@ -10,7 +10,7 @@ export const studentRouter = createTRPCRouter({
       },
       include: {
         music: true,
-        work: true,
+        concept: true,
         lesson: true,
       },
       orderBy: [
@@ -38,7 +38,7 @@ export const studentRouter = createTRPCRouter({
         },
         include: {
           music: true,
-          work: true,
+          concept: true,
           lesson: true,
         },
         orderBy: [
@@ -56,7 +56,7 @@ export const studentRouter = createTRPCRouter({
       const student = await ctx.prisma.student.findUnique({
         include: {
           music: true,
-          work: true,
+          concept: true,
           lesson: true,
         },
         where: {

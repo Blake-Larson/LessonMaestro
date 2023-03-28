@@ -6,14 +6,16 @@ import Head from "next/head";
 
 const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
   return (
-    <ClerkProvider {...pageProps}>
+    <>
+      {/* <ClerkProvider {...pageProps}> */}
       <Head>
         <title>My Music Studio</title>
         <meta name="description" content="My Music Studio Management App" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Component {...pageProps} />
-    </ClerkProvider>
+      {/* </ClerkProvider> */}
+    </>
   );
 };
 

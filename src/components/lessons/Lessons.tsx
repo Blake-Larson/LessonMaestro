@@ -27,7 +27,7 @@ export type LessonWithAllFields = Prisma.LessonGetPayload<
 const Lessons = () => {
   const [lessons, setLessons] = useState<LessonWithAllFields[]>();
 
-  api.lesson.getLessons.useQuery(undefined, {
+  const getLessons = api.lesson.getLessons.useQuery(undefined, {
     onSuccess: (data) => {
       setLessons(data);
     },

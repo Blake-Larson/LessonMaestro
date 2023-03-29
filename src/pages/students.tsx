@@ -19,8 +19,8 @@ const StudentsPage = () => {
   return (
     <>
       <Layout
-        title={
-          <div className="flex items-center justify-between">
+        topBar={
+          <div className="flex items-center gap-5">
             <h1 className="text-2xl">Students</h1>
             <button
               className={`btn-square btn-sm btn p-1 ${

@@ -41,13 +41,14 @@ model Music {
 
 model Lesson {
     id         String   @id @default(cuid())
-    attendance String
-    payment    String
-    comments   String
+    attendance String?
+    payment    String?
+    comments   String?
     archived   Boolean
-    date       DateTime
+    startDate  DateTime
+    endDate    DateTime
     userId     String
-    student    Student  @relation(fields: [studentId], references: [id])
+    student    Student  @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     studentId  String
 }
 

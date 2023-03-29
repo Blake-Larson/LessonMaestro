@@ -94,13 +94,16 @@ function CreateMusicItem({ setMusic, showForm, setShowForm }: Props) {
   return (
     <>
       {showForm && (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center gap-2"
+        >
           <input
             ref={inputRef}
             type="text"
             name="title"
             placeholder="Title"
-            className="input-bordered input h-8 w-1/2"
+            className="input-bordered input h-12"
             onChange={handleFormChange}
             required
           />
@@ -108,14 +111,14 @@ function CreateMusicItem({ setMusic, showForm, setShowForm }: Props) {
             type="text"
             name="composer"
             placeholder="Composer"
-            className="input-bordered input h-8 w-1/2"
+            className="input-bordered input h-12"
             onChange={handleFormChange}
           />
           <input
             type="text"
             name="year"
             placeholder="Year"
-            className="input-bordered input h-8 w-1/2"
+            className="input-bordered input h-12"
             onChange={handleFormChange}
           />
           <button className="btn-secondary btn self-center">

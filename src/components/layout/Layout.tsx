@@ -1,3 +1,4 @@
+import { UserButton, useUser } from "@clerk/nextjs";
 import React from "react";
 import Hamburger from "../buttons/Hamburger";
 import Footer from "./Footer";
@@ -5,10 +6,11 @@ import SideBar from "./SideBar";
 
 interface Props {
   children: JSX.Element;
-  title: JSX.Element;
+  topBar: JSX.Element;
 }
 
-const Layout = ({ children, title }: Props) => {
+const Layout = ({ children, topBar }: Props) => {
+  const { isSignedIn } = useUser();
   return (
     <>
       <div className="drawer-mobile drawer min-h-screen w-full">
@@ -17,7 +19,10 @@ const Layout = ({ children, title }: Props) => {
           {/* <!-- Page content here --> */}
           <div className="sticky top-0 z-50 flex w-full items-center gap-5 border-b border-base-200 bg-base-100 p-3">
             <Hamburger />
-            <div className="w-full">{title}</div>
+            <div className="flex w-full justify-between">
+              <div>{topBar}</div>
+              <div>{isSignedIn && <UserButton />}</div>
+            </div>
           </div>
           <div className="flex min-h-full w-full flex-col">{children}</div>
           <Footer />

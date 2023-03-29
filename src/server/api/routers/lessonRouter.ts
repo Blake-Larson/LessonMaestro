@@ -18,10 +18,61 @@ export const lessonRouter = createTRPCRouter({
       },
       orderBy: [
         {
-          date: "asc",
+          startDate: "asc",
         },
       ],
     });
     return lessons;
   }),
+  createLesson: privateProcedure
+    .input(
+      z.object({
+        startDate: z.date(),
+        endDate: z.date(),
+        studentId: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const studentForm = ctx.prisma.lesson.create({
+        data: {
+          archived: false,
+          startDate: input.startDate,
+          endDate: input.endDate,
+          studentId: input.studentId,
+          userId: ctx.userId,
+        },
+        select: { id: true },
+      });
+      return studentForm;
+    }),
+
+  connectLessontoStudent: privateProcedure
+    .input(
+      z.object({
+        lessonId: z.string(),
+        studentId: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const newConnection = ctx.prisma.student.update({
+        where: {
+          id: input.studentId,
+        },
+        data: {
+          lesson: {
+            connect: { id: input.lessonId },
+          },
+        },
+      });
+      return newConnection;
+    }),
+  deleteLesson: privateProcedure
+    .input(z.string())
+    .mutation(async ({ input, ctx }) => {
+      await ctx.prisma.lesson.delete({
+        where: {
+          id: input,
+        },
+      });
+    }),
 });

@@ -5,8 +5,10 @@ import Card from "../components/index/Card";
 import YoutubeEmbed from "../components/index/YoutubeEmbed";
 import Login from "../components/index/Login";
 import Logo from "../components/Logo";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 const Home: NextPage = () => {
+  const { isSignedIn } = useUser();
   return (
     <>
       <main className="min-h-screen">
@@ -14,6 +16,7 @@ const Home: NextPage = () => {
           <div className="flex min-h-screen flex-col">
             <div className="absolute m-1">
               <Logo />
+              <div className="ml-3">{isSignedIn && <UserButton />}</div>
             </div>
             <div className="flex flex-col-reverse items-center border-b border-base-300 md:flex-row md:p-0">
               <div className="flex flex-col items-center gap-5 p-3 md:w-1/2 ">
@@ -29,7 +32,7 @@ const Home: NextPage = () => {
                     what My Music Studio can do for you!
                   </p>
                 </div>
-                {/* <Login /> */}
+                <Login />
               </div>
               <div className="relative h-screen max-h-[300px] w-full md:m-0 md:max-h-[800px] md:w-1/2 ">
                 <Image

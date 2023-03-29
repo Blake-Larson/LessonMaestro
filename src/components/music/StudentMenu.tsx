@@ -13,7 +13,7 @@ const StudentMenu = ({ musicItem, unconnectedStudents, addStudent }: Props) => {
   return (
     <div className="group relative w-full">
       <button className="flex w-full items-center justify-center gap-1 rounded bg-base-200 py-2">
-        <span className="">Add to another student</span>
+        <span className="">Add to a student</span>
         <svg
           className="h-4 w-4 fill-current"
           xmlns="http://www.w3.org/2000/svg"

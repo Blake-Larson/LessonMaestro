@@ -63,7 +63,7 @@ const Lessons = () => {
                       <div className="avatar">
                         <div className="relative h-14 w-14 rounded-xl">
                           <Image
-                            src={"/assets/images/teach.jpg"} // replace with student.image
+                            src={"/images/teach.jpg"} // replace with student.image
                             fill
                             sizes="100%"
                             alt={`photo of ${lesson.student.name}`}

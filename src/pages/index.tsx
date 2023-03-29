@@ -36,7 +36,7 @@ const Home: NextPage = () => {
               </div>
               <div className="relative h-screen max-h-[300px] w-full md:m-0 md:max-h-[800px] md:w-1/2 ">
                 <Image
-                  src="/assets/images/landing-bg.jpg"
+                  src="/images/landing-bg.jpg"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"
@@ -47,20 +47,20 @@ const Home: NextPage = () => {
             <div className="bg-secondary-light px-5 py-10 md:py-20">
               <div className="flex flex-col items-center gap-5 md:flex-row md:justify-evenly">
                 <Card
-                  src="/assets/images/organize.jpg"
+                  src="/images/organize.jpg"
                   alt="Keyboard, paper, and writing utensils"
                   title="Organize"
                   text="Quickly view student information, current repertoire, and manage your
                   tasks."
                 />
                 <Card
-                  src="/assets/images/teach.jpg"
+                  src="/images/teach.jpg"
                   alt="Young person being taught guitar"
                   title="Teach"
                   text="Save time so you can spend more time teaching your students!"
                 />
                 <Card
-                  src={"/assets/images/manage.jpg"}
+                  src={"/images/manage.jpg"}
                   alt="Woman and child learning piano"
                   title="Manage"
                   text="Keep track of your lesson times so you know what to expect for the

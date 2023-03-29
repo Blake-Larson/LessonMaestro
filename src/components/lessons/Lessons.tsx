@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Link from "next/link";
 import Image from "next/image";
+import LessonMusic from "./LessonMusic";
 
 dayjs.extend(relativeTime);
 
@@ -104,23 +105,7 @@ const Lessons = () => {
                   </div>
                 </div>
                 <div className="collapse-content flex flex-col gap-5 bg-base-100">
-                  <div className="flex flex-col rounded-xl py-2">
-                    <div>Music and Work</div>
-                  </div>
-                  <div className="flex flex-col gap-3 md:flex-row">
-                    <ul className="w-full">
-                      {lesson.student.music.map((musicItem: Music) => (
-                        <li key={musicItem.id}>
-                          <Link href={"/music"}>{musicItem.title}</Link>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="w-full">
-                      {lesson.student.concept.map((concept: Concept) => (
-                        <span key={concept.id}>{concept.text}</span>
-                      ))}
-                    </div>
-                  </div>
+                  <LessonMusic lesson={lesson} />
                   <div className="flex justify-between">
                     <div className="flex items-center gap-3">
                       <Link

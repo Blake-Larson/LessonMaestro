@@ -86,7 +86,7 @@ function StudentMusicList({ student, setStudent }: Props) {
   }
 
   return (
-    <div className="relative mx-5 flex w-full max-w-sm flex-col gap-3 rounded-lg bg-base-100 py-8 px-4 text-left shadow-lg">
+    <div className="relative mx-5 flex w-full max-w-sm flex-col gap-3 rounded-lg bg-base-100 py-4 px-4 text-left shadow-lg">
       <h2 className="max-w-fit border-b-2 border-primary text-lg font-semibold">
         Music
       </h2>

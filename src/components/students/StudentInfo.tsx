@@ -116,7 +116,7 @@ function StudentInfo({ student, setStudent }: Props) {
   return (
     <>
       <form
-        className="relative mx-5 mt-5 flex w-full max-w-sm flex-col items-center gap-3 rounded-lg bg-base-100 py-8 shadow-lg"
+        className="relative mx-5 mt-5 flex w-full max-w-sm flex-col items-center gap-3 rounded-lg bg-base-100 py-4 shadow-lg"
         onSubmit={handleSubmit}
       >
         <div className="absolute top-2 right-2">
@@ -154,7 +154,7 @@ function StudentInfo({ student, setStudent }: Props) {
         <div className="avatar">
           <div className="relative h-16 w-16 rounded-xl">
             <Image
-              src={"/assets/images/teach.jpg"} // replace with student.image
+              src={"/images/teach.jpg"} // replace with student.image
               fill
               sizes="100%"
               alt={`photo of ${student.name}`}

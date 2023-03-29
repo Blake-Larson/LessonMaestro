@@ -55,7 +55,7 @@ function EditStudent({
       ) : (
         <span className="h-full w-full">
           <span className={`${value ? "opacity-100" : "opacity-50"}`}>
-            {value ? value : "add information"}
+            {value}
           </span>
         </span>
       )}

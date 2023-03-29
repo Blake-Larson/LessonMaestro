@@ -53,7 +53,7 @@ const StudentPage: NextPage<{ id: string }> = ({ id }) => {
   }
 
   return (
-    <Layout title={<h1 className="font-lemon text-2xl">Students</h1>}>
+    <Layout topBar={<h1 className="font-lemon text-2xl">Students</h1>}>
       <>
         {getStudent.isLoading && (
           <button className="loading btn mt-5 self-center">loading</button>

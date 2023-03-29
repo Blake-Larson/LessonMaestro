@@ -12,6 +12,7 @@ const isPublic = (path: string) => {
 };
 
 export default withClerkMiddleware((request: NextRequest) => {
+  console.log("middleware", request.nextUrl.pathname);
   if (isPublic(request.nextUrl.pathname)) {
     return NextResponse.next();
   }
@@ -29,5 +30,5 @@ export default withClerkMiddleware((request: NextRequest) => {
 });
 
 export const config = {
-  matcher: "/((?!_next/image|_next/static|favicon.ico).*)",
+  matcher: "/((?!_next/image|_next/static|assets|favicon.ico).*)",
 };

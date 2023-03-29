@@ -39,7 +39,7 @@ export const config = {
      * - public /images folder
      * - public /assets folder
      */
-    "/((?!_next/image|_next/static|favicon.ico|images|assets).*)",
+    "/((?!_next/image|_next/static|favicon.ico|images|assets/*).*)",
     "/",
   ],
 };

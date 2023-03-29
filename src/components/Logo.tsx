@@ -8,7 +8,7 @@ const Logo = () => {
       <div className="flex items-center gap-2">
         <div className="relative h-12 w-12 rounded-full bg-base-100">
           <Image
-            src="/assets/logo/logo.png"
+            src="/assets/logo.png"
             fill
             sizes="10vw"
             className="object-cover"

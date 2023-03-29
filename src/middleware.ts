@@ -39,7 +39,7 @@ export const config = {
      * - public /images folder
      * - public /assets folder
      */
-    "/(.*?trpc.*?|(?!_next/image|_next/static/chunks/main-dc058f0eae45839e.js|favicon.ico|images|assets|_next/static).*)",
+    "/(.*?trpc.*?|(?!_next/image|_next/static/|favicon.ico|images|assets).*)",
     "/",
   ],
 };

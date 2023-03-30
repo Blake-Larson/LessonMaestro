@@ -1,12 +1,12 @@
 import { useState } from "react";
 import React from "react";
-import Image from "next/image";
 import EditStudent from "./EditStudent";
 import { api } from "../../utils/api";
 import XIcon from "../buttons/XIcon";
 import CheckIcon from "../buttons/CheckIcon";
 import EditIcon from "../buttons/EditIcon";
 import type { StudentWithAllFields } from "../../pages/student/[id]";
+import StudentImage from "./StudentImage";
 
 export type FormData = {
   name: string;
@@ -116,10 +116,7 @@ function StudentInfo({ student, setStudent }: Props) {
 
   return (
     <>
-      <form
-        className="relative mx-5 mt-5 flex w-full max-w-sm flex-col items-center gap-3 rounded-lg bg-base-100 py-4 shadow-lg"
-        onSubmit={handleSubmit}
-      >
+      <div className="relative mx-5 mt-5 flex w-full max-w-sm flex-col items-center gap-3 rounded-lg bg-base-100 py-4 shadow-lg">
         <div className="absolute top-2 right-2">
           {edit.active && edit.group === "idCard" ? (
             <div className="flex gap-1">
@@ -152,53 +149,47 @@ function StudentInfo({ student, setStudent }: Props) {
             </div>
           )}
         </div>
-        <div className="avatar">
-          <div className="relative h-16 w-16 rounded-xl">
-            <Image
-              src={"/images/teach.jpg"} // replace with student.image
-              fill
-              sizes="100%"
-              alt={`photo of ${student.name}`}
-            />
+
+        <StudentImage student={student} setStudent={setStudent} />
+        <form onSubmit={handleSubmit}>
+          <div className="flex flex-col items-center gap-1">
+            <div
+              className={`${
+                edit.active
+                  ? "border-none"
+                  : "border-b-4 border-primary text-2xl font-bold"
+              }`}
+            >
+              <EditStudent
+                handleFormChange={handleFormChange}
+                inputValue={formData.name}
+                edit={edit}
+                setEdit={setEdit}
+                field={"name"}
+                group={"idCard"}
+                capitalField={"Name"}
+                inputType={"text"}
+                value={student.name}
+                placeholder={student.name}
+              />
+            </div>
+            <div>
+              <EditStudent
+                handleFormChange={handleFormChange}
+                inputValue={formData.instrument}
+                edit={edit}
+                setEdit={setEdit}
+                field={"instrument"}
+                group={"idCard"}
+                capitalField={"Instrument"}
+                inputType={"text"}
+                value={student.instrument ? student.instrument : ""}
+                placeholder={student.instrument ? student.instrument : ""}
+              />
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col items-center gap-1">
-          <div
-            className={`${
-              edit.active
-                ? "border-none"
-                : "border-b-4 border-primary text-2xl font-bold"
-            }`}
-          >
-            <EditStudent
-              handleFormChange={handleFormChange}
-              inputValue={formData.name}
-              edit={edit}
-              setEdit={setEdit}
-              field={"name"}
-              group={"idCard"}
-              capitalField={"Name"}
-              inputType={"text"}
-              value={student.name}
-              placeholder={student.name}
-            />
-          </div>
-          <div>
-            <EditStudent
-              handleFormChange={handleFormChange}
-              inputValue={formData.instrument}
-              edit={edit}
-              setEdit={setEdit}
-              field={"instrument"}
-              group={"idCard"}
-              capitalField={"Instrument"}
-              inputType={"text"}
-              value={student.instrument ? student.instrument : ""}
-              placeholder={student.instrument ? student.instrument : ""}
-            />
-          </div>
-        </div>
-      </form>
+        </form>
+      </div>
 
       <form
         className="relative mx-5 flex w-full max-w-sm flex-col gap-3 rounded-lg bg-base-100 py-8 px-4 text-left shadow-lg"

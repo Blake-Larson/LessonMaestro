@@ -6,6 +6,7 @@ import type { Student } from "@prisma/client";
 import type { MusicItemWithAllFields } from "../../pages/music";
 import StudentMenu from "./StudentMenu";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 export type FormData = {
   name: string;
@@ -37,6 +38,9 @@ function MusicStudentList(props: Props) {
       if (data) {
         setUnconnectedStudents(data);
       }
+    },
+    onError: (e) => {
+      toast.error(e.message);
     },
   });
 

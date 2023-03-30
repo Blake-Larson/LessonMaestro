@@ -7,6 +7,7 @@ import CheckIcon from "../buttons/CheckIcon";
 import EditIcon from "../buttons/EditIcon";
 import type { StudentWithAllFields } from "../../pages/student/[id]";
 import StudentImage from "./StudentImage";
+import toast from "react-hot-toast";
 
 export type FormData = {
   name: string;
@@ -35,8 +36,8 @@ function StudentInfo({ student, setStudent }: Props) {
   //Data Handling
 
   const updateStudent = api.student.updateStudent.useMutation({
-    onError: () => {
-      console.log(updateStudent.error?.message);
+    onError: (e) => {
+      toast.error(e.message);
     },
   });
   //Update Status

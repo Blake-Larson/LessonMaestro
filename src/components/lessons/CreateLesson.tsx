@@ -2,6 +2,7 @@ import React from "react";
 import { api } from "../../utils/api";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { toast } from "react-hot-toast";
 
 dayjs.extend(relativeTime);
 
@@ -33,8 +34,8 @@ function CreateLesson({ setShowForm }: Props) {
       }
       await getLessons.refetch();
     },
-    onError: () => {
-      console.log(createMutation.error?.message);
+    onError: (e) => {
+      toast.error(e.message);
     },
   });
 
@@ -76,7 +77,6 @@ function CreateLesson({ setShowForm }: Props) {
       endDate,
       studentId: formData.studentId,
     });
-
     setFormData({
       studentId: "",
       date: new Date(),

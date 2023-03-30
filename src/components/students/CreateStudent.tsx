@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { api } from "../../utils/api";
 import type { StudentWithAllFields } from "../../pages/student/[id]";
+import toast from "react-hot-toast";
 
 type FormData = {
   name: string;
@@ -36,8 +37,8 @@ function CreateStudent({
     onSuccess: async () => {
       await getStudents.refetch();
     },
-    onError: () => {
-      console.log(createMutation.error?.message);
+    onError: (e) => {
+      toast.error(e.message);
     },
   });
 

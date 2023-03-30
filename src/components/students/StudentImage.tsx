@@ -55,7 +55,7 @@ const StudentImage = ({ student, setStudent }: Props) => {
           method="post"
           //   onSubmit={() => handleOnSubmit}
         >
-          <input type="file" name="file" /*onChange={handleFormChange} */ />
+          {/* <input type="file" name="file" onChange={handleFormChange} /> */}
           <div className="avatar">
             <div className="relative h-16 w-16 rounded-xl">
               {student.image ? (
@@ -75,7 +75,7 @@ const StudentImage = ({ student, setStudent }: Props) => {
               )}
             </div>
           </div>
-          <button>Submit</button>
+          {/* <button>Submit</button> */}
         </form>
       )}
     </>

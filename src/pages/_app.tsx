@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import { api } from "../utils/api";
 import { ClerkProvider } from "@clerk/nextjs";
 import Head from "next/head";
+import { Toaster } from "react-hot-toast";
 
 const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
   return (
@@ -12,6 +13,7 @@ const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
         <meta name="description" content="My Music Studio Management App" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Toaster position="bottom-center" reverseOrder={false} />
       <Component {...pageProps} />
     </ClerkProvider>
   );

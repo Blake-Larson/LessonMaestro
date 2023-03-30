@@ -13,6 +13,7 @@ export const lessonRouter = createTRPCRouter({
           include: {
             music: true,
             concepts: true,
+            lessons: true,
           },
         },
       },
@@ -34,6 +35,8 @@ export const lessonRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input, ctx }) => {
+      if (input.startDate > input.endDate)
+        throw new Error("Start date must be before end date");
       const lessonForm = ctx.prisma.lesson.create({
         data: {
           archived: false,

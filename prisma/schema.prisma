@@ -67,6 +67,4 @@ model Todo {
     text      String
     completed Boolean
     userId    String
-
-    @@unique([text, userId])
 }

@@ -17,7 +17,7 @@ function StudentCard({ student }: Props) {
       <div className="avatar">
         <div className="relative h-16 w-16 rounded-xl">
           <Image
-            src={"/images/teach.jpg"} // replace with student.image
+            src={"/images/blank-profile.webp"} // replace with student.image
             fill
             sizes="100%"
             alt={`photo of ${student.name}`}

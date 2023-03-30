@@ -3,6 +3,7 @@ import AddIcon from "../buttons/AddIcon";
 import { useForm } from "react-hook-form";
 import { api } from "../../utils/api";
 import type { TodoInput } from "./Todo";
+import toast from "react-hot-toast";
 
 type FormData = {
   text: string;
@@ -42,8 +43,8 @@ function CreateTodo({ todos, setTodos }: Props) {
       void getTodos.refetch();
       reset();
     },
-    onError: () => {
-      console.log(mutation.error?.message);
+    onError: (e) => {
+      toast.error(e.message);
     },
   });
 
@@ -59,10 +60,6 @@ function CreateTodo({ todos, setTodos }: Props) {
         {...register("text", { required: true })}
         className="input-bordered input w-full max-w-xs"
       />
-      {errors.text && <span>This field is required</span>}
-      {mutation.error?.message.includes(
-        "Unique constraint failed on the fields: (`text,userId`)"
-      ) && <span>You already have that task.</span>}
 
       <button className="cursor-pointer rounded-md border border-base-300 bg-base-100 p-0.5 transition-transform duration-300 hover:scale-110">
         <AddIcon width="6" height="6" />

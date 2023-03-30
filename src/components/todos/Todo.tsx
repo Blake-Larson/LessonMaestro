@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import DeleteIcon from "../buttons/DeleteIcon";
 import { api } from "../../utils/api";
+import XIcon from "../buttons/XIcon";
 
 interface Props {
   todo: TodoInput;
@@ -40,10 +40,10 @@ const Todo = ({ todo, todos, setTodos }: Props) => {
         {todo.text}
       </li>
       <div
-        className="inline-block cursor-pointer rounded-md p-1 transition-all duration-300 hover:scale-110 hover:bg-error"
+        className="btn-ghost btn-square btn-xs btn cursor-pointer transition-all duration-300 hover:scale-110 hover:bg-error"
         onClick={() => deleteTodo({ id: todo.id })}
       >
-        <DeleteIcon width="4" height="4" />
+        <XIcon width="5" height="5" />
       </div>
     </div>
   );

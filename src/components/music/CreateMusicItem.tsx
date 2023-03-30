@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useRef } from "react";
 import { api } from "../../utils/api";
 import type { MusicItemWithAllFields } from "../../pages/music";
+import toast from "react-hot-toast";
 
 interface FormData {
   studentId: string;
@@ -27,8 +28,8 @@ function CreateMusicItem({ setMusic, showForm, setShowForm }: Props) {
     onSuccess: async () => {
       await getMusic.refetch();
     },
-    onError: () => {
-      console.log(createMutation.error?.message);
+    onError: (e) => {
+      toast.error(e.message);
     },
   });
 

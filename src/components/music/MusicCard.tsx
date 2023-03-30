@@ -6,6 +6,7 @@ import XIcon from "../buttons/XIcon";
 import CheckIcon from "../buttons/CheckIcon";
 import EditIcon from "../buttons/EditIcon";
 import type { MusicItemWithAllFields } from "../../pages/music";
+import toast from "react-hot-toast";
 
 export type FormData = {
   id: string;
@@ -31,8 +32,8 @@ function MusicCard(props: Props) {
   //Data Handling
 
   const updateMusic = api.music.updateMusicItem.useMutation({
-    onError: () => {
-      console.log(updateMusic.error?.message);
+    onError: (e) => {
+      toast.error(e.message);
     },
   });
 

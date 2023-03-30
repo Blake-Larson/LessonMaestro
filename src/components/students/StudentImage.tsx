@@ -53,7 +53,6 @@ const StudentImage = ({ student, setStudent }: Props) => {
       setStudent({ ...student, image: imageString });
     }
   }
-  console.log(image);
 
   return (
     <>

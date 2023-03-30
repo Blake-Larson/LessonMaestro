@@ -13,39 +13,47 @@ interface Props {
 const StudentImage = ({ student, setStudent }: Props) => {
   const [image, setImage] = useState<File | undefined>();
 
-  //   const uploadImage = async () => {
-  //     const imageFormData = new FormData();
-  //     imageFormData.append("file", image);
-  //     imageFormData.append("upload_preset", "tifn41tp");
+  const uploadImage = async () => {
+    const imageFormData = new FormData();
+    if (image) {
+      imageFormData.append("file", image);
+      imageFormData.append("upload_preset", "tifn41tp");
 
-  //     try {
-  //       const response = await fetch(
-  //         "https://api.cloudinary.com/v1_1/drwljgjhd/image/upload",
-  //         {
-  //           method: "POST",
-  //           body: imageFormData,
-  //         }
-  //       );
-  //       console.log(response);
-  //       return response.data.public_id;
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
+      try {
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/drwljgjhd/image/upload",
+          {
+            method: "POST",
+            body: imageFormData,
+          }
+        );
+        // const data = response.json() as string;
+        // console.log(data);
+        // return data;
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    return undefined;
+  };
 
-  //   function handleFormChange(event: React.ChangeEvent<HTMLInputElement>) {
-  //     const { files } = event.target;
-  //     if (files) {
-  //       setImage(files[0]);
-  //     }
-  //   }
+  function handleFormChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    const { files } = event.target;
+    if (files) {
+      setImage(files[0]);
+    }
+  }
 
-  //   async function handleOnSubmit(event: React.FormEvent<HTMLFormElement>) {
-  //     event.preventDefault();
-  //     const imageString = await uploadImage();
-  //     setStudent({ ...student, image: imageString });
-  //   }
-  //   console.log(image);
+  async function handleOnSubmit(
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> {
+    event.preventDefault();
+    const imageString = await uploadImage();
+    if (imageString) {
+      setStudent({ ...student, image: imageString });
+    }
+  }
+  console.log(image);
 
   return (
     <>
@@ -53,9 +61,13 @@ const StudentImage = ({ student, setStudent }: Props) => {
         <form
           className="flex flex-col items-center justify-center"
           method="post"
-          //   onSubmit={() => handleOnSubmit}
+          onSubmit={() => handleOnSubmit}
         >
-          {/* <input type="file" name="file" onChange={handleFormChange} /> */}
+          {/* <label>
+            Upload Image
+            <input type="file" name="file" onChange={handleFormChange} />
+          </label>
+          <button>Submit</button> */}
           <div className="avatar">
             <div className="relative h-16 w-16 rounded-xl">
               {student.image ? (
@@ -75,7 +87,6 @@ const StudentImage = ({ student, setStudent }: Props) => {
               )}
             </div>
           </div>
-          {/* <button>Submit</button> */}
         </form>
       )}
     </>

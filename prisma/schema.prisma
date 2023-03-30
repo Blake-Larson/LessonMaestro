@@ -24,8 +24,8 @@ model Student {
     instrument String?
     status     Boolean   @default(true)
     image      String?
-    concept    Concept[]
-    lesson     Lesson[]
+    concepts   Concept[]
+    lessons    Lesson[]
     userId     String
     music      Music[]
 }
@@ -57,6 +57,7 @@ model Concept {
     text      String
     Student   Student @relation(fields: [studentId], references: [id])
     studentId String
+    userId    String
 
     @@unique([id, studentId])
 }

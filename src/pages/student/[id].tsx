@@ -8,12 +8,13 @@ import StudentInfo from "../../components/students/StudentInfo";
 import StudentMusicList from "../../components/students/StudentMusicList";
 import { generateSSGHelper } from "../../server/helpers/ssgHelper";
 import StudentLessonList from "~/components/students/StudentLessonList";
+import StudentConceptList from "~/components/students/StudentConceptList";
 
 const studentWithAllFields = Prisma.validator<Prisma.StudentArgs>()({
   include: {
     music: true,
-    lesson: true,
-    concept: true,
+    lessons: true,
+    concepts: true,
   },
 });
 
@@ -63,21 +64,10 @@ const StudentPage: NextPage<{ id: string }> = ({ id }) => {
         {student && (
           <div className="flex h-full flex-col items-center gap-5 bg-base-200 pb-10">
             <StudentInfo student={student} setStudent={setStudent} />
-            <div className="mx-5 flex w-full max-w-sm flex-col gap-3 rounded-lg bg-base-100 py-4 px-4 text-left shadow-lg">
-              <h2 className="max-w-fit border-b-2 border-primary text-lg font-semibold">
-                Lessons
-              </h2>
-              <StudentLessonList student={student} />
-            </div>
-
+            <StudentLessonList student={student} setStudent={setStudent} />
             <StudentMusicList student={student} setStudent={setStudent} />
+            <StudentConceptList student={student} setStudent={setStudent} />
 
-            <div className="mx-5 flex w-full max-w-sm flex-col gap-3 rounded-lg bg-base-100 py-4 px-4 text-left shadow-lg">
-              <h2 className="max-w-fit border-b-2 border-primary text-lg font-semibold">
-                Work
-              </h2>
-              <span>Work in progress...</span>
-            </div>
             <div className="mx-5 flex w-full max-w-sm flex-col gap-6 rounded-lg bg-base-100 py-4 px-4 text-left shadow-lg">
               <h2 className="max-w-fit border-b-2 border-primary text-lg font-semibold">
                 Admin

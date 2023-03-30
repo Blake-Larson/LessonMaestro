@@ -78,9 +78,9 @@ function CreateStudent({
           status: true,
           image: formData.image,
           id: "",
-          lesson: [],
+          lessons: [],
           music: [],
-          concept: [],
+          concepts: [],
           userId: "",
         },
       ].sort(function (a, b) {

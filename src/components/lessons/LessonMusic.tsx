@@ -19,11 +19,6 @@ const LessonMusic = ({ lesson }: Props) => {
             </li>
           ))}
         </ul>
-        <div className="w-full">
-          {lesson.student.concept.map((concept: Concept) => (
-            <span key={concept.id}>{concept.text}</span>
-          ))}
-        </div>
       </div>
     </div>
   );

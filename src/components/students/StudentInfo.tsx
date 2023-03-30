@@ -1,4 +1,3 @@
-import type { SetStateAction } from "react";
 import { useState } from "react";
 import React from "react";
 import Image from "next/image";
@@ -22,7 +21,9 @@ export type FormData = {
 
 interface Props {
   student: StudentWithAllFields;
-  setStudent: React.Dispatch<SetStateAction<StudentWithAllFields | undefined>>;
+  setStudent: React.Dispatch<
+    React.SetStateAction<StudentWithAllFields | undefined>
+  >;
 }
 
 export type Edit = {

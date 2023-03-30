@@ -15,7 +15,7 @@ const lessonWithAllFields = Prisma.validator<Prisma.LessonArgs>()({
     student: {
       include: {
         music: true,
-        concept: true,
+        concepts: true,
       },
     },
   },

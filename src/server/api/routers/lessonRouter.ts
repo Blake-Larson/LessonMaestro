@@ -12,7 +12,7 @@ export const lessonRouter = createTRPCRouter({
         student: {
           include: {
             music: true,
-            concept: true,
+            concepts: true,
           },
         },
       },
@@ -21,6 +21,7 @@ export const lessonRouter = createTRPCRouter({
           startDate: "asc",
         },
       ],
+      take: 10,
     });
     return lessons;
   }),
@@ -33,7 +34,7 @@ export const lessonRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const studentForm = ctx.prisma.lesson.create({
+      const lessonForm = ctx.prisma.lesson.create({
         data: {
           archived: false,
           startDate: input.startDate,
@@ -43,7 +44,7 @@ export const lessonRouter = createTRPCRouter({
         },
         select: { id: true },
       });
-      return studentForm;
+      return lessonForm;
     }),
 
   connectLessontoStudent: privateProcedure
@@ -59,7 +60,7 @@ export const lessonRouter = createTRPCRouter({
           id: input.studentId,
         },
         data: {
-          lesson: {
+          lessons: {
             connect: { id: input.lessonId },
           },
         },

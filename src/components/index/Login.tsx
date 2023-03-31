@@ -14,9 +14,9 @@ const Login = () => {
           </Link>
         )}
         {!isSignedIn && (
-          <div className="btn-secondary btn">
-            <Link href={"/sign-in"}>Sign In</Link>
-          </div>
+          <Link href={"/sign-in"} className="btn-secondary btn">
+            Sign In
+          </Link>
         )}
       </div>
     </div>

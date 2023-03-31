@@ -7,6 +7,7 @@ import CheckIcon from "../buttons/CheckIcon";
 import EditIcon from "../buttons/EditIcon";
 import type { MusicItemWithAllFields } from "../../pages/music";
 import toast from "react-hot-toast";
+import MusicStudentList from "./MusicStudentList";
 
 export type FormData = {
   id: string;
@@ -110,15 +111,9 @@ function MusicCard(props: Props) {
   return (
     <>
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-        {/* <div
-          className="btn-ghost btn-square btn-xs btn absolute top-2 right-2 p-0.5 opacity-60 hover:opacity-100 hover:btn-error"
-          onClick={() => deleteMusicItem(musicItem.id)}
-        >
-          <DeleteIcon width="5" height="5" />
-        </div> */}
         <div className="relative">
           <h2
-            className={`max-w-fit border-b-2 border-primary text-lg font-semibold ${
+            className={`max-w-fit text-lg font-semibold ${
               edit.active ? "border-none" : ""
             }`}
           >
@@ -210,6 +205,7 @@ function MusicCard(props: Props) {
           )}
         </div>
       </form>
+      <MusicStudentList musicItem={musicItem} />
     </>
   );
 }

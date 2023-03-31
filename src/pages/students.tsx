@@ -6,6 +6,7 @@ import CreateStudent from "../components/students/CreateStudent";
 import AddIcon from "../components/buttons/AddIcon";
 import XIcon from "../components/buttons/XIcon";
 import type { StudentWithAllFields } from "./student/[id]";
+import LoadingSpinner from "~/components/buttons/LoadingSpinner";
 
 const StudentsPage = () => {
   const [showForm, setShowForm] = useState<boolean>(false);
@@ -21,7 +22,7 @@ const StudentsPage = () => {
       <Layout
         topBar={
           <div className="flex items-center gap-5">
-            <h1 className="text-2xl">Students</h1>
+            <h1>Students</h1>
             <button
               className={`btn-square btn-sm btn p-1 ${
                 showForm ? "btn-error" : "btn-secondary"
@@ -37,12 +38,8 @@ const StudentsPage = () => {
           </div>
         }
       >
-        <div className="flex min-h-screen w-full flex-col items-center bg-primary-light">
-          {/* Loading Button */}
-          {getStudents.isLoading && (
-            <button className="loading btn m-5 self-center"></button>
-          )}
-          {/* Students */}
+        <div className="flex min-h-screen w-full flex-col items-center">
+          {getStudents.isLoading && <LoadingSpinner />}
           <div
             className={`flex w-full flex-col items-center gap-5 py-5 lg:flex-row lg:flex-wrap lg:justify-center lg:px-5 ${
               showForm ? "hidden" : "flex"

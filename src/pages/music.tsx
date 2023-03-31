@@ -6,7 +6,7 @@ import XIcon from "../components/buttons/XIcon";
 import { Prisma } from "@prisma/client";
 import MusicCard from "../components/music/MusicCard";
 import CreateMusicItem from "../components/music/CreateMusicItem";
-import MusicStudentList from "../components/music/MusicStudentList";
+import LoadingSpinner from "~/components/buttons/LoadingSpinner";
 
 const musicItemWithAllFields = Prisma.validator<Prisma.MusicArgs>()({
   include: {
@@ -22,7 +22,7 @@ function Music() {
   //Data Handling
   const [showForm, setShowForm] = useState<boolean>(false);
   const [music, setMusic] = useState<MusicItemWithAllFields[]>([]);
-  api.music.getMusic.useQuery(undefined, {
+  const getMusic = api.music.getMusic.useQuery(undefined, {
     onSuccess: (data) => {
       setMusic(data);
     },
@@ -35,7 +35,7 @@ function Music() {
       <Layout
         topBar={
           <div className="flex items-center gap-5">
-            <h1 className="text-2xl">Music</h1>
+            <h1>Music</h1>
             <button
               className={`btn-square btn-sm btn p-1 ${
                 showForm ? "btn-error" : "btn-secondary"
@@ -51,7 +51,8 @@ function Music() {
           </div>
         }
       >
-        <div className="flex min-h-screen w-full flex-col items-center bg-base-200">
+        <div className="flex min-h-screen w-full flex-col items-center">
+          {getMusic.isLoading && <LoadingSpinner />}
           <div
             className={`flex w-full flex-col items-center gap-3 py-5 lg:flex-row lg:flex-wrap lg:justify-center lg:px-5 ${
               showForm ? "hidden" : "flex"
@@ -59,7 +60,7 @@ function Music() {
           >
             {music?.map((musicItem) => (
               <div
-                className="relative mx-5 mt-5 flex w-full max-w-xs flex-col gap-3 rounded-lg bg-base-100 py-4 px-4 text-left shadow-lg"
+                className="mx-5 mt-5 flex w-full max-w-sm flex-col gap-3 rounded-lg bg-base-100 py-4 px-4 text-left shadow-lg"
                 key={musicItem.id}
               >
                 <MusicCard
@@ -67,7 +68,6 @@ function Music() {
                   musicItem={musicItem}
                   setMusic={setMusic}
                 />
-                <MusicStudentList musicItem={musicItem} />
               </div>
             ))}
           </div>

@@ -1,30 +1,46 @@
 import React from "react";
 import Logo from "../Logo";
-// import { Image } from 'cloudinary-react';
-// import SignOut from "./buttons/SignOut";
 import Link from "next/link";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 function SideBar() {
+  const { isSignedIn, user } = useUser();
   return (
-    <div className="menu w-64 overflow-y-auto border-r border-base-200 bg-base-100 p-4 text-base-content">
+    <div className="menu relative w-64 overflow-y-auto border-r border-base-200 bg-base-100 p-4 text-base-content">
       <Logo />
       <div className="divider"></div>
-      <div className="flex h-[83vh] flex-col justify-between">
-        <ul className="flex flex-col gap-3">
-          <li>
-            <Link href="/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link href="/students">Students</Link>
-          </li>
-          <li>
-            <Link href="/music">Music</Link>
-          </li>
-        </ul>
+
+      <ul className="flex flex-col gap-3">
+        <li>
+          <Link href="/dashboard">Dashboard</Link>
+        </li>
+        <li>
+          <Link href="/students">Students</Link>
+        </li>
+        <li>
+          <Link href="/music">Music</Link>
+        </li>
+      </ul>
+      <div className="absolute bottom-10 left-0 right-0 m-auto flex justify-center md:hidden">
+        {isSignedIn && (
+          <div className="flex items-center justify-center gap-2">
+            <UserButton
+              appearance={{
+                elements: {
+                  userButtonAvatarBox: "h-12 w-12",
+                },
+              }}
+            />
+            <span>{`${user.firstName ? user.firstName : ""} ${
+              user.lastName ? user.lastName : ""
+            }`}</span>
+          </div>
+        )}
+      </div>
+      {/* WORK IN PROGRESS
         <Link href="/account" className="btn-ghost btn">
           Account Settings
-        </Link>
-      </div>
+        </Link> */}
     </div>
   );
 }

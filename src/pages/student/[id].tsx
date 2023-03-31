@@ -9,6 +9,7 @@ import StudentMusicList from "../../components/students/StudentMusicList";
 import { generateSSGHelper } from "../../server/helpers/ssgHelper";
 import StudentLessonList from "~/components/students/StudentLessonList";
 import StudentConceptList from "~/components/students/StudentConceptList";
+import LoadingSpinner from "~/components/buttons/LoadingSpinner";
 
 const studentWithAllFields = Prisma.validator<Prisma.StudentArgs>()({
   include: {
@@ -57,12 +58,10 @@ const StudentPage: NextPage<{ id: string }> = ({ id }) => {
   return (
     <Layout topBar={<h1 className="font-lemon text-2xl">Students</h1>}>
       <>
-        {getStudent.isLoading && (
-          <button className="loading btn mt-5 self-center">loading</button>
-        )}
+        {getStudent.isLoading && <LoadingSpinner />}
 
         {student && (
-          <div className="flex h-full flex-col items-center gap-5 bg-base-200 pb-10">
+          <div className="flex h-full flex-col items-center gap-5 pb-10">
             <StudentInfo student={student} setStudent={setStudent} />
             <StudentLessonList student={student} setStudent={setStudent} />
             <StudentMusicList student={student} setStudent={setStudent} />

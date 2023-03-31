@@ -13,7 +13,7 @@ const Dashboard = () => {
       <Layout
         topBar={
           <div className="flex items-center gap-5">
-            <h1 className="text-2xl">Dashboard</h1>
+            <h1>Dashboard</h1>
             <button
               className={`btn-square btn-sm btn p-1 ${
                 showForm ? "btn-error" : "btn-secondary"
@@ -29,7 +29,7 @@ const Dashboard = () => {
           </div>
         }
       >
-        <div className="min-h-screen w-full bg-base-200">
+        <div className="min-h-screen w-full">
           <div
             className={`${
               showForm ? "hidden" : "flex"

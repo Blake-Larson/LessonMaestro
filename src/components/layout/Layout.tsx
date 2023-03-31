@@ -15,13 +15,23 @@ const Layout = ({ children, topBar }: Props) => {
     <>
       <div className="drawer-mobile drawer min-h-screen w-full">
         <input id="drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content min-h-full">
+        <div className="drawer-content min-h-full bg-gradient-to-t from-emerald-400 to-emerald-50">
           {/* <!-- Page content here --> */}
-          <div className="sticky top-0 z-50 flex w-full items-center gap-5 border-b border-base-200 bg-base-100 p-3">
+          <div className="sticky top-0 z-50 flex w-full items-center gap-5 p-5 ">
             <Hamburger />
             <div className="flex w-full justify-between">
-              <div>{topBar}</div>
-              <div>{isSignedIn && <UserButton />}</div>
+              <div className="text-3xl font-semibold md:ml-5">{topBar}</div>
+              <div className="hidden h-10 w-10 md:flex">
+                {isSignedIn && (
+                  <UserButton
+                    appearance={{
+                      elements: {
+                        userButtonAvatarBox: "w-full h-full",
+                      },
+                    }}
+                  />
+                )}
+              </div>
             </div>
           </div>
           <div className="flex min-h-full w-full flex-col">{children}</div>

@@ -1,6 +1,7 @@
 import { Prisma } from "@prisma/client";
 import React, { useState } from "react";
 import { api } from "~/utils/api";
+import LoadingSpinner from "../buttons/LoadingSpinner";
 import Lesson from "./Lesson";
 
 const lessonWithAllFields = Prisma.validator<Prisma.LessonArgs>()({
@@ -22,7 +23,7 @@ export type LessonWithAllFields = Prisma.LessonGetPayload<
 const Lessons = () => {
   const [lessons, setLessons] = useState<LessonWithAllFields[] | undefined>();
 
-  api.lesson.getLessons.useQuery(undefined, {
+  const getLessons = api.lesson.getLessons.useQuery(undefined, {
     onSuccess: (data) => {
       setLessons(data);
     },
@@ -30,8 +31,11 @@ const Lessons = () => {
 
   return (
     <>
-      <div className="flex w-full max-w-3xl flex-col items-center gap-5">
-        <h2 className="text-xl font-semibold">Upcoming Lessons</h2>
+      <div className="flex w-full max-w-3xl flex-col items-center gap-5 rounded-xl bg-blue-50 p-5 shadow-2xl">
+        <h2 className="w-full text-left text-2xl font-semibold">
+          Upcoming Lessons
+        </h2>
+        {getLessons.isLoading && <LoadingSpinner />}
         {lessons?.map((lesson) => (
           <Lesson
             key={lesson.id}

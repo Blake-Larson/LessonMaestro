@@ -12,7 +12,7 @@ function StudentCard({ student }: Props) {
     <Link
       href={`/student/${encodeURIComponent(student.id)}`}
       as={`/student/${student.id}`}
-      className="flex w-full max-w-sm gap-5 rounded bg-base-200 p-4 shadow-lg"
+      className="flex w-full max-w-sm gap-5 rounded-lg bg-white p-4 shadow-lg"
     >
       <div className="avatar">
         <div className="relative h-16 w-16 rounded-xl">
@@ -24,7 +24,7 @@ function StudentCard({ student }: Props) {
           />
         </div>
       </div>
-      <div className="flex w-full flex-col">
+      <div className="flex w-full flex-col justify-center">
         <div className="flex justify-between">
           <h2 className="font-bold">{student.name}</h2>
           {student.status ? (
@@ -33,10 +33,7 @@ function StudentCard({ student }: Props) {
             <span className="badge-accent badge font-light">Inactive</span>
           )}
         </div>
-        <span className="font-semibold">{student.instrument}</span>
-        <span className="font-semibold">
-          {student.age === 0 ? "" : student.age}
-        </span>
+        <span className="">{student.instrument}</span>
       </div>
     </Link>
   );

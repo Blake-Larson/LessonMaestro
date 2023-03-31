@@ -87,9 +87,7 @@ function MusicStudentList(props: Props) {
 
   return (
     <div>
-      <h2 className="max-w-fit border-b-2 border-primary font-semibold">
-        Assigned Students
-      </h2>
+      <h2 className="max-w-fit font-semibold">Assigned Students</h2>
       <div className="flex flex-col gap-5">
         <ul className="w-full">
           {musicItem.student?.map((student: Student) => (

@@ -3,6 +3,7 @@ import CreateTodo from "./CreateTodo";
 import { api } from "../../utils/api";
 import type { TodoInput } from "./Todo";
 import Todo from "./Todo";
+import LoadingSpinner from "../buttons/LoadingSpinner";
 
 function Todos() {
   const [todos, setTodos] = useState<TodoInput[]>([]);
@@ -14,14 +15,10 @@ function Todos() {
 
   return (
     <div className="flex w-full max-w-lg flex-col items-center gap-5">
-      <div className="flex w-full flex-col gap-5 rounded-xl bg-primary p-5 shadow-lg">
-        <h2 className="text-center text-2xl font-semibold text-base-100 md:text-3xl">
-          Todo List
-        </h2>
+      <div className="flex w-full flex-col gap-5 rounded-xl bg-white p-5 shadow-2xl">
+        <h2 className="text-2xl font-semibold">Todo List</h2>
         <ul className="flex flex-col border-t border-base-100 border-opacity-50">
-          {getTodos.isLoading && (
-            <button className="loading btn-square btn mt-5 self-center"></button>
-          )}
+          {getTodos.isLoading && <LoadingSpinner />}
           {todos?.map((todo) => {
             return (
               <Todo

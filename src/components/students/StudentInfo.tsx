@@ -6,8 +6,8 @@ import XIcon from "../buttons/XIcon";
 import CheckIcon from "../buttons/CheckIcon";
 import EditIcon from "../buttons/EditIcon";
 import type { StudentWithAllFields } from "../../pages/student/[id]";
-import StudentImage from "./StudentImage";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 export type FormData = {
   name: string;
@@ -117,7 +117,10 @@ function StudentInfo({ student, setStudent }: Props) {
 
   return (
     <>
-      <div className="relative mx-5 mt-5 flex w-full max-w-sm flex-col items-center gap-3 rounded-lg bg-base-100 py-4 shadow-lg">
+      <form
+        className="relative mx-5 mt-5 flex w-full max-w-sm flex-col items-center gap-3 rounded-lg bg-base-100 py-4 shadow-lg"
+        onSubmit={handleSubmit}
+      >
         <div className="absolute top-2 right-2">
           {edit.active && edit.group === "idCard" ? (
             <div className="flex gap-1">
@@ -151,8 +154,18 @@ function StudentInfo({ student, setStudent }: Props) {
           )}
         </div>
 
-        <StudentImage student={student} setStudent={setStudent} />
-        <form onSubmit={handleSubmit}>
+        {/* <StudentImage student={student} setStudent={setStudent} /> */}
+        <div className="avatar">
+          <div className="relative h-16 w-16 rounded-xl">
+            <Image
+              src={"/images/blank-profile.webp"} // replace with student.image
+              fill
+              sizes="100%"
+              alt={`photo of ${student.name}`}
+            />
+          </div>
+        </div>
+        <div>
           <div className="flex flex-col items-center gap-1">
             <div
               className={`${
@@ -189,8 +202,8 @@ function StudentInfo({ student, setStudent }: Props) {
               />
             </div>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
 
       <form
         className="relative mx-5 flex w-full max-w-sm flex-col gap-3 rounded-lg bg-base-100 py-8 px-4 text-left shadow-lg"

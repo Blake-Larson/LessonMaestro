@@ -12,13 +12,19 @@ function SideBar() {
 
       <ul className="flex flex-col gap-3">
         <li>
-          <Link href="/dashboard">Dashboard</Link>
+          <Link href="/dashboard" className="hover:bg-blue-100">
+            Dashboard
+          </Link>
         </li>
         <li>
-          <Link href="/students">Students</Link>
+          <Link href="/students" className="hover:bg-blue-100">
+            Students
+          </Link>
         </li>
         <li>
-          <Link href="/music">Music</Link>
+          <Link href="/music" className="hover:bg-blue-100">
+            Music
+          </Link>
         </li>
       </ul>
       <div className="absolute bottom-10 left-0 right-0 m-auto flex justify-center md:hidden">

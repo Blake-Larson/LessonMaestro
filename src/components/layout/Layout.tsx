@@ -13,9 +13,9 @@ const Layout = ({ children, topBar }: Props) => {
   const { isSignedIn } = useUser();
   return (
     <>
-      <div className="drawer-mobile drawer min-h-screen w-full">
+      <div className="drawer-mobile drawer  w-full">
         <input id="drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content min-h-full bg-gradient-to-t from-emerald-400 to-emerald-50">
+        <div className="drawer-content  bg-gradient-to-t from-emerald-400 to-white">
           {/* <!-- Page content here --> */}
           <div className="sticky top-0 z-50 flex w-full items-center gap-5 p-5 ">
             <Hamburger />

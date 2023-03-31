@@ -30,7 +30,7 @@ const Todo = ({ todo, todos, setTodos }: Props) => {
   }
 
   return (
-    <div className="flex justify-between gap-3 border-b border-base-100 border-opacity-50 p-1">
+    <div className="flex justify-between gap-3 border-b border-secondary border-opacity-50 p-1">
       <li
         className={`pl-1 hover:cursor-pointer ${
           completed ? "line-through" : ""

@@ -73,7 +73,7 @@ function CreateConcept({ studentId, setConcepts, setShowForm }: Props) {
             onChange={handleFormChange}
             required
           />
-          <button className="cursor-pointer rounded-md border border-base-300 bg-base-100 p-0.5 transition-transform duration-300">
+          <button className="cursor-pointer rounded-md border border-base-300 bg-base-100 p-0.5 transition-all duration-300 hover:bg-secondary">
             <AddIcon width="5" height="5" />
           </button>
         </div>

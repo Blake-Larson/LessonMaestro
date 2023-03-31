@@ -61,7 +61,7 @@ function CreateTodo({ todos, setTodos }: Props) {
         className="input-bordered input w-full max-w-xs"
       />
 
-      <button className="cursor-pointer rounded-md border border-base-300 bg-base-100 p-0.5 transition-transform duration-300 hover:scale-110">
+      <button className="cursor-pointer rounded-md border border-base-300 bg-base-100 p-0.5 transition-all duration-300 hover:bg-secondary">
         <AddIcon width="6" height="6" />
       </button>
     </form>

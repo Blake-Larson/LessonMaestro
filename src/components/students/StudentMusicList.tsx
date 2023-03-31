@@ -6,6 +6,7 @@ import type { StudentWithAllFields } from "../../pages/student/[id]";
 import type { Music } from "@prisma/client";
 import MusicMenu from "./MusicMenu";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export type FormData = {
   name: string;
@@ -31,6 +32,7 @@ export type Edit = {
 };
 
 function StudentMusicList({ student, setStudent }: Props) {
+  const router = useRouter();
   //Data Handling
 
   const [music, setMusic] = useState<Music[]>();
@@ -86,8 +88,12 @@ function StudentMusicList({ student, setStudent }: Props) {
   }
 
   return (
-    <div className="relative mx-5 flex w-full max-w-sm flex-col gap-3 rounded-lg bg-base-100 py-4 px-4 text-left shadow-lg">
-      <h2 className="max-w-fit border-b-2 border-primary text-lg font-semibold">
+    <div
+      className={`flex w-full flex-col gap-3 rounded-lg bg-base-100 py-4 px-4 text-left ${
+        router.pathname === "/dashboard" ? "" : "shadow-lg"
+      }`}
+    >
+      <h2 className="max-w-fit border-b-2 border-secondary text-lg font-semibold">
         Music
       </h2>
       <ul className="w-full">

@@ -118,7 +118,7 @@ function StudentInfo({ student, setStudent }: Props) {
   return (
     <>
       <form
-        className="relative mx-5 mt-5 flex w-full max-w-sm flex-col items-center gap-3 rounded-lg bg-base-100 py-4 shadow-lg"
+        className="relative flex w-full flex-col items-center gap-3 rounded-lg bg-base-100 py-4 shadow-lg"
         onSubmit={handleSubmit}
       >
         <div className="absolute top-2 right-2">
@@ -171,7 +171,7 @@ function StudentInfo({ student, setStudent }: Props) {
               className={`${
                 edit.active
                   ? "border-none"
-                  : "border-b-4 border-primary text-2xl font-bold"
+                  : "border-b-4 border-secondary text-2xl font-bold"
               }`}
             >
               <EditStudent
@@ -206,10 +206,10 @@ function StudentInfo({ student, setStudent }: Props) {
       </form>
 
       <form
-        className="relative mx-5 flex w-full max-w-sm flex-col gap-3 rounded-lg bg-base-100 py-8 px-4 text-left shadow-lg"
+        className="relative flex w-full flex-col gap-3 rounded-lg bg-base-100 py-8 px-4 text-left shadow-lg"
         onSubmit={handleSubmit}
       >
-        <h2 className="max-w-fit border-b-2 border-primary text-lg font-semibold">
+        <h2 className="max-w-fit border-b-2 border-secondary text-lg font-semibold">
           Information
         </h2>
         <div className="absolute top-2 right-2">

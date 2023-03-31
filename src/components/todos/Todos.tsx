@@ -17,7 +17,7 @@ function Todos() {
     <div className="flex w-full max-w-lg flex-col items-center gap-5">
       <div className="flex w-full flex-col gap-5 rounded-xl bg-white p-5 shadow-2xl">
         <h2 className="text-2xl font-semibold">Todo List</h2>
-        <ul className="flex flex-col border-t border-base-100 border-opacity-50">
+        <ul className="flex flex-col border-t border-secondary border-opacity-50">
           {getTodos.isLoading && <LoadingSpinner />}
           {todos?.map((todo) => {
             return (

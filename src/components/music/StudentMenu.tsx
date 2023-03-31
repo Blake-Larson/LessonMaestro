@@ -1,4 +1,5 @@
 import type { Student } from "@prisma/client";
+import Link from "next/link";
 import React from "react";
 import type { MusicItemWithAllFields } from "../../pages/music";
 import AddIcon from "../buttons/AddIcon";
@@ -22,7 +23,7 @@ const StudentMenu = ({ musicItem, unconnectedStudents, addStudent }: Props) => {
           <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
         </svg>
       </button>
-      <ul className="absolute z-10 hidden max-h-52 w-full overflow-auto rounded-b border border-t-0 border-blue-50 bg-base-100 transition-all duration-300 group-hover:flex group-hover:flex-col">
+      <ul className="absolute z-10 hidden max-h-52 w-full overflow-auto rounded-b border border-t-0 border-blue-50 bg-base-100 group-hover:flex group-hover:flex-col">
         {unconnectedStudents?.map((student: Student) => (
           <li
             key={student.id}
@@ -35,6 +36,12 @@ const StudentMenu = ({ musicItem, unconnectedStudents, addStudent }: Props) => {
             <div className="">{student.name}</div>
           </li>
         ))}
+        <Link
+          href={"/students"}
+          className="flex w-full cursor-pointer justify-start p-3 transition-all duration-300 hover:bg-blue-50"
+        >
+          Create another student
+        </Link>
       </ul>
     </div>
   );

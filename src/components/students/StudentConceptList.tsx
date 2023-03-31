@@ -5,6 +5,7 @@ import { api } from "~/utils/api";
 import AddIcon from "../buttons/AddIcon";
 import XIcon from "../buttons/XIcon";
 import CreateConcept from "../concepts/CreateConcept";
+import { useRouter } from "next/router";
 
 interface Props {
   student: StudentWithAllFields;
@@ -16,6 +17,7 @@ interface Props {
 const StudentConceptList = ({ student, setStudent }: Props) => {
   const [showForm, setShowForm] = React.useState(false);
   const [concepts, setConcepts] = React.useState<Concept[]>();
+  const router = useRouter();
 
   useEffect(() => {
     setConcepts(student.concepts);
@@ -33,9 +35,13 @@ const StudentConceptList = ({ student, setStudent }: Props) => {
   }
 
   return (
-    <div className="mx-5 flex w-full max-w-sm flex-col gap-3 rounded-lg bg-base-100 py-4 px-4 text-left shadow-lg">
+    <div
+      className={`flex w-full flex-col gap-3 rounded-lg bg-base-100 py-4 px-4 text-left ${
+        router.pathname === "/dashboard" ? "" : "shadow-lg"
+      }`}
+    >
       <div className="flex items-center gap-2">
-        <h2 className="max-w-fit border-b-2 border-primary text-lg font-semibold">
+        <h2 className="max-w-fit border-b-2 border-secondary text-lg font-semibold">
           Concepts
         </h2>
         <button

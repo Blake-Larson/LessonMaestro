@@ -4,7 +4,10 @@ import Image from "next/image";
 
 const Logo = () => {
   return (
-    <Link href="/" className="btn-ghost btn h-fit p-1 normal-case">
+    <Link
+      href="/"
+      className="btn-ghost btn h-fit p-1 normal-case hover:bg-blue-100"
+    >
       <div className="flex items-center gap-2">
         <div className="relative h-12 w-12 rounded-full bg-base-100">
           <Image

@@ -56,26 +56,50 @@ const StudentPage: NextPage<{ id: string }> = ({ id }) => {
   }
 
   return (
-    <Layout topBar={<h1 className="font-lemon text-2xl">Students</h1>}>
+    <Layout topBar={<h1>Students</h1>}>
       <>
         {getStudent.isLoading && <LoadingSpinner />}
 
         {student && (
-          <div className="flex h-full flex-col items-center gap-5 pb-10">
-            <StudentInfo student={student} setStudent={setStudent} />
-            <StudentLessonList student={student} setStudent={setStudent} />
-            <StudentMusicList student={student} setStudent={setStudent} />
-            <StudentConceptList student={student} setStudent={setStudent} />
-
-            <div className="mx-5 flex w-full max-w-sm flex-col gap-6 rounded-lg bg-base-100 py-4 px-4 text-left shadow-lg">
-              <h2 className="max-w-fit border-b-2 border-primary text-lg font-semibold">
-                Admin
-              </h2>
-              <div
-                className="btn-outline btn-error btn-sm btn self-center transition-transform duration-300 hover:scale-110"
-                onClick={() => deleteStudent({ id: student.id })}
-              >
-                Delete Student
+          <div className="flex flex-col items-center">
+            {/* Mobile */}
+            <div className="flex max-w-sm flex-col items-center gap-5 pb-10 lg:hidden">
+              <StudentInfo student={student} setStudent={setStudent} />
+              <StudentLessonList student={student} setStudent={setStudent} />
+              <StudentMusicList student={student} setStudent={setStudent} />
+              <StudentConceptList student={student} setStudent={setStudent} />
+              <div className="flex w-full flex-col gap-6 rounded-lg bg-base-100 py-4 px-4 text-left shadow-lg">
+                <h2 className="max-w-fit border-b-2 border-secondary text-lg font-semibold">
+                  Admin
+                </h2>
+                <div
+                  className="btn-outline btn-error btn-sm btn order-last self-center transition-transform duration-300 hover:scale-110"
+                  onClick={() => deleteStudent({ id: student.id })}
+                >
+                  Delete Student
+                </div>
+              </div>
+            </div>
+            {/* lg: */}
+            <div className="hidden w-full max-w-7xl justify-evenly gap-5 p-5 lg:flex">
+              <div className="flex w-full max-w-sm flex-col items-center gap-5 rounded-xl bg-blue-50 p-5 shadow-2xl">
+                <StudentInfo student={student} setStudent={setStudent} />
+                <div className="flex w-full flex-col gap-6 rounded-lg bg-base-100 py-4 px-4 text-left shadow-lg">
+                  <h2 className="max-w-fit border-b-2 border-secondary text-lg font-semibold">
+                    Admin
+                  </h2>
+                  <div
+                    className="btn-outline btn-error btn-sm btn order-last self-center transition-transform duration-300 hover:scale-110"
+                    onClick={() => deleteStudent({ id: student.id })}
+                  >
+                    Delete Student
+                  </div>
+                </div>
+              </div>
+              <div className="hidden w-full max-w-xl flex-col items-center gap-5 rounded-xl bg-blue-50 p-5 shadow-2xl md:flex">
+                <StudentLessonList student={student} setStudent={setStudent} />
+                <StudentMusicList student={student} setStudent={setStudent} />
+                <StudentConceptList student={student} setStudent={setStudent} />
               </div>
             </div>
           </div>

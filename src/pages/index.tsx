@@ -16,7 +16,7 @@ const Home: NextPage = () => {
             <Logo />
           </div>
           <div className="flex flex-col-reverse items-center md:flex-row">
-            <div className="flex flex-col items-center gap-5 p-3 md:w-1/2 ">
+            <div className="flex flex-col items-center gap-7 p-3 md:w-1/2 ">
               <div>
                 <h1 className="mb-5 text-center text-3xl font-bold md:text-4xl">
                   Enrich your

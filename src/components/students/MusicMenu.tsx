@@ -13,7 +13,7 @@ interface Props {
 const MusicMenu = ({ student, music, addMusicItem }: Props) => {
   return (
     <div className="group relative w-full">
-      <button className="flex w-full items-center justify-center gap-1 rounded bg-base-200 py-2 px-4">
+      <button className="flex items-center justify-center gap-1 rounded bg-blue-100 py-2 px-4">
         <span className="">Add additional music</span>
         <svg
           className="h-4 w-4 fill-current"
@@ -23,23 +23,22 @@ const MusicMenu = ({ student, music, addMusicItem }: Props) => {
           <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
         </svg>
       </button>
-      <ul className="min-h-14 absolute z-10 hidden max-h-52 w-full overflow-auto rounded-b border border-t-0 border-base-200 bg-base-100 group-hover:flex group-hover:flex-col">
+      <ul className="absolute z-10 hidden max-h-52 min-w-[250px] max-w-sm overflow-auto rounded-b border border-blue-50 bg-base-100 group-hover:flex group-hover:flex-col">
         {music?.map((musicItem: Music) => (
           <li
             key={musicItem.id}
-            className="btn-ghost btn flex w-full animate-none justify-start gap-3"
+            className="flex w-full cursor-pointer justify-start gap-3 p-3 transition-all duration-300 hover:bg-blue-50"
             onClick={() => addMusicItem(musicItem.id, student.id, musicItem)}
           >
-            <button className={"w-5"}>
+            <button className="w-5">
               <AddIcon width="5" height="5" />
             </button>
             <div>{musicItem.title}</div>
           </li>
         ))}
-        <div className="h-0.5 w-11/12 self-center bg-base-200"></div>
         <Link
           href={"/music"}
-          className="btn-ghost btn flex w-full animate-none"
+          className="flex w-full cursor-pointer justify-start p-3 transition-all duration-300 hover:bg-blue-50"
         >
           Create more music
         </Link>

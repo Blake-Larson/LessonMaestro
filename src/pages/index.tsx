@@ -6,6 +6,7 @@ import YoutubeEmbed from "../components/index/YoutubeEmbed";
 import Login from "../components/index/Login";
 import Logo from "../components/Logo";
 import Link from "next/link";
+import bg from "public/images/landing-bg.jpg";
 
 const Home: NextPage = () => {
   return (
@@ -33,12 +34,12 @@ const Home: NextPage = () => {
             </div>
             <div className="relative h-screen max-h-[300px] w-full md:m-0 md:max-h-[800px] md:w-1/2 ">
               <Image
-                src="/images/landing-bg.jpg"
+                src={bg}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="rounded-bl object-cover"
                 alt="Lots of guitars, a Keyboard, and a mic in a room"
-                priority
+                priority={true}
               />
             </div>
           </div>

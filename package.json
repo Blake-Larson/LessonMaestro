@@ -1,6 +1,6 @@
 {
-  "name": "t3-my-music-studio",
-  "version": "0.1.0",
+  "name": "Lesson Maestro",
+  "version": "1.0.0",
   "private": false,
   "scripts": {
     "build": "next build",

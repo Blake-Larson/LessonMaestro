@@ -25,9 +25,9 @@ const Home: NextPage = () => {
                   experience
                 </h1>
                 <p className="max-w-2xl text-center text-lg">
-                  My Music Studio is a tool used by music teachers to manage
+                  Lesson Maestro is a tool used by music teachers to manage
                   their students and their studio. Check out the demo to see
-                  what My Music Studio can do for you!
+                  what Lesson Maestro can do for you!
                 </p>
               </div>
               <Login />

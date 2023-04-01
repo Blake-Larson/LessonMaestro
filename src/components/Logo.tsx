@@ -18,7 +18,7 @@ const Logo = () => {
             alt="Lots of guitars, a Keyboard, and a mic in a room"
           />
         </div>
-        <span className="font-lemon text-lg font-normal">My Music Studio</span>
+        <span className="font-lemon text-lg font-normal">Lesson Maestro</span>
       </div>
     </Link>
   );

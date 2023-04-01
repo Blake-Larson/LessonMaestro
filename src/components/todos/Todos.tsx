@@ -30,7 +30,6 @@ function Todos() {
             );
           })}
         </ul>
-        {(getTodos.isLoading || getTodos.isRefetching) && <LoadingSpinner />}
         <div className="flex justify-center">
           <CreateTodo todos={todos} setTodos={setTodos} />
         </div>

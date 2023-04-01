@@ -52,9 +52,6 @@ function Music() {
         }
       >
         <div className="flex min-h-screen w-full flex-col items-center">
-          {!getMusic.data && !getMusic.isLoading && (
-            <div>Create a Music item to get started!</div>
-          )}
           <div
             className={`flex w-full flex-col items-center gap-3 py-5 lg:flex-row lg:flex-wrap lg:justify-center lg:px-5 ${
               showForm ? "hidden" : "flex"
@@ -73,7 +70,7 @@ function Music() {
               </div>
             ))}
           </div>
-          {(getMusic.isLoading || getMusic.isRefetching) && <LoadingSpinner />}
+          {getMusic.isLoading && <LoadingSpinner />}
           <div className={showForm ? "block pt-5" : "hidden pt-5"}>
             <CreateMusicItem
               setMusic={setMusic}

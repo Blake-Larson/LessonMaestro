@@ -35,9 +35,6 @@ const Lessons = () => {
           Upcoming Lessons
         </h2>
 
-        {!getLessons.data && !getLessons.isLoading && (
-          <div>Create a Lesson to get started!</div>
-        )}
         {lessons?.map((lesson) => (
           <Lesson
             key={lesson.id}
@@ -46,9 +43,7 @@ const Lessons = () => {
             setLessons={setLessons}
           />
         ))}
-        {(getLessons.isLoading || getLessons.isRefetching) && (
-          <LoadingSpinner />
-        )}
+        {getLessons.isLoading && <LoadingSpinner />}
       </div>
     </>
   );

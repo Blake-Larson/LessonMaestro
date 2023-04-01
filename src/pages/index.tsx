@@ -7,6 +7,7 @@ import Login from "../components/index/Login";
 import Logo from "../components/Logo";
 import Link from "next/link";
 import bg from "../../public/images/landing-bg.jpg";
+import type { StaticImageData } from "next/image";
 
 const Home: NextPage = () => {
   return (

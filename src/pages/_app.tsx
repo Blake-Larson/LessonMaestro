@@ -9,8 +9,8 @@ const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
   return (
     <ClerkProvider {...pageProps}>
       <Head>
-        <title>My Music Studio</title>
-        <meta name="description" content="My Music Studio Management App" />
+        <title>Lesson Maestro</title>
+        <meta name="description" content="Music Lesson Management App" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Toaster position="bottom-center" reverseOrder={false} />

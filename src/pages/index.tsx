@@ -6,8 +6,6 @@ import YoutubeEmbed from "../components/index/YoutubeEmbed";
 import Login from "../components/index/Login";
 import Logo from "../components/Logo";
 import Link from "next/link";
-import bg from "../../public/images/landing-bg.jpg";
-import type { StaticImageData } from "next/image";
 
 const Home: NextPage = () => {
   return (
@@ -27,7 +25,7 @@ const Home: NextPage = () => {
                 </h1>
                 <p className="max-w-2xl text-center text-lg">
                   Lesson Maestro is a tool used by music teachers to manage
-                  their students and their studio. Check out the demo to see
+                  their lessons, students, and music. Check out the demo to see
                   what Lesson Maestro can do for you!
                 </p>
               </div>
@@ -35,7 +33,7 @@ const Home: NextPage = () => {
             </div>
             <div className="relative h-screen max-h-[300px] w-full md:m-0 md:max-h-[800px] md:w-1/2 ">
               <Image
-                src={bg}
+                src={"/images/landing-bg.jpg"}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="rounded-bl object-cover"

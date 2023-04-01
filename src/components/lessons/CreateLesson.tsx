@@ -107,7 +107,7 @@ function CreateLesson({ setShowForm }: Props) {
       </select>
       <input
         type="date"
-        name="formDate"
+        name="date"
         onChange={handleFormChange}
         className="input-bordered input w-full max-w-xs"
         required

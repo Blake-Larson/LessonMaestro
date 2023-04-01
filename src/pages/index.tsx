@@ -38,6 +38,7 @@ const Home: NextPage = () => {
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="rounded-bl object-cover"
                 alt="Lots of guitars, a Keyboard, and a mic in a room"
+                priority
               />
             </div>
           </div>

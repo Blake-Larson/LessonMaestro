@@ -1,7 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import { api } from "../../utils/api";
-import XIcon from "../buttons/XIcon";
+import XIcon from "../icons/XIcon";
 import type { Student } from "@prisma/client";
 import type { MusicItemWithAllFields } from "../../pages/music";
 import StudentMenu from "./StudentMenu";

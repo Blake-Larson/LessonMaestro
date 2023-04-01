@@ -1,5 +1,5 @@
 import React from "react";
-import AddIcon from "../buttons/AddIcon";
+import AddIcon from "../icons/AddIcon";
 import { useForm } from "react-hook-form";
 import { api } from "../../utils/api";
 import type { TodoInput } from "./Todo";

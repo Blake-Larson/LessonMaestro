@@ -9,7 +9,7 @@ import StudentMusicList from "../../components/students/StudentMusicList";
 import { generateSSGHelper } from "../../server/helpers/ssgHelper";
 import StudentLessonList from "~/components/students/StudentLessonList";
 import StudentConceptList from "~/components/students/StudentConceptList";
-import LoadingSpinner from "~/components/buttons/LoadingSpinner";
+import LoadingSpinner from "~/components/icons/LoadingSpinner";
 
 const studentWithAllFields = Prisma.validator<Prisma.StudentArgs>()({
   include: {

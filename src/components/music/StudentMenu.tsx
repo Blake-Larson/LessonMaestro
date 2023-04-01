@@ -2,7 +2,7 @@ import type { Student } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 import type { MusicItemWithAllFields } from "../../pages/music";
-import AddIcon from "../buttons/AddIcon";
+import AddIcon from "../icons/AddIcon";
 
 interface Props {
   musicItem: MusicItemWithAllFields;

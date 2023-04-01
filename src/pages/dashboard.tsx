@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import AddIcon from "~/components/buttons/AddIcon";
-import XIcon from "~/components/buttons/XIcon";
+import AddIcon from "~/components/icons/AddIcon";
+import XIcon from "~/components/icons/XIcon";
 import CreateLesson from "~/components/lessons/CreateLesson";
 import Lessons from "~/components/lessons/Lessons";
 import Layout from "../components/layout/Layout";

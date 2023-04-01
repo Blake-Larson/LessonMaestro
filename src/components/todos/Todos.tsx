@@ -3,7 +3,7 @@ import CreateTodo from "./CreateTodo";
 import { api } from "../../utils/api";
 import type { TodoInput } from "./Todo";
 import Todo from "./Todo";
-import LoadingSpinner from "../buttons/LoadingSpinner";
+import LoadingSpinner from "../icons/LoadingSpinner";
 
 function Todos() {
   const [todos, setTodos] = useState<TodoInput[]>([]);

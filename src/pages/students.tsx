@@ -3,10 +3,10 @@ import { api } from "../utils/api";
 import Layout from "../components/layout/Layout";
 import StudentCard from "../components/students/StudentCard";
 import CreateStudent from "../components/students/CreateStudent";
-import AddIcon from "../components/buttons/AddIcon";
-import XIcon from "../components/buttons/XIcon";
+import AddIcon from "../components/icons/AddIcon";
+import XIcon from "../components/icons/XIcon";
 import type { StudentWithAllFields } from "./student/[id]";
-import LoadingSpinner from "~/components/buttons/LoadingSpinner";
+import LoadingSpinner from "~/components/icons/LoadingSpinner";
 
 const StudentsPage = () => {
   const [showForm, setShowForm] = useState<boolean>(false);

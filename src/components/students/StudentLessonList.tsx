@@ -1,7 +1,7 @@
 import React from "react";
 import dayjs from "dayjs";
 import type { StudentWithAllFields } from "~/pages/student/[id]";
-import XIcon from "../buttons/XIcon";
+import XIcon from "../icons/XIcon";
 import { api } from "~/utils/api";
 
 interface Props {

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { api } from "../utils/api";
 import Layout from "../components/layout/Layout";
-import AddIcon from "../components/buttons/AddIcon";
-import XIcon from "../components/buttons/XIcon";
+import AddIcon from "../components/icons/AddIcon";
+import XIcon from "../components/icons/XIcon";
 import { Prisma } from "@prisma/client";
 import MusicCard from "../components/music/MusicCard";
 import CreateMusicItem from "../components/music/CreateMusicItem";
-import LoadingSpinner from "~/components/buttons/LoadingSpinner";
+import LoadingSpinner from "~/components/icons/LoadingSpinner";
 
 const musicItemWithAllFields = Prisma.validator<Prisma.MusicArgs>()({
   include: {

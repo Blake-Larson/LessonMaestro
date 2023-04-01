@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { api } from "../../utils/api";
-import XIcon from "../buttons/XIcon";
+import XIcon from "../icons/XIcon";
 
 interface Props {
   todo: TodoInput;

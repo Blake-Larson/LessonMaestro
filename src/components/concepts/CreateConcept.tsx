@@ -1,7 +1,7 @@
 import type { Concept } from "@prisma/client";
 import React from "react";
 import { api } from "~/utils/api";
-import AddIcon from "../buttons/AddIcon";
+import AddIcon from "../icons/AddIcon";
 
 interface Props {
   studentId: string;

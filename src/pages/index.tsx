@@ -25,8 +25,8 @@ const Home: NextPage = () => {
                 </h1>
                 <p className="max-w-2xl text-center text-lg">
                   Lesson Maestro is a tool used by music teachers to manage
-                  their lessons, students, and music. Check out the demo to see
-                  what Lesson Maestro can do for you!
+                  their lessons, students, and music. Check out the demo below
+                  to see what Lesson Maestro can do for you!
                 </p>
               </div>
               <Login />

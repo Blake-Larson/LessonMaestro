@@ -6,7 +6,7 @@ import Image from "next/image";
 import StudentConceptList from "../students/StudentConceptList";
 import type { StudentWithAllFields } from "~/pages/student/[id]";
 import Link from "next/link";
-import DeleteIcon from "../buttons/DeleteIcon";
+import DeleteIcon from "../icons/DeleteIcon";
 import StudentMusicList from "../students/StudentMusicList";
 
 interface Props {

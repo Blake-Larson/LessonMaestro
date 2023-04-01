@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import React, { useState } from "react";
 import { api } from "~/utils/api";
-import LoadingSpinner from "../buttons/LoadingSpinner";
+import LoadingSpinner from "../icons/LoadingSpinner";
 import Lesson from "./Lesson";
 
 const lessonWithAllFields = Prisma.validator<Prisma.LessonArgs>()({

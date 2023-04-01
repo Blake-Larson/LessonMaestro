@@ -1,6 +1,6 @@
 import { UserButton, useUser } from "@clerk/nextjs";
 import React from "react";
-import Hamburger from "../buttons/Hamburger";
+import Hamburger from "../icons/Hamburger";
 import Footer from "./Footer";
 import SideBar from "./SideBar";
 

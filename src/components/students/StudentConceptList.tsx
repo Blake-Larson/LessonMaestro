@@ -2,8 +2,8 @@ import type { Concept } from "@prisma/client";
 import React, { useEffect } from "react";
 import type { StudentWithAllFields } from "~/pages/student/[id]";
 import { api } from "~/utils/api";
-import AddIcon from "../buttons/AddIcon";
-import XIcon from "../buttons/XIcon";
+import AddIcon from "../icons/AddIcon";
+import XIcon from "../icons/XIcon";
 import CreateConcept from "../concepts/CreateConcept";
 import { useRouter } from "next/router";
 

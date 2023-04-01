@@ -2,9 +2,9 @@ import { useState } from "react";
 import React from "react";
 import EditMusicItem from "./EditMusicItem";
 import { api } from "../../utils/api";
-import XIcon from "../buttons/XIcon";
-import CheckIcon from "../buttons/CheckIcon";
-import EditIcon from "../buttons/EditIcon";
+import XIcon from "../icons/XIcon";
+import CheckIcon from "../icons/CheckIcon";
+import EditIcon from "../icons/EditIcon";
 import type { MusicItemWithAllFields } from "../../pages/music";
 import toast from "react-hot-toast";
 import MusicStudentList from "./MusicStudentList";
@@ -197,7 +197,7 @@ function MusicCard(props: Props) {
           </div>
           {edit.active && (
             <div
-              className="transition-color btn-outline btn-error btn-sm btn mt-3 self-center duration-300"
+              className="transition-color btn-error btn-outline btn-sm btn mt-3 self-center duration-300"
               onClick={() => deleteMusicItem(musicItem.id)}
             >
               Delete

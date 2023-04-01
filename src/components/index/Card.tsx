@@ -20,7 +20,7 @@ function Card({ src, alt, title, text }: Props) {
           alt={alt}
         />
       </figure>
-      <div className="card-body">
+      <div className="card-body h-40">
         <h2 className="card-title">{title}</h2>
         <p>{text}</p>
       </div>

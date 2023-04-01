@@ -44,7 +44,7 @@ const Home: NextPage = () => {
           </div>
           <div className="bg-gradient-to-t from-emerald-400 to-white">
             <div className=" px-5 py-10 md:py-20">
-              <div className="flex flex-col items-center gap-5 md:flex-row md:justify-evenly">
+              <div className="flex flex-col items-center gap-5 lg:flex-row lg:justify-evenly">
                 <Card
                   src="/images/organize.jpg"
                   alt="Keyboard, paper, and writing utensils"

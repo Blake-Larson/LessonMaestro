@@ -1,10 +1,10 @@
-# My Music Studio
+# Lesson Maestro
 
-A full-stack application for private music teachers to manage their studios and their students. This is a refactor of the previous version of My Music Studio. See old repo here: [My Music Studio](https://github.com/Blake-Larson/my-music-studio)
+A full-stack application for private music teachers to manage their lessons, students, and music. This is a refactor of the previous version of Lesson Maestro (formerly My Music Studio). See old repo here: [My Music Studio](https://github.com/Blake-Larson/my-music-studio)
 
-Live Site Coming Soon
+[Live Site](https://lessonmaestro.app/)
 
-<p align="center" ><img align="center" src="https://github.com/Blake-Larson/my-music-studio/blob/main/client/src/assets/images/demo.jpg" alt="The inital view of My Music Studio" /></p>
+<p align="center" ><img align="center" src="https://github.com/Blake-Larson/LessonMaestro/blob/main/public/images/screenshot.jpg" alt="The inital view of Lesson Maestro" /></p>
 
 ## Why refactor the app?
 With my expertise in JavaScript, I realized I was lacking experience working in a typesafe environment. I wanted to challenge myself to work with the same kind of typesafety you come across in many other programming languages. The t3 stack allows me to do this while staying within JavaScript. Typesafety improves productivity and helps me commit with fewer bugs.
@@ -31,14 +31,13 @@ tRPC allows you to write end-to-end typesafe APIs without any code generation or
 
 This is a long term project with many optimizations and dreams in mind.
 
-- Continue refactor to complete live site with the same funcionality as the previous version had.
-- Add additional forms of authentication so users can feel comfortable with whichever provider they prefer.
-- Release to my music teacher contacts to receive feedback and get ideas for future features.
+- Collect feedback and get ideas for future features from my music teacher contacts.
+- Add recurring lessons or a way to create many lessons at once.
 - Add a student portal that students can access to view their assigned music and lessons.
 
 ## Lessons Learned:
 
-While I will continue to learn as I build out this project, I have already learned so much about the benefits of typesafety. Every time I create a variable to hold data I have to think about where the data comes from and how I'm going to handle it. This has given me a lot of practice analyzing my app from an overview perspective. I have a better understanding of the structure of my data and what I'm trying to solve with my application. 
+I have learned so much about the benefits of typesafety. Every time I create a variable to hold data I have to think about where the data comes from and how I'm going to handle it. This has given me a lot of practice analyzing my app from an overview perspective. I have a better understanding of the structure of my data and what I'm trying to solve with my application. 
 
 ---
 

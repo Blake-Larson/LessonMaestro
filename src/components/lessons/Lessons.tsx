@@ -22,20 +22,22 @@ export type LessonWithAllFields = Prisma.LessonGetPayload<
 
 const Lessons = () => {
   const [lessons, setLessons] = useState<LessonWithAllFields[] | undefined>();
-
   const getLessons = api.lesson.getLessons.useQuery(undefined, {
     onSuccess: (data) => {
       setLessons(data);
     },
   });
-
+  console.log(getLessons.data);
   return (
     <>
       <div className="flex w-full max-w-3xl flex-col items-center gap-5 rounded-xl bg-blue-50 p-5 shadow-2xl">
         <h2 className="w-full text-left text-2xl font-semibold">
           Upcoming Lessons
         </h2>
-        {getLessons.isLoading && <LoadingSpinner />}
+
+        {!getLessons.data && !getLessons.isLoading && (
+          <div>Create a Lesson to get started!</div>
+        )}
         {lessons?.map((lesson) => (
           <Lesson
             key={lesson.id}
@@ -44,6 +46,9 @@ const Lessons = () => {
             setLessons={setLessons}
           />
         ))}
+        {(getLessons.isLoading || getLessons.isRefetching) && (
+          <LoadingSpinner />
+        )}
       </div>
     </>
   );

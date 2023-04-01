@@ -58,8 +58,6 @@ const StudentPage: NextPage<{ id: string }> = ({ id }) => {
   return (
     <Layout topBar={<h1>Students</h1>}>
       <>
-        {getStudent.isLoading && <LoadingSpinner />}
-
         {student && (
           <div className="flex flex-col items-center">
             {/* Mobile */}
@@ -103,6 +101,9 @@ const StudentPage: NextPage<{ id: string }> = ({ id }) => {
               </div>
             </div>
           </div>
+        )}
+        {(getStudent.isLoading || getStudent.isRefetching) && (
+          <LoadingSpinner />
         )}
       </>
     </Layout>

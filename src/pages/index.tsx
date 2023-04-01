@@ -68,7 +68,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className="py-20 px-2">
-              <YoutubeEmbed embedId={"WXCoNu3Z1Q8"} />
+              <YoutubeEmbed embedId={"TJkshw-ZGEA"} />
             </div>
             <div className="flex justify-center pb-20">
               <Link href={"/sign-up"} className="btn-secondary btn-lg btn">

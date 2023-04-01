@@ -6,7 +6,7 @@ import YoutubeEmbed from "../components/index/YoutubeEmbed";
 import Login from "../components/index/Login";
 import Logo from "../components/Logo";
 import Link from "next/link";
-import bg from "/images/landing-bg.jpg";
+import bg from "../../public/images/landing-bg.jpg";
 
 const Home: NextPage = () => {
   return (

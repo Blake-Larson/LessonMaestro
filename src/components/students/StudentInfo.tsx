@@ -158,7 +158,11 @@ function StudentInfo({ student, setStudent }: Props) {
         <div className="avatar">
           <div className="relative h-16 w-16 rounded-xl">
             <Image
-              src={"/images/blank-profile.webp"} // replace with student.image
+              src={
+                student.name
+                  ? `/images/${student.name}.jpg`
+                  : "/images/blank-profile.webp"
+              } // replace with student.image after implementing image upload
               fill
               sizes="100%"
               alt={`photo of ${student.name}`}

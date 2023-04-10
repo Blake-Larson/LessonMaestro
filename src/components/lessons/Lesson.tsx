@@ -48,7 +48,11 @@ const Lesson = ({ lesson, lessons, setLessons }: Props) => {
               <div className="avatar">
                 <div className="relative h-14 w-14 rounded-xl">
                   <Image
-                    src={"/images/blank-profile.webp"} // replace with student.image
+                    src={
+                      lesson.student.name
+                        ? `/images/${lesson.student.name}.jpg`
+                        : "/images/blank-profile.webp"
+                    } // replace with student.image after implementing image upload
                     fill
                     sizes="100%"
                     alt={`photo of ${lesson.student.name}`}

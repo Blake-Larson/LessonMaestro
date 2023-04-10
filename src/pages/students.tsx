@@ -16,7 +16,6 @@ const StudentsPage = () => {
       setStudents(data);
     },
   });
-  console.log(getStudents);
   return (
     <>
       <Layout

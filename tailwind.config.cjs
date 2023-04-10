@@ -5,11 +5,11 @@ module.exports = {
     "node_modules/daisyui/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    // colors: {
-    //   "primary-light": "rgba(102, 204, 138, 0.3)",
-    //   "secondary-light": "rgba(56, 135, 199, 0.1)",
-    //   "accent-light": "rgba(209, 145, 51, 0.3)",
-    // },
+    extend: {
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+      },
+    },
     fontFamily: {
       lemon: ["Lemonada"],
       poppins: ["Poppins"],

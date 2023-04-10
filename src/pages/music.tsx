@@ -59,7 +59,7 @@ function Music() {
           >
             {music?.map((musicItem) => (
               <div
-                className="mx-5 mt-5 flex w-full max-w-sm flex-col gap-3 rounded-lg bg-base-100 py-4 px-4 text-left shadow-lg"
+                className="mx-5 mt-5 flex w-full max-w-sm flex-col gap-3 rounded-lg bg-base-100 py-4 px-4 text-left shadow-lg transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-blue-200"
                 key={musicItem.id}
               >
                 <MusicCard

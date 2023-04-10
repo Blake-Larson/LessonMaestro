@@ -15,7 +15,9 @@ const Layout = ({ children, topBar }: Props) => {
     <>
       <div className="drawer-mobile drawer  w-full">
         <input id="drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content  bg-gradient-to-t from-emerald-400 to-white">
+
+        <div className="drawer-content bg-gradient-radial from-emerald-300 via-emerald-50 to-white">
+          {/* <div className="drawer-content bg-gradient-to-t from-emerald-400 to-white"> */}
           {/* <!-- Page content here --> */}
           <div className="sticky top-0 z-50 flex w-full items-center gap-5 p-5 ">
             <Hamburger />

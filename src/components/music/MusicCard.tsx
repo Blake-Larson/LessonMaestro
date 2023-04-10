@@ -110,7 +110,7 @@ function MusicCard(props: Props) {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5 ">
         <div className="relative">
           <h2
             className={`max-w-fit text-lg font-semibold ${
@@ -197,7 +197,7 @@ function MusicCard(props: Props) {
           </div>
           {edit.active && (
             <div
-              className="transition-color btn-error btn-outline btn-sm btn mt-3 self-center duration-300"
+              className="transition-color btn-outline btn-error btn-sm btn mt-3 self-center duration-300"
               onClick={() => deleteMusicItem(musicItem.id)}
             >
               Delete

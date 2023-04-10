@@ -27,7 +27,7 @@ const Lessons = () => {
       setLessons(data);
     },
   });
-  console.log(getLessons.data);
+
   return (
     <>
       <div className="flex w-full max-w-3xl flex-col items-center gap-5 rounded-xl bg-blue-50 p-5 shadow-2xl">
